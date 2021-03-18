@@ -1,0 +1,8 @@
+.bottom-input {
+  border: none;
+  border-bottom: 2px solid #363537;
+}
+
+.bottom-input::placeholder {
+  color: rgba(54, 53, 55, 0.6);
+}
