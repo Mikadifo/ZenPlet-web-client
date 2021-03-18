@@ -1,5 +1,9 @@
 .primary-button {
-  background-color: #363537;
+  width: 100%;
   border: none;
+  background-color: #363537;
+  font-weight: bold;
   color: #EEEBD3;
+  padding: .65em;
+  cursor: pointer;
 }

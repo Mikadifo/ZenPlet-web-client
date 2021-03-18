@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class InputComponent implements OnInit {
   @Input() type: string = '';
   @Input() placeholder: string = 'placeholder';
+  @Input() ngStyle: { [klass: string]: any } = {};
 
   constructor() {}
 

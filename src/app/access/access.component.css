@@ -1,0 +1,42 @@
+.access-container {
+  border: 1px solid #363537;
+  background-color: #CCC69A;
+  width: 45em;
+}
+
+.forgot-pass {
+  text-decoration: none;
+  color: #363537;
+}
+
+.forgot-pass:hover {
+  text-decoration: underline;
+}
+
+.no-account-yet, .no-account-yet a {
+  color: #363537;
+}
+
+.no-account-yet a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.no-account-yet a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  width: 60%;
+  padding-top: 5%;
+}
+
+.root {
+  width: 100%;
+}
+
+@media screen and (min-width: 450px) {
+    .root{
+      width: 50%;
+    }
+}

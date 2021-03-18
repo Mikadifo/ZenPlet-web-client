@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PrimaryButtonComponent implements OnInit {
   @Input() text: string = 'Button';
+  @Input() ngStyle: { [klass: string]: any } = {};
 
   constructor() {}
 
