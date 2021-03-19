@@ -1,0 +1,28 @@
+.footer {
+  background-color: #363537;
+  color: #EEEBD3;
+}
+
+.copyright {
+  background-color: #EEEBD3;
+  color: #363537;
+}
+
+.copyright a {
+  text-decoration: none;
+  color: #363537;
+}
+
+.copyright a:hover {
+  text-decoration: underline;
+}
+
+.link-list a {
+  text-decoration: none;
+  color: #EEEBD3;
+}
+
+.link-list a:hover {
+  text-decoration: underline;
+}
+
