@@ -1,3 +1,8 @@
+@font-face {
+  font-family: PTSans;
+  src: local("PTSans") url(./assets/fonts/PTSans.ttc) format("truetype");
+}
+
 body {
   background-color: #EEEBD3;
 }

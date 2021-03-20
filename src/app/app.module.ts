@@ -7,9 +7,10 @@ import { PrimaryButtonComponent } from './buttons/primary-button/primary-button.
 import { InputComponent } from './input/input.component';
 import { AccessComponent } from './access/access.component';
 import { FooterComponent } from './footer/footer.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
-  declarations: [AppComponent, PrimaryButtonComponent, InputComponent, AccessComponent, FooterComponent],
+  declarations: [AppComponent, PrimaryButtonComponent, InputComponent, AccessComponent, FooterComponent, NavigationComponent],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
