@@ -1,0 +1,13 @@
+.pet-card {
+  max-width: 500px;
+  background-color: #CCC69A;
+  border-radius: unset;
+}
+
+.pet-img {
+  width: 80%;
+}
+
+.card-info li {
+  background-color: transparent;
+}
