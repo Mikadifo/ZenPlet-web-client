@@ -11,8 +11,8 @@ import { PetCardComponent } from './pet-card/pet-card.component';
 import { VaccineCardComponent } from './vaccine-card/vaccine-card.component';
 import { ListComponent } from './list/list.component';
 import { IconButtonComponent } from './buttons/icon-button/icon-button.component';
-import { EditComponent } from './edit/edit.component';
 import { ButtonComponent } from './buttons/button/button.component';
+import { EditNewComponent } from './edit-new/edit-new.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,8 @@ import { ButtonComponent } from './buttons/button/button.component';
     VaccineCardComponent,
     ListComponent,
     IconButtonComponent,
-    EditComponent,
     ButtonComponent,
+    EditNewComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
