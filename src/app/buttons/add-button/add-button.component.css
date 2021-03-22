@@ -1,0 +1,9 @@
+.add-button {
+  background-color: transparent;
+  color: #363537;
+  padding: 0;
+  line-height: 0;
+  font-size: 2.5rem;
+  border: none;
+  height: 35px;
+}

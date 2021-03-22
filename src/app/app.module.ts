@@ -10,9 +10,10 @@ import { FooterComponent } from './footer/footer.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PetCardComponent } from './pet-card/pet-card.component';
 import { PetListComponent } from './pet-list/pet-list.component';
+import { AddButtonComponent } from './buttons/add-button/add-button.component';
 
 @NgModule({
-  declarations: [AppComponent, PrimaryButtonComponent, InputComponent, AccessComponent, FooterComponent, NavigationComponent, PetCardComponent, PetListComponent],
+  declarations: [AppComponent, PrimaryButtonComponent, InputComponent, AccessComponent, FooterComponent, NavigationComponent, PetCardComponent, PetListComponent, AddButtonComponent],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
