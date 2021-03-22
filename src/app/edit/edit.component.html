@@ -1,1 +1,48 @@
-<p>edit works!</p>
+<div class="container p-5">
+  <div class="row">
+    <div class="col col-sm-12 col-md-6">
+      <h1 class="edit-title"><b>{{ title }}</b></h1>
+      <form class="mt-5">
+	<div class="mb-4">
+	  <label for="pet-name" class="form-label"><b>Name:</b></label>
+	  <app-input type="text" placeholder="Pet Name"></app-input>
+	</div>
+	<div class="mb-4">
+	  <label for="pet-name" class="form-label"><b>Genre:</b></label>
+	  <app-input type="text" placeholder="Pet Genre"></app-input>
+	</div>
+	<div class="mb-4">
+	  <label for="pet-name" class="form-label"><b>Size:</b></label>
+	  <app-input type="text" placeholder="Pet Size"></app-input>
+	</div>
+	<div class="mb-4">
+	  <label for="pet-name" class="form-label"><b>Birthdate:</b></label>
+	  <app-input type="text" placeholder="Pet Birthdate"></app-input>
+	</div>
+	<div>
+	  <label for="pet-name" class="form-label"><b>Breed:</b></label>
+	  <app-input type="text" placeholder="Pet Breed"></app-input>
+	</div>
+      </form>
+    </div>
+    <div class="col col-sm-12 col-md-6">
+      <div class="container image">
+	<!--img here-->
+	<i class="fas fa-camera"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-12 mt-5">
+      <div class="btn-group gap-4 d-flex justify-content-center mt-5" role="group">
+	<app-button text="View Pets Owners" [ngStyle]="{'width':12+'em'}"></app-button>
+	<app-button text="Lost" [ngStyle]="{'width':12+'em'}"></app-button>
+	<app-button text="Delete" [ngStyle]="{'width':12+'em'}" type="danger"></app-button>
+	<!--[>[>changecolor<]<]-->
+    </div>
+    </div>
+  </div>
+</div>
+
+<app-icon-button iconClass="fa-info-circle"></app-icon-button>

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PrimaryButtonComponent } from './buttons/primary-button/primary-button.component';
 import { InputComponent } from './input/input.component';
 import { AccessComponent } from './access/access.component';
 import { FooterComponent } from './footer/footer.component';
@@ -13,11 +12,11 @@ import { VaccineCardComponent } from './vaccine-card/vaccine-card.component';
 import { ListComponent } from './list/list.component';
 import { IconButtonComponent } from './buttons/icon-button/icon-button.component';
 import { EditComponent } from './edit/edit.component';
+import { ButtonComponent } from './buttons/button/button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PrimaryButtonComponent,
     InputComponent,
     AccessComponent,
     FooterComponent,
@@ -27,6 +26,7 @@ import { EditComponent } from './edit/edit.component';
     ListComponent,
     IconButtonComponent,
     EditComponent,
+    ButtonComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

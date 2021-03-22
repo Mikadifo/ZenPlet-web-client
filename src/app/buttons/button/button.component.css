@@ -1,0 +1,15 @@
+button {
+  width: 100%;
+  border: none;
+  font-weight: bold;
+  color: #EEEBD3;
+  padding: .65em;
+}
+
+.primary {
+  background-color: #363537;
+}
+
+.danger {
+  background-color: #B9272C;
+}

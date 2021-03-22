@@ -1,0 +1,24 @@
+.edit-title {
+  color: #363537;
+}
+
+form {
+  font-size: 1.1rem;
+  color: #363537;
+}
+
+.image {
+  margin-top: 25%;
+  width: 30em;
+  height: 20em;
+  position: relative;
+  border: 2px solid #363537;
+}
+
+.image i {
+  font-size: 2.5rem;
+  color: #363537;
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+}
