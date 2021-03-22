@@ -2,7 +2,7 @@
   color: #363537;
 }
 
-form {
+form, .vaccine-description {
   font-size: 1.1rem;
   color: #363537;
 }
@@ -21,4 +21,23 @@ form {
   position: absolute;
   bottom: 8px;
   right: 10px;
+}
+
+.description {
+  margin-top: 25%;
+}
+
+.description textarea {
+  background-color: #CCC69A;
+  border: none;
+  width: 25em;
+  height: 10em;
+}
+
+.account-btn {
+  margin-top: 25%;
+}
+
+.post-info {
+  margin-top: 25%;
 }
