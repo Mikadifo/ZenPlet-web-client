@@ -22,8 +22,9 @@
   font-weight: bold;
 }
 
-.no-account-yet a:hover {
+.no-account-yet a:hover, .forgot-pass:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .logo {
