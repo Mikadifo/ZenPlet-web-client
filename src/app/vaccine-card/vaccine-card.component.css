@@ -1,0 +1,9 @@
+.vaccine-card {
+  width: 20.5rem;
+  background-color: #CCC69A;
+  border-radius: unset;
+}
+
+.card-info li {
+  background-color: transparent;
+}
