@@ -1,0 +1,12 @@
+<div class="container">
+  <h1 class="text-center mt-2">{{ listTitle }}</h1>
+  <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
+    <!--temporalmente esta el for de 4 peero se debe cambiar a la lista real-->
+    <div *ngFor="let i of [1,2,3,4,5,5,5,5,5,5,5,5,5,]" class="col">
+      <app-pet-card *ngIf="card == 'pets'"></app-pet-card>
+      <app-vaccine-card *ngIf="card == 'vaccines'"></app-vaccine-card>
+      <!--<app-lost-pet-card *ngIf="card == 'lostpets'"></app-lost-pet-card>-->
+    </div>
+  </div>
+  <app-add-button></app-add-button> 
+</div>

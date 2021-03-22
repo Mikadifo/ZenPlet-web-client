@@ -9,12 +9,23 @@ import { AccessComponent } from './access/access.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PetCardComponent } from './pet-card/pet-card.component';
-import { PetListComponent } from './pet-list/pet-list.component';
 import { AddButtonComponent } from './buttons/add-button/add-button.component';
 import { VaccineCardComponent } from './vaccine-card/vaccine-card.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
-  declarations: [AppComponent, PrimaryButtonComponent, InputComponent, AccessComponent, FooterComponent, NavigationComponent, PetCardComponent, PetListComponent, AddButtonComponent, VaccineCardComponent],
+  declarations: [
+    AppComponent,
+    PrimaryButtonComponent,
+    InputComponent,
+    AccessComponent,
+    FooterComponent,
+    NavigationComponent,
+    PetCardComponent,
+    AddButtonComponent,
+    VaccineCardComponent,
+    ListComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
