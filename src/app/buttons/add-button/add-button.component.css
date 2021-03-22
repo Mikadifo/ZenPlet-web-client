@@ -5,5 +5,7 @@
   line-height: 0;
   font-size: 2.5rem;
   border: none;
-  height: 35px;
+  position: fixed;
+  bottom: 1em;
+  right: 0.60em;
 }
