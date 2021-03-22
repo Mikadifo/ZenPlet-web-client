@@ -9,10 +9,10 @@ import { AccessComponent } from './access/access.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PetCardComponent } from './pet-card/pet-card.component';
-import { AddButtonComponent } from './buttons/add-button/add-button.component';
 import { VaccineCardComponent } from './vaccine-card/vaccine-card.component';
 import { ListComponent } from './list/list.component';
 import { IconButtonComponent } from './buttons/icon-button/icon-button.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +23,10 @@ import { IconButtonComponent } from './buttons/icon-button/icon-button.component
     FooterComponent,
     NavigationComponent,
     PetCardComponent,
-    AddButtonComponent,
     VaccineCardComponent,
     ListComponent,
     IconButtonComponent,
+    EditComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
