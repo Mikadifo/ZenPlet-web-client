@@ -1,0 +1,11 @@
+.icon-button {
+  background-color: transparent;
+  color: #363537;
+  padding: 0;
+  line-height: 0;
+  font-size: 2.5rem;
+  border: none;
+  position: fixed;
+  bottom: 1em;
+  right: 0.60em;
+}

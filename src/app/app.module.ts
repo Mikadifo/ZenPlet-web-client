@@ -12,6 +12,7 @@ import { PetCardComponent } from './pet-card/pet-card.component';
 import { AddButtonComponent } from './buttons/add-button/add-button.component';
 import { VaccineCardComponent } from './vaccine-card/vaccine-card.component';
 import { ListComponent } from './list/list.component';
+import { IconButtonComponent } from './buttons/icon-button/icon-button.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ListComponent } from './list/list.component';
     AddButtonComponent,
     VaccineCardComponent,
     ListComponent,
+    IconButtonComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
