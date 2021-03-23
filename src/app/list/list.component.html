@@ -7,7 +7,7 @@
     <div *ngFor="let i of [1,2,3,4,5,5,5,5,5,5,5,5,5,]" class="col">
       <app-pet-card *ngIf="card == 'pets'"></app-pet-card>
       <app-vaccine-card *ngIf="card == 'vaccines'"></app-vaccine-card>
-      <!--<app-lost-pet-card *ngIf="card == 'lostpets'"></app-lost-pet-card>-->
+      <app-lost-pet-card *ngIf="card == 'lostpets'"></app-lost-pet-card>
     </div>
   </div>
   <app-icon-button></app-icon-button> 

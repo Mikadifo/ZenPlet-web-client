@@ -14,6 +14,7 @@ import { IconButtonComponent } from './buttons/icon-button/icon-button.component
 import { ButtonComponent } from './buttons/button/button.component';
 import { EditNewComponent } from './edit-new/edit-new.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
+import { LostPetCardComponent } from './lost-pet-card/lost-pet-card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LoggedInComponent } from './logged-in/logged-in.component';
     ButtonComponent,
     EditNewComponent,
     LoggedInComponent,
+    LostPetCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
