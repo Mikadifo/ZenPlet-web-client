@@ -1,6 +1,4 @@
 export class LostPet {
-    losPetId!:number;
-    lostPetAddittionalInfo!:string;
-   
-    
+  losPetId!: number;
+  lostPetAddittionalInfo!: string;
 }

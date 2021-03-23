@@ -1,6 +1,5 @@
 export class Vaccine {
-    id:number= 0;
-    vaccinesName:string='';
-    vaccinesDescription:string='';
-
+  id: number = 0;
+  vaccinesName: string = '';
+  vaccinesDescription: string = '';
 }
