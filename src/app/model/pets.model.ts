@@ -6,3 +6,4 @@ export class Pets {
   petSize!: string;
   petGenre!: string;
 }
+ 
