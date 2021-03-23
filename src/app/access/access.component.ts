@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-access',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AccessComponent implements OnInit {
   @Input() page: string = 'menu';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.page = this.page.toLowerCase();
@@ -28,10 +29,11 @@ export class AccessComponent implements OnInit {
 
   login() {
     console.log('logining...');
+    this.router.navigate(['']);
   }
 
   signup() {
-    console.log('signup...');
+    console.log('signingup...');
   }
 
   searchUser() {

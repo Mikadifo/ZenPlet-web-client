@@ -13,6 +13,7 @@ import { ListComponent } from './list/list.component';
 import { IconButtonComponent } from './buttons/icon-button/icon-button.component';
 import { ButtonComponent } from './buttons/button/button.component';
 import { EditNewComponent } from './edit-new/edit-new.component';
+import { LoggedInComponent } from './logged-in/logged-in.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EditNewComponent } from './edit-new/edit-new.component';
     IconButtonComponent,
     ButtonComponent,
     EditNewComponent,
+    LoggedInComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

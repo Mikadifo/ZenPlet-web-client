@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -6,13 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  @Input() listTitle: string = 'LIST';
-  @Input() card: string = 'pets';
+  listTitle: string = '';
+  card: string = '';
 
-  constructor() {}
+  constructor(private router: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.card = this.card.toLowerCase();
-    this.listTitle = this.listTitle.toUpperCase();
+    this.card = this.router.snapshot.params['card'].toLowerCase();
   }
 }
