@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-new',
@@ -6,11 +7,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./edit-new.component.css'],
 })
 export class EditNewComponent implements OnInit {
-  @Input() title: string = 'edit';
+  mode: string = '';
+  page: string = '';
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.title = this.title.toUpperCase();
+    this.route.params.subscribe((params) => {
+      this.mode = params['mode'];
+      this.page = params['page'];
+    });
   }
 }

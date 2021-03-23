@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccessComponent } from './access/access.component';
+import { EditNewComponent } from './edit-new/edit-new.component';
 import { ListComponent } from './list/list.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 
@@ -8,7 +9,10 @@ const routes: Routes = [
   {
     path: '',
     component: LoggedInComponent,
-    children: [{ path: 'list/:card', component: ListComponent }],
+    children: [
+      { path: 'list/:card', component: ListComponent },
+      { path: ':mode/:page', component: EditNewComponent },
+    ],
   },
   { path: 'auth', component: AccessComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'auth' },

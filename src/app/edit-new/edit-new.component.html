@@ -1,214 +1,281 @@
 <div class="container p-5">
-  <div class="row">
-    <div class="col col-sm-12 col-md-6">
-      <h1 class="edit-title"><b>{{ title }}</b></h1>
+  <div *ngIf="page == 'pet'">
+    <div class="row">
+      <div class="col col-sm-12 col-md-6">
+        <h1 class="edit-title"><b>MY PET</b></h1>
+        <form class="mt-5">
+          <div class="mb-4">
+            <label for="pet-name" class="form-label"><b>Name:</b></label>
+            <app-input type="text" placeholder="Pet Name"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="pet-name" class="form-label"><b>Genre:</b></label>
+            <app-input type="text" placeholder="Pet Genre"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="pet-name" class="form-label"><b>Size:</b></label>
+            <app-input type="text" placeholder="Pet Size"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="pet-name" class="form-label"><b>Birthdate:</b></label>
+            <app-input type="text" placeholder="Pet Birthdate"></app-input>
+          </div>
+          <div>
+            <label for="pet-name" class="form-label"><b>Breed:</b></label>
+            <app-input type="text" placeholder="Pet Breed"></app-input>
+          </div>
+        </form>
+      </div>
+      <div class="col col-sm-12 col-md-6">
+        <div class="container image">
+          <!--[>[>img here<]<]-->
+          <i class="fas fa-camera"></i>
+          <!--can be iconbutton-->
+        </div>
+      </div>
+    </div>
 
-      <!--lostpet-->
-      <!--<p class="post-info">Amet repellendus alias eos in nam eveniet Consequatur voluptatem ad totam voluptas distinctio, autem aliquid unde. Libero vero rem est atque quas. Impedit ipsum et doloremque eum beatae? Laborum error.</p>-->
-    <!--</div>-->
-    <!--<div class="col col-sm-12 col-md-6">-->
-      <!--<div class="row description ms-5">-->
-	<!--<label for="additional" class="form-label"><b>Additional Info:</b></label>-->
-	<!--<textarea name="additional" rows="8" cols="40" placeholder="Additional Info"></textarea>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
+    <div class="row">
+      <div class="col col-12 mt-5">
+        <div
+          class="btn-group gap-4 d-flex justify-content-center mt-5"
+          role="group"
+        >
+          <app-button
+            text="View Pets Owners"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'edit'"
+          ></app-button>
+          <app-button
+            text="Lost"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'edit'"
+          ></app-button>
+          <app-button
+            text="Delete"
+            [ngStyle]="{ width: 12 + 'em' }"
+            type="danger"
+            *ngIf="mode == 'edit'"
+          ></app-button>
+          <app-button
+            text="Add Pets Owners"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'new'"
+          ></app-button>
+          <app-button
+            text="Create Pet"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'new'"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!--[>postlost<]-->
-    <!--<div class="row">-->
-    <!--<div class="col col-12 mt-5">-->
-      <!--<div class="btn-group gap-4 d-flex justify-content-center mt-5" role="group">-->
-	<!--<app-button text="Publish" [ngStyle]="{'width':12+'em'}"></app-button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--[>postlost<]-->
+  <div *ngIf="page == 'lostpet'">
+    <div class="row">
+      <div class="col col-sm-12 col-md-6">
+        <h1 class="edit-title"><b>LOST PET</b></h1>
+        <p class="post-info">
+          Amet repellendus alias eos in nam eveniet Consequatur voluptatem ad
+          totam voluptas distinctio, autem aliquid unde. Libero vero rem est
+          atque quas. Impedit ipsum et doloremque eum beatae? Laborum error.
+        </p>
+      </div>
+      <div class="col col-sm-12 col-md-6">
+        <div class="row description ms-5">
+          <label for="additional" class="form-label"
+            ><b>Additional Info:</b></label
+          >
+          <textarea
+            name="additional"
+            rows="8"
+            cols="40"
+            placeholder="Additional Info"
+          ></textarea>
+        </div>
+      </div>
+    </div>
 
-  <!--editlost-->
-  <!--<div class="row">-->
-    <!--<div class="col col-12 mt-5">-->
-      <!--<div class="btn-group gap-4 d-flex justify-content-center mt-5" role="group">-->
-	<!--<app-button text="Save" [ngStyle]="{'width':12+'em'}"></app-button>-->
-	<!--<app-button text="Pet Found" [ngStyle]="{'width':12+'em'}"></app-button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--editlost-->
-      <!--lostpet-->
+    <div class="row">
+      <div class="col col-12 mt-5">
+        <div
+          class="btn-group gap-4 d-flex justify-content-center mt-5"
+          role="group"
+        >
+          <app-button
+            text="Publish"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'post'"
+          ></app-button>
+          <app-button
+            text="Save"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'edit'"
+          ></app-button>
+          <app-button
+            text="Pet Found"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'edit'"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div *ngIf="page == 'vaccine'">
+    <div class="row">
+      <div class="col col-sm-12 col-md-6">
+        <h1 class="edit-title"><b>VACCINE</b></h1>
+        <form class="mt-5">
+          <div class="mb-4">
+            <label for="vac-name" class="form-label"><b>Name:</b></label>
+            <app-input type="text" placeholder="Vaccine Name"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="pet-name" class="form-label"><b>Date:</b></label>
+            <app-input type="date"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="pet-name" class="form-label"><b>Next:</b></label>
+            <app-input type="date"></app-input>
+          </div>
+        </form>
+      </div>
+      <div class="col col-sm-12 col-md-6">
+        <div class="row description ms-5">
+          <label for="vaccine-description" class="form-label"
+            ><b>Description:</b></label
+          >
+          <textarea
+            name="vaccine-description"
+            rows="8"
+            cols="40"
+            placeholder="Vaccine Description"
+          ></textarea>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col col-12 mt-5">
+          <div
+            class="btn-group gap-4 d-flex justify-content-center mt-5"
+            role="group"
+          >
+            <app-button
+              text="Save"
+              [ngStyle]="{ width: 12 + 'em' }"
+              *ngIf="mode == 'edit'"
+            ></app-button>
+            <app-button
+              text="Delete"
+              [ngStyle]="{ width: 12 + 'em' }"
+              type="danger"
+              *ngIf="mode == 'edit'"
+            ></app-button>
+            <app-button
+              text="Create Vaccine"
+              [ngStyle]="{ width: 12 + 'em' }"
+              *ngIf="mode == 'new'"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div *ngIf="page == 'account'">
+    <div class="row">
+      <div class="col col-sm-12 col-md-6">
+        <h1 class="edit-title">
+          <b>ACCOUNT SETTINGS</b>
+        </h1>
+        <form class="mt-5">
+          <div class="mb-4">
+            <label for="username" class="form-label"><b>Username:</b></label>
+            <app-input type="text" placeholder="Username"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="email" class="form-label"><b>Email:</b></label>
+            <app-input type="email" placeholder="Email"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="phonenumber" class="form-label"
+              ><b>Phone Number:</b></label
+            >
+            <app-input type="tel" placeholder="Phone Number"></app-input>
+          </div>
+        </form>
+      </div>
+      <div class="col col-sm-12 col-md-6 ps-5">
+        <div class="row ms-5 account-btn">
+          <div
+            class="btn-group-vertical ms-5 gap-4 d-flex justify-content-center mt-5"
+            role="group"
+          >
+            <app-button
+              text="Change Password"
+              [ngStyle]="{ width: 12 + 'em' }"
+              *ngIf="mode == 'edit'"
+            ></app-button>
+            <app-button
+              text="Delete"
+              [ngStyle]="{ width: 12 + 'em' }"
+              type="danger"
+              *ngIf="mode == 'edit'"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div *ngIf="page == 'password'">
+    <div class="row">
+      <div class="col col-sm-12 col-md-6">
+        <h1 class="edit-title">
+          <b>ACCOUNT SETTINGS</b>
+        </h1>
+        <form class="mt-5">
+          <div class="mb-4">
+            <label for="username" class="form-label"
+              ><b>Old Password:</b></label
+            >
+            <app-input type="password" placeholder="Old Password"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="username" class="form-label"
+              ><b>New Password:</b></label
+            >
+            <app-input type="password" placeholder="New Password"></app-input>
+          </div>
+          <div class="mb-4">
+            <label for="username" class="form-label"
+              ><b>Repeat Password:</b></label
+            >
+            <app-input
+              type="password"
+              placeholder="Repeat Password"
+            ></app-input>
+          </div>
+        </form>
+      </div>
+      <div class="col col-sm-12 col-md-6 ps-5">
+        <div class="row ms-5 account-btn">
+          <div
+            class="btn-group-vertical ms-5 gap-4 d-flex justify-content-center mt-5"
+            role="group"
+          >
+            <app-button
+              text="Change Password"
+              [ngStyle]="{ width: 12 + 'em' }"
+              *ngIf="mode == 'new'"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-  <!--[>change pass<]-->
-	  <!--<form class="mt-5">-->
-	    <!--<div class="mb-4">-->
-	      <!--<label for="username" class="form-label"><b>Old Password:</b></label>-->
-	      <!--<app-input type="password" placeholder="Old Password"></app-input>-->
-	    <!--</div>-->
-	    <!--<div class="mb-4">-->
-	      <!--<label for="username" class="form-label"><b>New Password:</b></label>-->
-	      <!--<app-input type="password" placeholder="New Password"></app-input>-->
-	<!--</div>-->
-	<!--<div class="mb-4">-->
-	      <!--<label for="username" class="form-label"><b>Repeat Password:</b></label>-->
-	      <!--<app-input type="password" placeholder="Repeat Password"></app-input>-->
-	<!--</div>-->
-      <!--</form>-->
-    <!--</div>-->
-    <!--<div class="col col-sm-12 col-md-6 ps-5">-->
-      <!--<div class="row ms-5 account-btn">-->
-	<!--<div class="btn-group-vertical ms-5 gap-4 d-flex justify-content-center mt-5" role="group">-->
-	  <!--<app-button text="Change Password" [ngStyle]="{'width':12+'em'}"></app-button>-->
-	<!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--[>change pass<]-->
-
-
-
-
-
-      <!--[>account<]-->
-	  <!--<form class="mt-5">-->
-	    <!--<div class="mb-4">-->
-	      <!--<label for="username" class="form-label"><b>Username:</b></label>-->
-		<!--<app-input type="text" placeholder="Username"></app-input>-->
-	    <!--</div>-->
-	    <!--<div class="mb-4">-->
-	      <!--<label for="email" class="form-label"><b>Email:</b></label>-->
-	      <!--<app-input type="email" placeholder="Email"></app-input>-->
-	<!--</div>-->
-	<!--<div class="mb-4">-->
-	  <!--<label for="phonenumber" class="form-label"><b>Phone Number:</b></label>-->
-	  <!--<app-input type="tel" placeholder="Phone Number"></app-input>-->
-	<!--</div>-->
-      <!--</form>-->
-    <!--</div>-->
-    <!--<div class="col col-sm-12 col-md-6 ps-5">-->
-      <!--<div class="row ms-5 account-btn">-->
-	<!--<div class="btn-group-vertical ms-5 gap-4 d-flex justify-content-center mt-5" role="group">-->
-	  <!--<app-button text="Change Password" [ngStyle]="{'width':12+'em'}"></app-button>-->
-	  <!--<app-button text="Delete" [ngStyle]="{'width':12+'em'}" type="danger"></app-button>-->
-	<!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--[>account<]-->
-
-
-
-
-
-     <!-- [>vaccines<]-->
-	  <!--<form class="mt-5">-->
-	    <!--<div class="mb-4">-->
-	      <!--<label for="vac-name" class="form-label"><b>Name:</b></label>-->
-		<!--<app-input type="text" placeholder="Vaccine Name"></app-input>-->
-	    <!--</div>-->
-	    <!--<div class="mb-4">-->
-	      <!--<label for="pet-name" class="form-label"><b>Date:</b></label>-->
-	      <!--<app-input type="date"></app-input>-->
-	<!--</div>-->
-	<!--<div class="mb-4">-->
-	  <!--<label for="pet-name" class="form-label"><b>Next:</b></label>-->
-	  <!--<app-input type="date"></app-input>-->
-	<!--</div>-->
-      <!--</form>-->
-    <!--</div>-->
-    <!--<div class="col col-sm-12 col-md-6">-->
-      <!--<div class="row description ms-5">-->
-	<!--<label for="vaccine-description" class="form-label"><b>Description:</b></label>-->
-	<!--<textarea name="vaccine-description" rows="8" cols="40" placeholder="Vaccine Description"></textarea>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-
-    <!--[>[>[>edit-vac<]<]<]-->
-    <!--<div class="row">-->
-    <!--<div class="col col-12 mt-5">-->
-      <!--<div class="btn-group gap-4 d-flex justify-content-center mt-5" role="group">-->
-	<!--<app-button text="Delete" [ngStyle]="{'width':12+'em'}" type="danger"></app-button>-->
-	<!--[>[>[>[>changecolor<]<]<]<]-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-    <!--[>[>[>edit-vac<]<]<]-->
-
-  <!--[>newvacine<]-->
-  <!--<div class="row">-->
-    <!--<div class="col col-12 mt-5">-->
-      <!--<div class="btn-group gap-4 d-flex justify-content-center mt-5" role="group">-->
-	<!--<app-button text="Create Vaccine" [ngStyle]="{'width':12+'em'}"></app-button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--[>newvacine<]-->
-      <!--vaccines-->
-
-
-
-
-
-
-  <!--pet-->
-      <!--<form class="mt-5">-->
-	<!--<div class="mb-4">-->
-	  <!--<label for="pet-name" class="form-label"><b>Name:</b></label>-->
-	  <!--<app-input type="text" placeholder="Pet Name"></app-input>-->
-	<!--</div>-->
-	<!--<div class="mb-4">-->
-	  <!--<label for="pet-name" class="form-label"><b>Genre:</b></label>-->
-	  <!--<app-input type="text" placeholder="Pet Genre"></app-input>-->
-	<!--</div>-->
-	<!--<div class="mb-4">-->
-	  <!--<label for="pet-name" class="form-label"><b>Size:</b></label>-->
-	  <!--<app-input type="text" placeholder="Pet Size"></app-input>-->
-	<!--</div>-->
-	<!--<div class="mb-4">-->
-	  <!--<label for="pet-name" class="form-label"><b>Birthdate:</b></label>-->
-	  <!--<app-input type="text" placeholder="Pet Birthdate"></app-input>-->
-	<!--</div>-->
-	<!--<div>-->
-	  <!--<label for="pet-name" class="form-label"><b>Breed:</b></label>-->
-	  <!--<app-input type="text" placeholder="Pet Breed"></app-input>-->
-	<!--</div>-->
-      <!--</form>-->
-    <!--</div>-->
-    <!--<div class="col col-sm-12 col-md-6">-->
-      <!--<div class="container image">-->
-	<!--[>img here<]-->
-	<!--<i class="fas fa-camera"></i>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-
-  <!--<div class="row">-->
-    <!--<div class="col col-12 mt-5">-->
-      <!--<div class="btn-group gap-4 d-flex justify-content-center mt-5" role="group">-->
-	<!--<app-button text="View Pets Owners" [ngStyle]="{'width':12+'em'}"></app-button>-->
-	<!--<app-button text="Lost" [ngStyle]="{'width':12+'em'}"></app-button>-->
-	<!--<app-button text="Delete" [ngStyle]="{'width':12+'em'}" type="danger"></app-button>-->
-	<!--[>[>[>changecolor<]<]<]-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-    <!--[>[>edit-pet<]<]-->
-
-      <!--[>newpet<]-->
-  <!--<div class="row">-->
-    <!--<div class="col col-12 mt-5">-->
-      <!--<div class="btn-group gap-4 d-flex justify-content-center mt-5" role="group">-->
-	<!--<app-button text="Add Pets Owners" [ngStyle]="{'width':12+'em'}"></app-button>-->
-	<!--<app-button text="Create Pet" [ngStyle]="{'width':12+'em'}"></app-button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--[>newpet<]-->
-  <!--pet-->
-
+  <app-icon-button iconClass="fa-info-circle"></app-icon-button>
 </div>
-
-<app-icon-button iconClass="fa-info-circle"></app-icon-button>
