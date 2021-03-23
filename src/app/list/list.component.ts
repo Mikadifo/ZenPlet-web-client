@@ -10,9 +10,9 @@ export class ListComponent implements OnInit {
   listTitle: string = '';
   card: string = '';
 
-  constructor(private router: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.card = this.router.snapshot.params['card'].toLowerCase();
+    this.route.params.subscribe((params) => (this.card = params['card']));
   }
 }
