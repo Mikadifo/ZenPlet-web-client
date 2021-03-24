@@ -28,19 +28,21 @@ export class AccessComponent implements OnInit {
     this.page = 'forgot';
   }
 
-  login() {}
-  //login(login: string, password: string) {
-  //console.log('logining...');
-  //this.ownerService.login(login, password).subscribe(
-  //(data) => {
-  //console.log(data);
-  //this.router.navigate(['']);
-  //},
-  //(error) => {
-  //console.log(error);
-  //}
-  //);
-  //}
+  loginOwner(login: string, password: string) {
+    console.log('logining...');
+    console.log(login, password);
+    this.ownerService.login(login, password).subscribe(
+      (data) => {
+        console.log(data);
+        if (data.ownerName != null) {
+          this.router.navigate(['']);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   signup() {
     console.log('signingup...');

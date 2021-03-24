@@ -15,6 +15,9 @@ import { ButtonComponent } from './buttons/button/button.component';
 import { EditNewComponent } from './edit-new/edit-new.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
 import { LostPetCardComponent } from './lost-pet-card/lost-pet-card.component';
+import { FormsModule } from '@angular/forms';
+import { OwnerService } from './service/owner.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,8 +35,8 @@ import { LostPetCardComponent } from './lost-pet-card/lost-pet-card.component';
     LoggedInComponent,
     LostPetCardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  providers: [OwnerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

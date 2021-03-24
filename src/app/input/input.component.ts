@@ -10,8 +10,9 @@ export class InputComponent implements OnInit {
   @Input() placeholder: string = 'placeholder';
   @Input() ngStyle: { [klass: string]: any } = {};
 
+  value: any = '';
+
   constructor() {}
 
   ngOnInit(): void {}
-  }
 }
