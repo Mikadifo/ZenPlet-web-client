@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Owner } from '../model/owner/owner.model';
 
@@ -12,7 +12,14 @@ export class OwnerService {
   constructor(private http: HttpClient) {}
 
   getOwners(): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/owners`);
+    let header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        localStorage.getItem('token') || ''
+      ),
+    }; //may is neccesary to put token hear the same for all methid of all servies
+
+    return this.http.get(`${this.BASE_URL}/owners`, header);
   }
 
   saveOwners(owner: Owner): Observable<any> {

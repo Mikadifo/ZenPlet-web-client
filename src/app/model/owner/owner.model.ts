@@ -4,4 +4,7 @@ export class Owner {
   ownerEmail: string = '';
   ownerPassword: string = '';
   ownerNumberPhone: string = '';
+  ownerToken: string = '';
+
+  constructor() {}
 }

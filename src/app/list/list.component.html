@@ -8,7 +8,10 @@
       <app-pet-card *ngIf="card == 'pets'"></app-pet-card>
       <app-vaccine-card *ngIf="card == 'vaccines'"></app-vaccine-card>
       <app-lost-pet-card *ngIf="card == 'lostpets'"></app-lost-pet-card>
+      <!--<div *ngIf="card == 'owner'">-->
+      <!--{{ listOwner[0]?.ownerName }}-->
+      <!--</div>-->
     </div>
   </div>
-  <app-icon-button></app-icon-button> 
+  <app-icon-button></app-icon-button>
 </div>

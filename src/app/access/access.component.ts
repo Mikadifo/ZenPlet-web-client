@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Owner } from '../model/owner/owner.model';
 import { OwnerService } from '../service/owner.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { OwnerService } from '../service/owner.service';
 })
 export class AccessComponent implements OnInit {
   @Input() page: string = 'menu';
+
+  owner: Owner = new Owner();
 
   constructor(private router: Router, private ownerService: OwnerService) {}
 
@@ -34,9 +37,9 @@ export class AccessComponent implements OnInit {
     this.ownerService.login(login, password).subscribe(
       (data) => {
         console.log(data);
-        if (data.ownerName != null) {
-          this.router.navigate(['']);
-        }
+        this.owner = data;
+        console.log(this.owner);
+        localStorage.setItem('token', data.token);
       },
       (error) => {
         console.log(error);
