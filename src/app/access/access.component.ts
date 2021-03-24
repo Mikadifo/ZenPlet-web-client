@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OwnerService } from '../service/owner.service';
 
 @Component({
   selector: 'app-access',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class AccessComponent implements OnInit {
   @Input() page: string = 'menu';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private ownerService: OwnerService) {}
 
   ngOnInit(): void {
     this.page = this.page.toLowerCase();
@@ -27,10 +28,19 @@ export class AccessComponent implements OnInit {
     this.page = 'forgot';
   }
 
-  login() {
-    console.log('logining...');
-    this.router.navigate(['']);
-  }
+  login() {}
+  //login(login: string, password: string) {
+  //console.log('logining...');
+  //this.ownerService.login(login, password).subscribe(
+  //(data) => {
+  //console.log(data);
+  //this.router.navigate(['']);
+  //},
+  //(error) => {
+  //console.log(error);
+  //}
+  //);
+  //}
 
   signup() {
     console.log('signingup...');
