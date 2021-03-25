@@ -38,8 +38,8 @@ export class AccessComponent implements OnInit {
       (data) => {
         console.log(data);
         this.owner = data;
-        console.log(this.owner);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('owner', JSON.stringify(this.owner));
       },
       (error) => {
         console.log(error);
@@ -47,8 +47,21 @@ export class AccessComponent implements OnInit {
     );
   }
 
-  signup() {
+  signup(username: string, email: string, password: string) {
     console.log('signingup...');
+    console.log(username, email, password);
+    this.owner.ownerName = username;
+    this.owner.ownerEmail = email;
+    this.owner.ownerPassword = password;
+    this.ownerService.saveOwners(this.owner).subscribe(
+      (data) => {
+        console.log(data);
+        this.logInNav();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   searchUser() {

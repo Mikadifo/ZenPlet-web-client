@@ -3,7 +3,7 @@ export class Owner {
   ownerName: string = '';
   ownerEmail: string = '';
   ownerPassword: string = '';
-  ownerNumberPhone: string = '';
+  ownerPhoneNumber: string = '';
   ownerToken: string = '';
 
   constructor() {}

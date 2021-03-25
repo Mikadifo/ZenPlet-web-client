@@ -1,27 +1,55 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['list/pets']">ZENPLET</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['list/lostpets']">Lost Pet</a>
+          <a
+            class="nav-link active"
+            aria-current="page"
+            [routerLink]="['list/lostpets']"
+            >Lost Pet</a
+          >
         </li>
         <li class="nav-item">
-	  <a class="nav-link" [routerLink]="['list/vaccines']">Vaccines</a>
+          <a class="nav-link" [routerLink]="['list/vaccines']">Vaccines</a>
         </li>
         <li class="nav-item me-3">
           <a class="nav-link" [routerLink]="['list/pets']">Pets</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	    <i class="fas fa-user-alt"></i>
+          <a
+            class="nav-link"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-alt"></i>
           </a>
-	  <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Account Settings</a></li>
-	    <li><a class="dropdown-item" [routerLink]="['auth']">Log Out</a></li>
+          <ul
+            class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a class="dropdown-item" [routerLink]="['edit/account']"
+                >Account Settings</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['auth']">Log Out</a>
+            </li>
           </ul>
         </li>
       </ul>

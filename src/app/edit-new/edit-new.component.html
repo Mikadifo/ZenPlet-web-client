@@ -193,17 +193,29 @@
         <form class="mt-5">
           <div class="mb-4">
             <label for="username" class="form-label"><b>Username:</b></label>
-            <app-input type="text" placeholder="Username"></app-input>
+            <app-input
+              type="text"
+              placeholder="Username"
+              value="{{ loggedOwner.ownerName }}"
+            ></app-input>
           </div>
           <div class="mb-4">
             <label for="email" class="form-label"><b>Email:</b></label>
-            <app-input type="email" placeholder="Email"></app-input>
+            <app-input
+              type="email"
+              placeholder="Email"
+              value="{{ loggedOwner.ownerEmail }}"
+            ></app-input>
           </div>
           <div class="mb-4">
             <label for="phonenumber" class="form-label"
               ><b>Phone Number:</b></label
             >
-            <app-input type="tel" placeholder="Phone Number"></app-input>
+            <app-input
+              type="tel"
+              placeholder="Phone Number"
+              value="{{ loggedOwner.ownerPhoneNumber }}"
+            ></app-input>
           </div>
         </form>
       </div>
@@ -217,12 +229,14 @@
               text="Change Password"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
+              (onClick)="changePassword()"
             ></app-button>
             <app-button
               text="Delete"
               [ngStyle]="{ width: 12 + 'em' }"
               type="danger"
               *ngIf="mode == 'edit'"
+              (onClick)="deleteAccount()"
             ></app-button>
           </div>
         </div>
