@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Owner } from '../model/owner/owner.model';
 import { OwnerService } from '../service/owner.service';
 
@@ -13,7 +12,7 @@ export class AccessComponent implements OnInit {
 
   owner: Owner = new Owner();
 
-  constructor(private router: Router, private ownerService: OwnerService) {}
+  constructor(private ownerService: OwnerService) {}
 
   ngOnInit(): void {
     this.page = this.page.toLowerCase();
@@ -33,7 +32,6 @@ export class AccessComponent implements OnInit {
 
   loginOwner(login: string, password: string) {
     console.log('logining...');
-    console.log(login, password);
     this.ownerService.login(login, password).subscribe(
       (data) => {
         console.log(data);
@@ -47,11 +45,16 @@ export class AccessComponent implements OnInit {
     );
   }
 
-  signup(username: string, email: string, password: string) {
+  signup(
+    username: string,
+    email: string,
+    password: string,
+    phoneNumber: string
+  ) {
     console.log('signingup...');
-    console.log(username, email, password);
     this.owner.ownerName = username;
     this.owner.ownerEmail = email;
+    this.owner.ownerPhoneNumber = phoneNumber;
     this.owner.ownerPassword = password;
     this.ownerService.saveOwners(this.owner).subscribe(
       (data) => {

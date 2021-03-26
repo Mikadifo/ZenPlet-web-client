@@ -28,8 +28,44 @@ export class EditNewComponent implements OnInit {
     });
   }
 
-  changePassword() {
-    this.router.navigate(['/edit/password']);
+  changePasswordNav() {
+    this.router.navigate(['/new/password']);
+  }
+
+  changePassword(
+    oldPassword: string,
+    newPassword: string,
+    repeatPassword: string
+  ) {
+    this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
+      (data) => {
+        this.loggedOwner = data;
+        console.log(data);
+        if (oldPassword === this.loggedOwner.ownerPassword) {
+          if (newPassword === repeatPassword) {
+            this.loggedOwner.ownerPassword = newPassword;
+            this.ownerService
+              .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
+              .subscribe(
+                (data) => {
+                  console.log(data);
+                  localStorage.setItem('owner', JSON.stringify(data));
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+          } else {
+            alert('new password and repeated are NOT the same');
+          }
+        } else {
+          alert('old password is NOT correct');
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   deleteAccount() {
@@ -46,5 +82,41 @@ export class EditNewComponent implements OnInit {
         }
       );
     }
+  }
+
+  saveChanges(username: string, email: string, phoneNumber: string) {
+    this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
+      (data) => {
+        this.loggedOwner = data;
+        console.log(data);
+        if (
+          this.loggedOwner.ownerName === username &&
+          this.loggedOwner.ownerEmail === email &&
+          this.loggedOwner.ownerPhoneNumber === phoneNumber
+        ) {
+          alert('Data is the same, you can not save changes.');
+        } else {
+          this.loggedOwner.ownerName = username;
+          this.loggedOwner.ownerEmail = email;
+          this.loggedOwner.ownerPhoneNumber = phoneNumber;
+          this.ownerService
+            .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
+            .subscribe(
+              (data) => {
+                console.log(data);
+                this.loggedOwner = data;
+                localStorage.setItem('owner', JSON.stringify(data));
+                alert('Data changed successful');
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

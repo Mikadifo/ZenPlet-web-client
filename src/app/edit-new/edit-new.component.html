@@ -197,6 +197,7 @@
               type="text"
               placeholder="Username"
               value="{{ loggedOwner.ownerName }}"
+              #username
             ></app-input>
           </div>
           <div class="mb-4">
@@ -205,6 +206,7 @@
               type="email"
               placeholder="Email"
               value="{{ loggedOwner.ownerEmail }}"
+              #email
             ></app-input>
           </div>
           <div class="mb-4">
@@ -215,6 +217,7 @@
               type="tel"
               placeholder="Phone Number"
               value="{{ loggedOwner.ownerPhoneNumber }}"
+              #phoneNumber
             ></app-input>
           </div>
         </form>
@@ -226,10 +229,18 @@
             role="group"
           >
             <app-button
+              text="Save"
+              [ngStyle]="{ width: 12 + 'em' }"
+              *ngIf="mode == 'edit'"
+              (onClick)="
+                saveChanges(username.value, email.value, phoneNumber.value)
+              "
+            ></app-button>
+            <app-button
               text="Change Password"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
-              (onClick)="changePassword()"
+              (onClick)="changePasswordNav()"
             ></app-button>
             <app-button
               text="Delete"
@@ -255,13 +266,21 @@
             <label for="username" class="form-label"
               ><b>Old Password:</b></label
             >
-            <app-input type="password" placeholder="Old Password"></app-input>
+            <app-input
+              type="password"
+              placeholder="Old Password"
+              #oldPassword
+            ></app-input>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
               ><b>New Password:</b></label
             >
-            <app-input type="password" placeholder="New Password"></app-input>
+            <app-input
+              type="password"
+              placeholder="New Password"
+              #newPassword
+            ></app-input>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
@@ -270,6 +289,7 @@
             <app-input
               type="password"
               placeholder="Repeat Password"
+              #repeatPassword
             ></app-input>
           </div>
         </form>
@@ -284,6 +304,13 @@
               text="Change Password"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'new'"
+              (onClick)="
+                changePassword(
+                  oldPassword.value,
+                  newPassword.value,
+                  repeatPassword.value
+                )
+              "
             ></app-button>
           </div>
         </div>

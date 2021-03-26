@@ -96,6 +96,14 @@
                 #email
               ></app-input>
             </div>
+            <div class="mb-3">
+              <app-input
+                type="tel"
+                placeholder="Phone Number (Optional)"
+                [ngStyle]="{ width: 100 + '%' }"
+                #phoneNumber
+              ></app-input>
+            </div>
             <div class="mb-5">
               <app-input
                 type="password"
@@ -108,7 +116,14 @@
               <app-button
                 [ngStyle]="{ width: 100 + '%' }"
                 text="Sign Up"
-                (onClick)="signup(username.value, email.value, password.value)"
+                (onClick)="
+                  signup(
+                    username.value,
+                    email.value,
+                    password.value,
+                    phoneNumber.value
+                  )
+                "
               ></app-button>
             </div>
             <p class="text-end no-account-yet">
