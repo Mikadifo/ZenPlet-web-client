@@ -34,6 +34,10 @@ export class OwnerService {
   getOwnerByName(name: string): Observable<any> {
     return this.http.get(`${this.BASE_URL}/owner/name/${name}`, this.header);
   }
+  
+  getOwnerByEmail(email: string): Observable<any> {
+    return this.http.get(`${this.BASE_URL}/owner/email/${email}`, this.header);
+  }
 
   updateOwner(id: number, owner: Owner): Observable<any> {
     return this.http.put(
