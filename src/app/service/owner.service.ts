@@ -16,7 +16,7 @@ export class OwnerService {
         'Authorization',
         localStorage.getItem('token') || ''
       ),
-    }; //may is neccesary to put token hear the same for all methid of all servies
+    };
   }
 
   getOwners(): Observable<any> {
@@ -34,7 +34,7 @@ export class OwnerService {
   getOwnerByName(name: string): Observable<any> {
     return this.http.get(`${this.BASE_URL}/owner/name/${name}`, this.header);
   }
-  
+
   getOwnerByEmail(email: string): Observable<any> {
     return this.http.get(`${this.BASE_URL}/owner/email/${email}`, this.header);
   }

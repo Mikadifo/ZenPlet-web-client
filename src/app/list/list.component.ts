@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Owner } from '../model/owner/owner.model';
-import { OwnerService } from '../service/owner.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -11,23 +9,18 @@ import { OwnerService } from '../service/owner.service';
 export class ListComponent implements OnInit {
   listTitle: string = '';
   card: string = '';
-  listOwner: Owner[] = [];
 
-  constructor(
-    private route: ActivatedRoute,
-    private ownerService: OwnerService
-  ) {
-    this.ownerService.getOwners().subscribe(
-      (data) => {
-        this.listOwner = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => (this.card = params['card']));
+  }
+
+  newOfCurrentCard() {
+    if (this.card === 'pets') {
+      this.router.navigate(['new/pet']);
+    } else if (this.card === 'vaccines') {
+      this.router.navigate(['new/vaccine']);
+    }
   }
 }
