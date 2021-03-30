@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Owner } from '../model/owner/owner.model';
@@ -20,7 +21,8 @@ export class EditNewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ownerService: OwnerService,
-    private petService: PetService
+    private petService: PetService,
+    private _location: Location
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
   }
@@ -143,6 +145,37 @@ export class EditNewComponent implements OnInit {
     if (this.mode === 'edit') {
       console.log('editin');
     } else if (this.mode === 'new') {
+      let pet: Pets = {
+        petId: 0,
+        petName: name,
+        petimage: '',
+        petBreed: breed,
+        petSize: size,
+        petGenre: genre,
+      };
+      this.petService.createPet(pet).subscribe(
+        (data) => {
+          pet = data;
+          this.loggedOwner.ownerPets.push(pet);
+          this.ownerService
+            .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
+            .subscribe(
+              (data) => {
+                console.log(data);
+                this.loggedOwner = data;
+                localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+                alert('Pet Inserted');
+                this._location.back();
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
       console.log('new');
     }
   }

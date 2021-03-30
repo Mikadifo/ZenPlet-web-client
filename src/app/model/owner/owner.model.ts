@@ -7,7 +7,7 @@ export class Owner {
   ownerPassword: string = '';
   ownerPhoneNumber: string = '';
   ownerToken: string = '';
-  ownerPets: Set<Pets> = new Set();
+  ownerPets: Pets[] = [];
 
   constructor() {}
 }

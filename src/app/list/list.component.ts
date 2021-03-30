@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
     ownerPassword: '',
     ownerPhoneNumber: '',
     ownerToken: '',
-    ownerPets: new Set(),
+    ownerPets: [],
   };
 
   constructor(private route: ActivatedRoute, private router: Router) {
