@@ -74,6 +74,7 @@
             text="Add Pets Owners"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'new'"
+            (click)="addPetOwner()"
           ></app-button>
           <app-button
             text="Create Pet"
