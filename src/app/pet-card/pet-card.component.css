@@ -4,6 +4,10 @@
   border-radius: unset;
 }
 
+.pet-card:hover {
+  border: 2px solid #363537;
+}
+
 .pet-img {
   width: 80%;
 }

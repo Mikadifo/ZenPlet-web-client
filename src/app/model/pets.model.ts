@@ -1,9 +1,9 @@
 export class Pets {
   petId!: number;
-  petname!: string;
+  petName!: string;
   petimage!: string;
   petBreed!: string;
   petSize!: string;
   petGenre!: string;
 }
- 
+

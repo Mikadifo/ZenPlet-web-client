@@ -6,23 +6,35 @@
         <form class="mt-5">
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Name:</b></label>
-            <app-input type="text" placeholder="Pet Name"></app-input>
+            <app-input type="text" placeholder="Pet Name" #petName></app-input>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Genre:</b></label>
-            <app-input type="text" placeholder="Pet Genre"></app-input>
+            <app-input
+              type="text"
+              placeholder="Pet Genre"
+              #petGenre
+            ></app-input>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Size:</b></label>
-            <app-input type="text" placeholder="Pet Size"></app-input>
+            <app-input type="text" placeholder="Pet Size" #petSize></app-input>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Birthdate:</b></label>
-            <app-input type="text" placeholder="Pet Birthdate"></app-input>
+            <app-input
+              type="date"
+              placeholder="Pet Birthdate"
+              #petBirthdate
+            ></app-input>
           </div>
           <div>
             <label for="pet-name" class="form-label"><b>Breed:</b></label>
-            <app-input type="text" placeholder="Pet Breed"></app-input>
+            <app-input
+              type="text"
+              placeholder="Pet Breed"
+              #petBredd
+            ></app-input>
           </div>
         </form>
       </div>
@@ -56,6 +68,7 @@
             [ngStyle]="{ width: 12 + 'em' }"
             type="danger"
             *ngIf="mode == 'edit'"
+            (click)="deletePet()"
           ></app-button>
           <app-button
             text="Add Pets Owners"
@@ -66,6 +79,15 @@
             text="Create Pet"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'new'"
+            (click)="
+              saveOrCreatePet(
+                petName.value,
+                petBredd.value,
+                petSize.value,
+                petGenre.value,
+                petBirthdate.value
+              )
+            "
           ></app-button>
         </div>
       </div>

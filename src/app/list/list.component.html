@@ -2,16 +2,20 @@
   <h1 class="text-center mt-2" *ngIf="card == 'pets'">MY PETS</h1>
   <h1 class="text-center mt-2" *ngIf="card == 'lostpets'">LOST PETS</h1>
   <h1 class="text-center mt-2" *ngIf="card == 'vaccines'">VACCINES</h1>
-  <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
-    <!--temporalmente esta el for de 4 peero se debe cambiar a la lista real-->
-    <div *ngFor="let i of [1,2,3,4,5,5,5,5,5,5,5,5,5,]" class="col">
-      <app-pet-card *ngIf="card == 'pets'"></app-pet-card>
-      <app-vaccine-card *ngIf="card == 'vaccines'"></app-vaccine-card>
-      <app-lost-pet-card *ngIf="card == 'lostpets'"></app-lost-pet-card>
+
+  <div *ngIf="card == 'pets'">
+    <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
+      <div *ngFor="let pet of loggedOwner.ownerPets" class="col">
+        <app-pet-card [pet]="pet" (click)="hola(pet)"></app-pet-card>
+      </div>
+      <!--<div *ngFor="let i of [1,2,3,4,5,5,5,5,5,5,5,5,5,]" class="col">-->
+      <!--<app-vaccine-card *ngIf="card == 'vaccines'"></app-vaccine-card>-->
+      <!--<app-lost-pet-card *ngIf="card == 'lostpets'"></app-lost-pet-card>-->
+      <!--</div>-->
     </div>
+    <!--<app-icon-button-->
+    <!--(click)="newOfCurrentCard()"-->
+    <!--*ngIf="card !== 'lostpets'"-->
+    <!--></app-icon-button>-->
   </div>
-  <app-icon-button
-    (click)="newOfCurrentCard()"
-    *ngIf="card !== 'lostpets'"
-  ></app-icon-button>
 </div>
