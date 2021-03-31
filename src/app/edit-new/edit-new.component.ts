@@ -25,7 +25,6 @@ export class EditNewComponent implements OnInit {
     private _location: Location
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
-    this.otherPetOwner = new Owner();
   }
 
   ngOnInit(): void {
@@ -33,6 +32,10 @@ export class EditNewComponent implements OnInit {
       this.mode = params['mode'];
       this.page = params['page'];
     });
+    if (this.mode === 'edit' && this.page === 'pet') {
+      this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
+      console.log(this.currentPet);
+    }
   }
 
   changePasswordNav() {
@@ -77,6 +80,12 @@ export class EditNewComponent implements OnInit {
 
   deleteAccount() {
     if (confirm('Are you sure to delete your account?')) {
+      //this.petService.deletePet(5).subscribe(
+      //(data) => {
+      //console.log(data);
+      //},
+      //(err) => console.log(err)
+      //); delete pet
       this.ownerService.deleteOwner(this.loggedOwner.ownerId).subscribe(
         (data) => {
           console.log(data);
@@ -134,7 +143,7 @@ export class EditNewComponent implements OnInit {
     );
   }
 
-  saveOrCreatePet(
+  editOrCreatePet(
     name: string,
     breed: string,
     size: string,
@@ -142,11 +151,41 @@ export class EditNewComponent implements OnInit {
     birthdate: Date
   ) {
     console.log(name, breed, size, genre, birthdate);
-    //petimage!: string;
+    //petimage: string;
     if (this.mode === 'edit') {
-      console.log('editin');
+      console.log('editing');
+      this.currentPet.petName = name;
+      this.currentPet.petBreed = breed;
+      this.currentPet.petSize = size;
+      this.currentPet.petGenre = genre;
+      this.currentPet.petOwner = this.loggedOwner;
+      this.petService
+        .updatePet(this.currentPet.petId, this.currentPet)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            this.currentPet = data;
+            this.ownerService
+              .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
+              .subscribe(
+                (data) => {
+                  console.log(data);
+                  this.loggedOwner = data;
+                  localStorage.setItem('owner', JSON.stringify(data));
+                  alert('Pet Updated');
+                  this._location.back();
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     } else if (this.mode === 'new') {
-      console.log('new');
+      console.log('newing');
       let pet: Pets = {
         petId: 0,
         petName: name,
@@ -158,21 +197,23 @@ export class EditNewComponent implements OnInit {
       };
       this.petService.createPet(pet).subscribe(
         (data) => {
+          console.log(data);
           pet = data;
-          //this.ownerService
-          //.updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
-          //.subscribe(
-          //(data) => {
-          //console.log(data);
-          //this.loggedOwner = data;
-          //localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-          //alert('Pet Inserted');
-          //this._location.back();
-          //},
-          //(error) => {
-          //console.log(error);
-          //}
-          //);
+          this.loggedOwner.ownerPets.push(pet);
+          this.ownerService
+            .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
+            .subscribe(
+              (data) => {
+                console.log(data);
+                this.loggedOwner = data;
+                localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+                alert('Pet Inserted');
+                this._location.back();
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
         },
         (error) => {
           console.log(error);

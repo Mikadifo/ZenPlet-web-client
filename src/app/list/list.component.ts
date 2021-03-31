@@ -38,7 +38,7 @@ export class ListComponent implements OnInit {
   }
 
   selectPet(pet: Pets) {
-    console.log('funcaaaaaa', pet);
-    this.router.navigate(['edit/pet']); //continue here
+    this.router.navigate(['edit/pet']);
+    localStorage.setItem('selectedPet', JSON.stringify(pet));
   }
 }

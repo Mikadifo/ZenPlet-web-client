@@ -6,7 +6,12 @@
         <form class="mt-5">
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Name:</b></label>
-            <app-input type="text" placeholder="Pet Name" #petName></app-input>
+            <app-input
+              type="text"
+              placeholder="Pet Name"
+              #petName
+              value="{{ currentPet.petName }}"
+            ></app-input>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Genre:</b></label>
@@ -14,11 +19,17 @@
               type="text"
               placeholder="Pet Genre"
               #petGenre
+              value="{{ currentPet.petGenre }}"
             ></app-input>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Size:</b></label>
-            <app-input type="text" placeholder="Pet Size" #petSize></app-input>
+            <app-input
+              type="text"
+              placeholder="Pet Size"
+              #petSize
+              value="{{ currentPet.petSize }}"
+            ></app-input>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>Birthdate:</b></label>
@@ -33,7 +44,8 @@
             <app-input
               type="text"
               placeholder="Pet Breed"
-              #petBredd
+              #petBreed
+              value="{{ currentPet.petBreed }}"
             ></app-input>
           </div>
         </form>
@@ -54,6 +66,20 @@
           role="group"
         >
           <app-button
+            text="Save"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'edit'"
+            (click)="
+              editOrCreatePet(
+                petName.value,
+                petBreed.value,
+                petSize.value,
+                petGenre.value,
+                petBirthdate.value
+              )
+            "
+          ></app-button>
+          <app-button
             text="Lost"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
@@ -70,9 +96,9 @@
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'new'"
             (click)="
-              saveOrCreatePet(
+              editOrCreatePet(
                 petName.value,
-                petBredd.value,
+                petBreed.value,
                 petSize.value,
                 petGenre.value,
                 petBirthdate.value

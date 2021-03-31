@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Owner } from '../model/owner/owner.model';
 import { OwnerService } from '../service/owner.service';
 
@@ -12,7 +13,7 @@ export class AccessComponent implements OnInit {
 
   owner: Owner = new Owner();
 
-  constructor(private ownerService: OwnerService) {}
+  constructor(private ownerService: OwnerService, private router: Router) {}
 
   ngOnInit(): void {
     this.page = this.page.toLowerCase();
@@ -35,9 +36,14 @@ export class AccessComponent implements OnInit {
     this.ownerService.login(login, password).subscribe(
       (data) => {
         console.log(data);
-        this.owner = data;
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('owner', JSON.stringify(this.owner));
+        if (data.ownerId !== 0) {
+          this.owner = data;
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('owner', JSON.stringify(this.owner));
+          this.router.navigate(['/list/pets']);
+        } else {
+          alert('Username or Password are not correct');
+        }
       },
       (error) => {
         console.log(error);

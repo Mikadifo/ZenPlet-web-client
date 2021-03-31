@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Owner } from '../model/owner/owner.model';
 import { Pets } from '../model/pets.model';
 
 @Component({
@@ -15,6 +16,7 @@ export class PetCardComponent implements OnInit {
     petBreed: '',
     petSize: '',
     petGenre: '',
+    petOwner: new Owner(),
   };
 
   constructor() {}
