@@ -16,7 +16,6 @@ export class EditNewComponent implements OnInit {
   page: string = '';
   loggedOwner: Owner = new Owner();
   currentPet: Pets = new Pets();
-  private otherPetOwner: Owner;
 
   constructor(
     private route: ActivatedRoute,
@@ -155,70 +154,30 @@ export class EditNewComponent implements OnInit {
         petBreed: breed,
         petSize: size,
         petGenre: genre,
+        petOwner: this.loggedOwner,
       };
       this.petService.createPet(pet).subscribe(
         (data) => {
           pet = data;
-          this.loggedOwner.ownerPets.push(pet);
-          this.ownerService
-            .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
-            .subscribe(
-              (data) => {
-                console.log(data);
-                this.loggedOwner = data;
-                localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-                alert('Pet Inserted');
-                this._location.back();
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
-          if (this.otherPetOwner.ownerId !== 0) {
-            console.log('1 more owner');
-            this.otherPetOwner.ownerPets.push(pet);
-            this.ownerService
-              .updateOwner(this.otherPetOwner.ownerId, this.otherPetOwner)
-              .subscribe(
-                (data) => {
-                  console.log(data);
-                },
-                (error) => {
-                  console.log(error);
-                }
-              );
-          } else {
-            console.log('noooo more owner');
-          }
+          //this.ownerService
+          //.updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
+          //.subscribe(
+          //(data) => {
+          //console.log(data);
+          //this.loggedOwner = data;
+          //localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+          //alert('Pet Inserted');
+          //this._location.back();
+          //},
+          //(error) => {
+          //console.log(error);
+          //}
+          //);
         },
         (error) => {
           console.log(error);
         }
       );
-    }
-  }
-
-  addPetOwner() {
-    let ownerEmail = prompt('Enter owner email:') || false;
-    if (ownerEmail) {
-      if (ownerEmail === this.loggedOwner.ownerEmail) {
-        //may need a regex
-        alert('Invalid Email');
-      } else {
-        this.ownerService.getOwnerByEmail(ownerEmail).subscribe(
-          (data) => {
-            if (data === null) {
-              alert('Email not Found');
-            } else {
-              console.log('owner found');
-              this.otherPetOwner = data;
-            }
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
     }
   }
 }

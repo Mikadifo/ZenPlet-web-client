@@ -54,11 +54,6 @@
           role="group"
         >
           <app-button
-            text="View Pets Owners"
-            [ngStyle]="{ width: 12 + 'em' }"
-            *ngIf="mode == 'edit'"
-          ></app-button>
-          <app-button
             text="Lost"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
@@ -69,12 +64,6 @@
             type="danger"
             *ngIf="mode == 'edit'"
             (click)="deletePet()"
-          ></app-button>
-          <app-button
-            text="Add Pets Owners"
-            [ngStyle]="{ width: 12 + 'em' }"
-            *ngIf="mode == 'new'"
-            (click)="addPetOwner()"
           ></app-button>
           <app-button
             text="Create Pet"

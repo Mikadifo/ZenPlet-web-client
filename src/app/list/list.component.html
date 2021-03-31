@@ -6,7 +6,7 @@
   <div *ngIf="card == 'pets'">
     <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
       <div *ngFor="let pet of loggedOwner.ownerPets" class="col">
-        <app-pet-card [pet]="pet" (click)="hola(pet)"></app-pet-card>
+        <app-pet-card [pet]="pet" (click)="selectPet(pet)"></app-pet-card>
       </div>
       <!--<div *ngFor="let i of [1,2,3,4,5,5,5,5,5,5,5,5,5,]" class="col">-->
       <!--<app-vaccine-card *ngIf="card == 'vaccines'"></app-vaccine-card>-->

@@ -37,7 +37,8 @@ export class ListComponent implements OnInit {
     }
   }
 
-  hola(pet: Pets) {
+  selectPet(pet: Pets) {
     console.log('funcaaaaaa', pet);
+    this.router.navigate(['edit/pet']); //continue here
   }
 }
