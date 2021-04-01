@@ -16,6 +16,8 @@ export class EditNewComponent implements OnInit {
   page: string = '';
   loggedOwner: Owner = new Owner();
   currentPet: Pets = new Pets();
+  imgURL: any;
+  selectedFile: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -236,5 +238,14 @@ export class EditNewComponent implements OnInit {
         }
       );
     }
+  }
+
+  onFileChanged(event: any) {
+    this.selectedFile = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = (event) => {
+      this.imgURL = reader.result;
+    };
   }
 }

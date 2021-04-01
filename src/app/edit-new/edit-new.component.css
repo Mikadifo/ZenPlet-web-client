@@ -9,18 +9,9 @@ form, .vaccine-description {
 
 .image {
   margin-top: 25%;
-  width: 30em;
-  height: 20em;
-  position: relative;
+  width: 20em;
+  height: 17em;
   border: 2px solid #363537;
-}
-
-.image i {
-  font-size: 2.5rem;
-  color: #363537;
-  position: absolute;
-  bottom: 8px;
-  right: 10px;
 }
 
 .description {
