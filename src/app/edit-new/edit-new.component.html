@@ -52,15 +52,11 @@
       </div>
       <div class="col col-sm-12 col-md-6">
         <div class="container image mb-5">
-          <img
-            [src]="imgURL"
-            alt="Pet Image"
-            *ngIf="imgURL"
-            style="width: 100%"
-          />
+          <img [src]="imgURL" alt="Pet Image" *ngIf="imgURL" />
         </div>
         <app-input
           type="file"
+          acceptFiles="image/*"
           placeholder="Pet Image"
           (change)="onFileChanged($event)"
           #petImage

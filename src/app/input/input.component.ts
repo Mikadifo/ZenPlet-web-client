@@ -10,6 +10,7 @@ export class InputComponent implements OnInit {
   @Input() placeholder: string = 'placeholder';
   @Input() ngStyle: { [klass: string]: any } = {};
   @Input() value: any = '';
+  @Input() acceptFiles: string = '';
 
   constructor() {}
 

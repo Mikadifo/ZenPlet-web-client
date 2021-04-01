@@ -17,7 +17,7 @@ export class EditNewComponent implements OnInit {
   loggedOwner: Owner = new Owner();
   currentPet: Pets = new Pets();
   imgURL: any;
-  selectedFile: any;
+  petImageBase64: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -169,7 +169,6 @@ export class EditNewComponent implements OnInit {
     birthdate: Date
   ) {
     console.log(name, breed, size, genre, birthdate);
-    //petimage: string;
     if (this.mode === 'edit') {
       console.log('editing');
       this.currentPet.petName = name;
@@ -204,10 +203,11 @@ export class EditNewComponent implements OnInit {
         );
     } else if (this.mode === 'new') {
       console.log('newing');
+      console.log(this.petImageBase64);
       let pet: Pets = {
         petId: 0,
         petName: name,
-        petimage: '',
+        petimage: this.petImageBase64,
         petBreed: breed,
         petSize: size,
         petGenre: genre,
@@ -241,11 +241,11 @@ export class EditNewComponent implements OnInit {
   }
 
   onFileChanged(event: any) {
-    this.selectedFile = event.target.files[0];
     let reader = new FileReader();
-    reader.readAsDataURL(this.selectedFile);
+    reader.readAsDataURL(event.target.files[0]);
     reader.onload = (event) => {
       this.imgURL = reader.result;
+      this.petImageBase64 = reader.result as string;
     };
   }
 }
