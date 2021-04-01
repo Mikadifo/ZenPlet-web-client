@@ -80,12 +80,6 @@ export class EditNewComponent implements OnInit {
 
   deleteAccount() {
     if (confirm('Are you sure to delete your account?')) {
-      //this.petService.deletePet(5).subscribe(
-      //(data) => {
-      //console.log(data);
-      //},
-      //(err) => console.log(err)
-      //); delete pet
       this.ownerService.deleteOwner(this.loggedOwner.ownerId).subscribe(
         (data) => {
           console.log(data);
@@ -102,8 +96,30 @@ export class EditNewComponent implements OnInit {
 
   deletePet() {
     if (confirm('Are you sure to delete your account?')) {
-      console.log(this.currentPet);
-      //this.petService.deletePet(this.c)
+      this.petService.deletePet(this.currentPet.petId).subscribe(
+        (data) => {
+          console.log(data);
+          this.loggedOwner.ownerPets = this.loggedOwner.ownerPets.filter(
+            (pet) => pet.petId !== this.currentPet.petId
+          );
+          this.ownerService
+            .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
+            .subscribe(
+              (data) => {
+                console.log(data);
+                this.loggedOwner = data;
+                localStorage.setItem('owner', JSON.stringify(data));
+                console.log(this.loggedOwner);
+                alert('Pet deleted');
+                this._location.back();
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+        },
+        (err) => console.log(err)
+      );
     }
   }
 
