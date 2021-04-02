@@ -36,6 +36,7 @@ export class EditNewComponent implements OnInit {
     });
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
+      this.imgURL = this.currentPet.petImage;
       console.log(this.currentPet);
     }
   }
@@ -168,14 +169,17 @@ export class EditNewComponent implements OnInit {
     genre: string,
     birthdate: Date
   ) {
-    console.log(name, breed, size, genre, birthdate);
-    if (this.mode === 'edit') {
+    if (this.imgURL === undefined) {
+      alert('Pet Image is mandatory');
+    } else if (this.mode === 'edit') {
       console.log('editing');
       this.currentPet.petName = name;
       this.currentPet.petBreed = breed;
       this.currentPet.petSize = size;
       this.currentPet.petGenre = genre;
       this.currentPet.petOwner = this.loggedOwner;
+      this.currentPet.petImage = this.petImageBase64;
+      console.log(this.currentPet.petImage);
       this.petService
         .updatePet(this.currentPet.petId, this.currentPet)
         .subscribe(
@@ -203,7 +207,7 @@ export class EditNewComponent implements OnInit {
         );
     } else if (this.mode === 'new') {
       console.log('newing');
-      let pet: Pets = {
+      let newPet: Pets = {
         petId: 0,
         petName: name,
         petImage: this.petImageBase64,
@@ -212,11 +216,11 @@ export class EditNewComponent implements OnInit {
         petGenre: genre,
         petOwner: this.loggedOwner,
       };
-      this.petService.createPet(pet).subscribe(
+      this.petService.createPet(newPet).subscribe(
         (data) => {
           console.log(data);
-          pet = data;
-          this.loggedOwner.ownerPets.push(pet);
+          newPet = data;
+          this.loggedOwner.ownerPets.push(newPet);
           this.ownerService
             .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
             .subscribe(
@@ -245,9 +249,6 @@ export class EditNewComponent implements OnInit {
     reader.onload = (event) => {
       this.imgURL = reader.result;
       this.petImageBase64 = reader.result as string;
-      this.petImageBase64 = this.petImageBase64.substring(
-        this.petImageBase64.indexOf(',') + 1
-      );
     };
   }
 }
