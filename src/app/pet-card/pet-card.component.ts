@@ -12,7 +12,7 @@ export class PetCardComponent implements OnInit {
   pet: Pets = {
     petId: 0,
     petName: '',
-    petimage: '',
+    petImage: '',
     petBreed: '',
     petSize: '',
     petGenre: '',

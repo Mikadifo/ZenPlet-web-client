@@ -203,11 +203,10 @@ export class EditNewComponent implements OnInit {
         );
     } else if (this.mode === 'new') {
       console.log('newing');
-      console.log(this.petImageBase64);
       let pet: Pets = {
         petId: 0,
         petName: name,
-        petimage: this.petImageBase64,
+        petImage: this.petImageBase64,
         petBreed: breed,
         petSize: size,
         petGenre: genre,
@@ -246,6 +245,9 @@ export class EditNewComponent implements OnInit {
     reader.onload = (event) => {
       this.imgURL = reader.result;
       this.petImageBase64 = reader.result as string;
+      this.petImageBase64 = this.petImageBase64.substring(
+        this.petImageBase64.indexOf(',') + 1
+      );
     };
   }
 }
