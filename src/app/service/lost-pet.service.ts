@@ -20,7 +20,7 @@ export class LostPetService {
   }
 
   getLostPets(): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/lost-pets`, this.header);
+    return this.http.get(`${this.BASE_URL}/lost-pet`, this.header);
   }
 
   getLostPetByPetId(petId: number): Observable<any> {
@@ -43,9 +43,9 @@ export class LostPetService {
     );
   }
 
-  deleteLostPet(id: number): Observable<any> {
+  deleteLostPet(petId: number): Observable<any> {
     return this.http.delete(
-      `${this.BASE_URL}/delete-lost-pet/${id}`,
+      `${this.BASE_URL}/delete-lost-pet/${petId}`,
       this.header
     );
   }

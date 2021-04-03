@@ -165,6 +165,7 @@
             text="Pet Found"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
+            (click)="petFound()"
           ></app-button>
         </div>
       </div>

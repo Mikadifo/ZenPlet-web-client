@@ -1,17 +1,17 @@
 <div class="card mb-3 lost-card">
   <div class="row g-0">
     <div class="col-md-4 p-3">
-      <img src="../../assets/full_logo.svg" class="pet-img" alt="pet-img">
+      <img src="{{ lostPet.pet.petImage }}" class="pet-img" alt="pet-img" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title text-center">Pet Name</h5>
-	<ul class="list-group list-group-flush card-info">
-	  <li class="list-group-item">
-	    <b>Size:</b> 
-	    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.
-	  </li>
-	</ul>
+        <h5 class="card-title text-center">{{ lostPet.pet.petName }}</h5>
+        <ul class="list-group list-group-flush card-info">
+          <li class="list-group-item">
+            <b>Info:</b>
+            <p>{{ lostPet.lostPetAdditionalInfo }}</p>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -9,7 +9,13 @@
         <app-pet-card [pet]="pet" (click)="selectPet(pet)"></app-pet-card>
       </div>
       <!--<app-vaccine-card *ngIf="card == 'vaccines'"></app-vaccine-card>-->
-      <!--<app-lost-pet-card *ngIf="card == 'lostpets'"></app-lost-pet-card>-->
+    </div>
+  </div>
+  <div *ngIf="card == 'lostpets'">
+    <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
+      <div *ngFor="let lostPet of lostPets" class="col">
+        <app-lost-pet-card [lostPet]="lostPet"></app-lost-pet-card>
+      </div>
     </div>
   </div>
   <app-icon-button

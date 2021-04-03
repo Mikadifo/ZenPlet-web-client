@@ -318,4 +318,22 @@ export class EditNewComponent implements OnInit {
         }
       );
   }
+
+  petFound() {
+    this.lostPetService.deleteLostPet(this.currentPet.petId).subscribe(
+      (data) => {
+        console.log(data);
+        if (data === null) {
+          alert('We are happy to help you to find your pet.');
+          this.lostPetAdditionalInfo = '';
+          this._location.back();
+        } else {
+          alert('An error has been ocurred while setting your pet as lost');
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

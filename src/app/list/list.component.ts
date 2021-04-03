@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LostPet } from '../model/lost-pet.model';
 import { Owner } from '../model/owner/owner.model';
 import { Pets } from '../model/pets.model';
+import { LostPetService } from '../service/lost-pet.service';
 
 @Component({
   selector: 'app-list',
@@ -20,9 +22,23 @@ export class ListComponent implements OnInit {
     ownerToken: '',
     ownerPets: [],
   };
+  lostPets: LostPet[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private lostPetService: LostPetService
+  ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
+    lostPetService.getLostPets().subscribe(
+      (data) => {
+        console.log(data);
+        this.lostPets = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnInit(): void {
