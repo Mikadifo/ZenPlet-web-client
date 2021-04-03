@@ -9,3 +9,8 @@
   bottom: 1em;
   right: 0.60em;
 }
+
+.icon-button:hover {
+  font-size: 2.6rem;
+  color: rgba(54, 53, 55, 0.8);
+}

@@ -17,6 +17,10 @@
   color: #EEEBD3;
 }
 
+.navbar a:hover {
+  color: rgba(238, 235, 211, 0.6);
+}
+
 .navbar-toggler:focus {
   box-shadow: none;
 }
