@@ -1,4 +1,5 @@
 import { Owner } from './owner/owner.model';
+import { PetVaccine } from './pet-vaccine/pet-vaccine.model';
 
 export class Pets {
   petId!: number;
@@ -8,4 +9,5 @@ export class Pets {
   petSize!: string;
   petGenre!: string;
   petOwner!: Owner;
+  petVaccines!: PetVaccine[];
 }

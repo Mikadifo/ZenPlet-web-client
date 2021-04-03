@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LostPet } from '../model/lost-pet.model';
 import { Owner } from '../model/owner/owner.model';
+import { PetVaccine } from '../model/pet-vaccine/pet-vaccine.model';
 import { Pets } from '../model/pets.model';
 import { LostPetService } from '../service/lost-pet.service';
 
@@ -23,6 +24,7 @@ export class ListComponent implements OnInit {
     ownerPets: [],
   };
   lostPets: LostPet[] = [];
+  ownerPetsVaccines: PetVaccine[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +41,11 @@ export class ListComponent implements OnInit {
         console.log(error);
       }
     );
+    this.loggedOwner.ownerPets.forEach((pet) => {
+      pet.petVaccines.forEach((petVaccine) => {
+        this.ownerPetsVaccines.push(petVaccine);
+      });
+    });
   }
 
   ngOnInit(): void {

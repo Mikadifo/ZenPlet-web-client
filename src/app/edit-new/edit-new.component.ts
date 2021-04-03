@@ -33,7 +33,7 @@ export class EditNewComponent implements OnInit {
   imgURL: any;
   petImageBase64: string = '';
   lostPetAdditionalInfo: string = '';
-  petsForVaccine: Pets[] = [];
+  petIdForVaccine: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -234,6 +234,7 @@ export class EditNewComponent implements OnInit {
         petSize: size,
         petGenre: genre,
         petOwner: this.loggedOwner,
+        petVaccines: [],
       };
       this.petService.createPet(newPet).subscribe(
         (data) => {
@@ -354,14 +355,6 @@ export class EditNewComponent implements OnInit {
     );
   }
 
-  selectPetForVaccine(pet: Pets, event: any) {
-    if (event.target.checked) {
-      this.petsForVaccine.push(pet);
-    } else {
-      this.petsForVaccine.splice(this.petsForVaccine.indexOf(pet), 1);
-    }
-  }
-
   createVaccine(
     vaccineName: string,
     vaccineDate: string,
@@ -370,8 +363,8 @@ export class EditNewComponent implements OnInit {
   ) {
     if (this.loggedOwner.ownerPets.length === 0) {
       alert('You Dont Have Pets Yet');
-    } else if (this.petsForVaccine.length === 0) {
-      alert('You must select one or more pets to apply the vaccine');
+    } else if (this.petIdForVaccine === '') {
+      alert('You must select a pet to apply the vaccine');
     } else {
       let vaccine: Vaccine = {
         id: 0,
@@ -382,16 +375,27 @@ export class EditNewComponent implements OnInit {
         (data) => {
           console.log(data);
           vaccine = data;
+          let pet: Pets = this.loggedOwner.ownerPets.filter(
+            (pet) => pet.petId === parseInt(this.petIdForVaccine)
+          )[0];
           let petVaccine: PetVaccine = {
             petVaccineDate: vaccineDate,
             petVaccineNext: vaccineNext,
-            pet: this.petsForVaccine[0], //here is for all peets on list not only first
+            pet: pet,
             vaccine: vaccine,
           };
           console.log(petVaccine);
           this.petVaccineService.savePetVaccine(petVaccine).subscribe(
             (data) => {
               console.log(data);
+              petVaccine = data;
+              this.loggedOwner.ownerPets
+                .filter((pet) => pet.petId === data.id.petId)
+                .forEach((pet) => pet.petVaccines.push(petVaccine));
+              localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+              console.log(this.loggedOwner);
+              alert('Your pet now has the vaccine');
+              this._location.back();
             },
             (error) => {
               console.log(error);

@@ -17,6 +17,7 @@ export class PetCardComponent implements OnInit {
     petSize: '',
     petGenre: '',
     petOwner: new Owner(),
+    petVaccines: [],
   };
 
   constructor() {}
