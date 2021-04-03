@@ -178,16 +178,41 @@
         <h1 class="edit-title"><b>VACCINE</b></h1>
         <form class="mt-5">
           <div class="mb-4">
-            <label for="vac-name" class="form-label"><b>Name:</b></label>
+            <label class="form-label"><b>Name:</b></label>
             <app-input type="text" placeholder="Vaccine Name"></app-input>
           </div>
           <div class="mb-4">
-            <label for="pet-name" class="form-label"><b>Date:</b></label>
+            <label class="form-label"><b>Date:</b></label>
             <app-input type="date"></app-input>
           </div>
           <div class="mb-4">
-            <label for="pet-name" class="form-label"><b>Next:</b></label>
+            <label class="form-label"><b>Next:</b></label>
             <app-input type="date"></app-input>
+          </div>
+          <div class="mb-4">
+            <label
+              class="form-label"
+              *ngIf="loggedOwner.ownerPets.length > 0; else elseBlock"
+            >
+              <b>Select pets to apply vaccine:</b>
+            </label>
+            <ng-template #elseBlock>
+              <label>You have no pets yet to create a vaccine</label>
+            </ng-template>
+            <ul class="list-group list-pets">
+              <li
+                class="list-group-item"
+                *ngFor="let pet of loggedOwner.ownerPets"
+              >
+                <input
+                  class="form-check-input me-1"
+                  type="checkbox"
+                  value="{{ pet.petId }}"
+                  (change)="selectPetForVaccine(pet, $event)"
+                />
+                {{ pet.petName }}
+              </li>
+            </ul>
           </div>
         </form>
       </div>
@@ -197,11 +222,17 @@
             ><b>Description:</b></label
           >
           <textarea
+            class="mb-4"
             name="vaccine-description"
             rows="8"
             cols="40"
             placeholder="Vaccine Description"
           ></textarea>
+          <app-button
+            text="Create Vaccine"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'new'"
+          ></app-button>
         </div>
       </div>
 
@@ -221,11 +252,6 @@
               [ngStyle]="{ width: 12 + 'em' }"
               type="danger"
               *ngIf="mode == 'edit'"
-            ></app-button>
-            <app-button
-              text="Create Vaccine"
-              [ngStyle]="{ width: 12 + 'em' }"
-              *ngIf="mode == 'new'"
             ></app-button>
           </div>
         </div>

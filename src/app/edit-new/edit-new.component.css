@@ -27,7 +27,7 @@ form, .vaccine-description {
   background-color: #CCC69A;
   border: none;
   width: 25em;
-  height: 10em;
+  height: 15em;
 }
 
 .account-btn {
@@ -36,4 +36,13 @@ form, .vaccine-description {
 
 .post-info {
   margin-top: 25%;
+}
+
+.list-pets {
+  border-radius: 0;
+  border: 1px solid #363537;
+}
+
+.list-pets li {
+  background-color: transparent;
 }

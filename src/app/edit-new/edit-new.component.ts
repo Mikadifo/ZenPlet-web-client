@@ -16,11 +16,20 @@ import { PetService } from '../service/pet.service';
 export class EditNewComponent implements OnInit {
   mode: string = '';
   page: string = '';
-  loggedOwner: Owner = new Owner();
+  loggedOwner: Owner = {
+    ownerId: 0,
+    ownerName: '',
+    ownerEmail: '',
+    ownerPassword: '',
+    ownerPhoneNumber: '',
+    ownerToken: '',
+    ownerPets: [],
+  };
   currentPet: Pets = new Pets();
   imgURL: any;
   petImageBase64: string = '';
   lostPetAdditionalInfo: string = '';
+  petsForVaccine: Pets[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -337,5 +346,13 @@ export class EditNewComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  selectPetForVaccine(pet: Pets, event: any) {
+    if (event.target.checked) {
+      this.petsForVaccine.push(pet);
+    } else {
+      this.petsForVaccine.splice(this.petsForVaccine.indexOf(pet), 1);
+    }
   }
 }
