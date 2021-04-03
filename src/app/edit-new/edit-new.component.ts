@@ -40,7 +40,7 @@ export class EditNewComponent implements OnInit {
     petVaccineNext: '',
     pet: new Pets(),
     vaccine: {
-      id: 0,
+      vaccinesId: 0,
       vaccinesName: '',
       vaccinesDescription: '',
     },
@@ -73,6 +73,7 @@ export class EditNewComponent implements OnInit {
         localStorage.getItem('selectedVaccine') || ''
       );
       this.selectedPetIdOfCombo = this.currentVaccine.id.petId;
+      this.petIdForVaccine = this.selectedPetIdOfCombo.toString();
     }
   }
 
@@ -380,12 +381,12 @@ export class EditNewComponent implements OnInit {
   ) {
     if (this.loggedOwner.ownerPets.length === 0) {
       alert('You Dont Have Pets Yet');
-    } else if (this.petIdForVaccine === '') {
+    } else if (isNaN(parseInt(this.petIdForVaccine))) {
       alert('You must select a pet to apply the vaccine');
     } else if (this.mode === 'new') {
       console.log('newing');
       let vaccine: Vaccine = {
-        id: 0,
+        vaccinesId: 0,
         vaccinesName: vaccineName,
         vaccinesDescription: vaccinesDescription,
       };
@@ -428,42 +429,58 @@ export class EditNewComponent implements OnInit {
       console.log('editing');
       let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
       vaccineToUpdate.vaccinesDescription = vaccinesDescription;
-      vaccineToUpdate.vaccinesName = va;
-      this.vaccineService.saveVaccine(vaccine).subscribe(
-        (data) => {
-          console.log(data);
-          vaccine = data;
-          let pet: Pets = this.loggedOwner.ownerPets.filter(
-            (pet) => pet.petId === parseInt(this.petIdForVaccine)
-          )[0];
-          let petVaccine: PetVaccine = {
-            id: { petId: 0, vaccineId: 0 },
-            petVaccineDate: vaccineDate,
-            petVaccineNext: vaccineNext,
-            pet: pet,
-            vaccine: vaccine,
-          };
-          console.log(petVaccine);
-          this.petVaccineService.savePetVaccine(petVaccine).subscribe(
-            (data) => {
-              console.log(data);
-              petVaccine = data;
-              this.loggedOwner.ownerPets
-                .filter((pet) => pet.petId === data.id.petId)
-                .forEach((pet) => pet.petVaccines.push(petVaccine));
-              localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-              alert('Your pet now has the vaccine');
-              this._location.back();
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      vaccineToUpdate.vaccinesName = vaccineName;
+      this.vaccineService
+        .updateVaccine(vaccineToUpdate.vaccinesId, vaccineToUpdate)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            vaccineToUpdate = data;
+            let pet: Pets = this.loggedOwner.ownerPets.filter(
+              (pet) => pet.petId === parseInt(this.petIdForVaccine)
+            )[0];
+            let petVaccine: PetVaccine = {
+              id: { petId: pet.petId, vaccineId: 0 },
+              petVaccineDate: vaccineDate,
+              petVaccineNext: vaccineNext,
+              vaccine: vaccineToUpdate,
+            };
+            this.petVaccineService
+              .updatePetVaccine(petVaccine.id.petId, petVaccine)
+              .subscribe(
+                (data) => {
+                  console.log(data);
+                  petVaccine = data;
+
+                  this.loggedOwner.ownerPets
+                    .filter((pet) => pet.petId === data.id.petId)
+                    .forEach((pet) =>
+                      pet.petVaccines.splice(
+                        pet.petVaccines.indexOf(petVaccine),
+                        1
+                      )
+                    );
+
+                  this.loggedOwner.ownerPets
+                    .filter((pet) => pet.petId === data.id.petId)
+                    .forEach((pet) => pet.petVaccines.push(petVaccine));
+
+                  localStorage.setItem(
+                    'owner',
+                    JSON.stringify(this.loggedOwner)
+                  );
+                  alert('Pet Vaccine updated');
+                  this._location.back();
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     }
   }
 }

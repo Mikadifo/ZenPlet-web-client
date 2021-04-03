@@ -5,6 +5,6 @@ export class PetVaccine {
   id!: { petId: number; vaccineId: number };
   petVaccineDate!: string;
   petVaccineNext!: string;
-  pet!: Pets;
+  pet?: Pets;
   vaccine!: Vaccine;
 }
