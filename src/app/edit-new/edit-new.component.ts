@@ -66,6 +66,8 @@ export class EditNewComponent implements OnInit {
                 (data) => {
                   console.log(data);
                   localStorage.setItem('owner', JSON.stringify(data));
+                  alert('Password has been updated');
+                  this._location.back();
                 },
                 (error) => {
                   console.log(error);
@@ -101,7 +103,7 @@ export class EditNewComponent implements OnInit {
   }
 
   deletePet() {
-    if (confirm('Are you sure to delete your account?')) {
+    if (confirm('Are you sure to delete your pet?')) {
       this.petService.deletePet(this.currentPet.petId).subscribe(
         (data) => {
           console.log(data);
