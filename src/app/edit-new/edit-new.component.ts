@@ -372,7 +372,7 @@ export class EditNewComponent implements OnInit {
     );
   }
 
-  createVaccine(
+  editOrCreateVaccine(
     vaccineName: string,
     vaccineDate: string,
     vaccineNext: string,
@@ -382,12 +382,53 @@ export class EditNewComponent implements OnInit {
       alert('You Dont Have Pets Yet');
     } else if (this.petIdForVaccine === '') {
       alert('You must select a pet to apply the vaccine');
-    } else {
+    } else if (this.mode === 'new') {
+      console.log('newing');
       let vaccine: Vaccine = {
         id: 0,
         vaccinesName: vaccineName,
         vaccinesDescription: vaccinesDescription,
       };
+      this.vaccineService.saveVaccine(vaccine).subscribe(
+        (data) => {
+          console.log(data);
+          vaccine = data;
+          let pet: Pets = this.loggedOwner.ownerPets.filter(
+            (pet) => pet.petId === parseInt(this.petIdForVaccine)
+          )[0];
+          let petVaccine: PetVaccine = {
+            id: { petId: 0, vaccineId: 0 },
+            petVaccineDate: vaccineDate,
+            petVaccineNext: vaccineNext,
+            pet: pet,
+            vaccine: vaccine,
+          };
+          console.log(petVaccine);
+          this.petVaccineService.savePetVaccine(petVaccine).subscribe(
+            (data) => {
+              console.log(data);
+              petVaccine = data;
+              this.loggedOwner.ownerPets
+                .filter((pet) => pet.petId === data.id.petId)
+                .forEach((pet) => pet.petVaccines.push(petVaccine));
+              localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+              alert('Your pet now has the vaccine');
+              this._location.back();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log('editing');
+      let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
+      vaccineToUpdate.vaccinesDescription = vaccinesDescription;
+      vaccineToUpdate.vaccinesName = va;
       this.vaccineService.saveVaccine(vaccine).subscribe(
         (data) => {
           console.log(data);

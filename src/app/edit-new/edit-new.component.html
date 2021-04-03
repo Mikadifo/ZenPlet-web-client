@@ -261,6 +261,14 @@
               text="Save"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
+              (click)="
+                editOrCreateVaccine(
+                  vaccineName.value,
+                  vaccineDate.value,
+                  vaccineNext.value,
+                  vaccineDescription.value
+                )
+              "
             ></app-button>
             <app-button
               text="Delete"
@@ -273,7 +281,7 @@
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'new'"
               (click)="
-                createVaccine(
+                editOrCreateVaccine(
                   vaccineName.value,
                   vaccineDate.value,
                   vaccineNext.value,
