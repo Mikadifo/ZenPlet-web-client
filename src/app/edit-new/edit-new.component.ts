@@ -68,6 +68,7 @@ export class EditNewComponent implements OnInit {
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
       this.imgURL = this.currentPet.petImage;
+      this.petImageBase64 = this.imgURL as string;
     } else if (this.mode === 'edit' && this.page === 'vaccine') {
       this.currentVaccine = JSON.parse(
         localStorage.getItem('selectedVaccine') || ''
@@ -204,7 +205,7 @@ export class EditNewComponent implements OnInit {
     breed: string,
     size: string,
     genre: string,
-    birthdate: Date
+    birthdate: string
   ) {
     if (this.imgURL === undefined) {
       alert('Pet Image is mandatory');
@@ -216,7 +217,7 @@ export class EditNewComponent implements OnInit {
       this.currentPet.petGenre = genre;
       this.currentPet.petOwner = this.loggedOwner;
       this.currentPet.petImage = this.petImageBase64;
-      console.log(this.currentPet.petImage);
+      this.currentPet.petBirthdate = birthdate;
       this.petService
         .updatePet(this.currentPet.petId, this.currentPet)
         .subscribe(
@@ -249,6 +250,7 @@ export class EditNewComponent implements OnInit {
         petName: name,
         petImage: this.petImageBase64,
         petBreed: breed,
+        petBirthdate: birthdate,
         petSize: size,
         petGenre: genre,
         petOwner: this.loggedOwner,

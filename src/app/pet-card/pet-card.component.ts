@@ -14,6 +14,7 @@ export class PetCardComponent implements OnInit {
     petName: '',
     petImage: '',
     petBreed: '',
+    petBirthdate: '',
     petSize: '',
     petGenre: '',
     petOwner: new Owner(),

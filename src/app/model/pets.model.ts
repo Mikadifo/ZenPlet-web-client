@@ -6,6 +6,7 @@ export class Pets {
   petName!: string;
   petImage!: string;
   petBreed!: string;
+  petBirthdate!: string;
   petSize!: string;
   petGenre!: string;
   petOwner!: Owner;
