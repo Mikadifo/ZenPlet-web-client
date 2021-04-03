@@ -179,15 +179,19 @@
         <form class="mt-5">
           <div class="mb-4">
             <label class="form-label"><b>Name:</b></label>
-            <app-input type="text" placeholder="Vaccine Name"></app-input>
+            <app-input
+              type="text"
+              placeholder="Vaccine Name"
+              #vaccineName
+            ></app-input>
           </div>
           <div class="mb-4">
             <label class="form-label"><b>Date:</b></label>
-            <app-input type="date"></app-input>
+            <app-input type="date" #vaccineDate></app-input>
           </div>
           <div class="mb-4">
             <label class="form-label"><b>Next:</b></label>
-            <app-input type="date"></app-input>
+            <app-input type="date" #vaccineNext></app-input>
           </div>
           <div class="mb-4">
             <label
@@ -227,11 +231,20 @@
             rows="8"
             cols="40"
             placeholder="Vaccine Description"
+            #vaccineDescription
           ></textarea>
           <app-button
             text="Create Vaccine"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'new'"
+            (click)="
+              createVaccine(
+                vaccineName.value,
+                vaccineDate.value,
+                vaccineNext.value,
+                vaccineDescription.value
+              )
+            "
           ></app-button>
         </div>
       </div>

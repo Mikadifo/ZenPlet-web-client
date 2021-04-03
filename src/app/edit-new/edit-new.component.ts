@@ -3,10 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LostPet } from '../model/lost-pet.model';
 import { Owner } from '../model/owner/owner.model';
+import { PetVaccine } from '../model/pet-vaccine/pet-vaccine.model';
 import { Pets } from '../model/pets.model';
+import { Vaccine } from '../model/vaccine/vaccine.model';
 import { LostPetService } from '../service/lost-pet.service';
 import { OwnerService } from '../service/owner.service';
+import { PetVaccinesService } from '../service/pet-vaccines.service';
 import { PetService } from '../service/pet.service';
+import { VaccineService } from '../service/vaccine.service';
 
 @Component({
   selector: 'app-edit-new',
@@ -37,6 +41,8 @@ export class EditNewComponent implements OnInit {
     private ownerService: OwnerService,
     private petService: PetService,
     private lostPetService: LostPetService,
+    private petVaccineService: PetVaccinesService,
+    private vaccineService: VaccineService,
     private _location: Location
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
@@ -353,6 +359,49 @@ export class EditNewComponent implements OnInit {
       this.petsForVaccine.push(pet);
     } else {
       this.petsForVaccine.splice(this.petsForVaccine.indexOf(pet), 1);
+    }
+  }
+
+  createVaccine(
+    vaccineName: string,
+    vaccineDate: string,
+    vaccineNext: string,
+    vaccinesDescription: string
+  ) {
+    if (this.loggedOwner.ownerPets.length === 0) {
+      alert('You Dont Have Pets Yet');
+    } else if (this.petsForVaccine.length === 0) {
+      alert('You must select one or more pets to apply the vaccine');
+    } else {
+      let vaccine: Vaccine = {
+        id: 0,
+        vaccinesName: vaccineName,
+        vaccinesDescription: vaccinesDescription,
+      };
+      this.vaccineService.saveVaccine(vaccine).subscribe(
+        (data) => {
+          console.log(data);
+          vaccine = data;
+          let petVaccine: PetVaccine = {
+            petVaccineDate: vaccineDate,
+            petVaccineNext: vaccineNext,
+            pet: this.petsForVaccine[0], //here is for all peets on list not only first
+            vaccine: vaccine,
+          };
+          console.log(petVaccine);
+          this.petVaccineService.savePetVaccine(petVaccine).subscribe(
+            (data) => {
+              console.log(data);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
   }
 }

@@ -1,7 +1,9 @@
+import { Pets } from '../pets.model';
+import { Vaccine } from '../vaccine/vaccine.model';
+
 export class PetVaccine {
-  petVaccineId: number = 0;
-  petVaccineDate!: Date;
-  petVaccineNext!: Date;
-  petId: number = 0;
-  vaccineId: number = 0;
+  petVaccineDate!: string;
+  petVaccineNext!: string;
+  pet!: Pets;
+  vaccine!: Vaccine;
 }

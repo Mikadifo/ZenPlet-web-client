@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vaccine } from '../model/vaccine/vaccine.model';
 
@@ -8,30 +8,49 @@ import { Vaccine } from '../model/vaccine/vaccine.model';
 })
 export class VaccineService {
   private BASE_URL = 'http://localhost:8080/api';
+  private header = {};
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        localStorage.getItem('token') || ''
+      ),
+    };
+  }
 
   getVaccines(): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/vaccines`);
+    return this.http.get(`${this.BASE_URL}/vaccines`, this.header);
   }
 
   saveVaccine(vaccine: Vaccine): Observable<any> {
-    return this.http.post(`${this.BASE_URL}/save-vaccine`, vaccine);
+    return this.http.post(
+      `${this.BASE_URL}/save-vaccine`,
+      vaccine,
+      this.header
+    );
   }
 
   getVaccineById(id: number): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/vaccine/id/${id}`);
+    return this.http.get(`${this.BASE_URL}/vaccine/id/${id}`, this.header);
   }
 
   getVaccinesByName(name: string): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/vaccine/name/${name}`);
+    return this.http.get(`${this.BASE_URL}/vaccine/name/${name}`, this.header);
   }
 
   updateVaccine(id: number, vaccine: Vaccine): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/edit-vaccine/${id}`, vaccine);
+    return this.http.put(
+      `${this.BASE_URL}/edit-vaccine/${id}`,
+      vaccine,
+      this.header
+    );
   }
 
   deleteVaccine(id: number): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/delete-vaccine/${id}`);
+    return this.http.delete(
+      `${this.BASE_URL}/delete-vaccine/${id}`,
+      this.header
+    );
   }
 }
