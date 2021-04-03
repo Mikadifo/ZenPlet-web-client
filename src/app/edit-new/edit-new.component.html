@@ -182,23 +182,33 @@
             <app-input
               type="text"
               placeholder="Vaccine Name"
+              value="{{ currentVaccine.vaccine.vaccinesName }}"
               #vaccineName
             ></app-input>
           </div>
           <div class="mb-4">
             <label class="form-label"><b>Date:</b></label>
-            <app-input type="date" #vaccineDate></app-input>
+            <app-input
+              type="date"
+              value="{{ currentVaccine.petVaccineDate }}"
+              #vaccineDate
+            ></app-input>
           </div>
           <div class="mb-4">
             <label class="form-label"><b>Next:</b></label>
-            <app-input type="date" #vaccineNext></app-input>
+            <app-input
+              type="date"
+              value="{{ currentVaccine.petVaccineNext }}"
+              #vaccineNext
+            ></app-input>
           </div>
           <div class="mb-4">
             <label class="form-label">
               <b>Vaccine for:</b>
             </label>
+            <!--missing select the previous pet selected when create dvaacine-->
             <select
-              class="form-select"
+              class="form-select combo-pets"
               #selectedPetId
               (change)="petIdForVaccine = selectedPetId.value"
             >
@@ -235,6 +245,7 @@
             cols="40"
             placeholder="Vaccine Description"
             #vaccineDescription
+            value="{{ currentVaccine.vaccine.vaccinesDescription }}"
           ></textarea>
         </div>
       </div>

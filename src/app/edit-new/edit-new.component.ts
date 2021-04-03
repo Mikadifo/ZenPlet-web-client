@@ -34,6 +34,7 @@ export class EditNewComponent implements OnInit {
   petImageBase64: string = '';
   lostPetAdditionalInfo: string = '';
   petIdForVaccine: string = '';
+  currentVaccine: PetVaccine = new PetVaccine();
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +57,10 @@ export class EditNewComponent implements OnInit {
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
       this.imgURL = this.currentPet.petImage;
+    } else if (this.mode === 'edit' && this.page === 'vaccine') {
+      this.currentVaccine = JSON.parse(
+        localStorage.getItem('selectedVaccine') || ''
+      );
     }
   }
 

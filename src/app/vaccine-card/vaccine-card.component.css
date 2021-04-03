@@ -3,6 +3,9 @@
   background-color: #CCC69A;
   border-radius: unset;
 }
+.vaccine-card:hover {
+  border: 2px solid #363537;
+}
 
 .card-info li {
   background-color: transparent;

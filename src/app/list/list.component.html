@@ -20,7 +20,10 @@
   <div *ngIf="card == 'vaccines'">
     <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
       <div *ngFor="let petVaccine of ownerPetsVaccines" class="col">
-        <app-vaccine-card [petVaccine]="petVaccine"></app-vaccine-card>
+        <app-vaccine-card
+          [petVaccine]="petVaccine"
+          (click)="selectVaccine(petVaccine)"
+        ></app-vaccine-card>
       </div>
     </div>
   </div>
