@@ -20,6 +20,7 @@ export class EditNewComponent implements OnInit {
   currentPet: Pets = new Pets();
   imgURL: any;
   petImageBase64: string = '';
+  lostPetAdditionalInfo: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +41,6 @@ export class EditNewComponent implements OnInit {
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
       this.imgURL = this.currentPet.petImage;
-      console.log(this.currentPet);
     }
   }
 
@@ -115,7 +115,6 @@ export class EditNewComponent implements OnInit {
                 console.log(data);
                 this.loggedOwner = data;
                 localStorage.setItem('owner', JSON.stringify(data));
-                console.log(this.loggedOwner);
                 alert('Pet deleted');
                 this._location.back();
               },
@@ -256,43 +255,67 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPetNav() {
-    this.router.navigate(['post/lostpet']);
-  }
-
-  postLostPet(additionalInfo: string) {
-    console.log(this.currentPet);
     this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
       (data) => {
         console.log(data);
         if (data !== null) {
+          this.lostPetAdditionalInfo = data.lostPetAdditionalInfo;
           this.router.navigate(['edit/lostpet']);
         } else {
-          let lost: LostPet = {
-            owner: this.loggedOwner,
-            pet: this.currentPet,
-            lostPetAdditionalInfo: additionalInfo,
-          };
-          this.lostPetService.saveLostPet(lost).subscribe(
-            (data) => {
-              console.log(data);
-              if (data.owner.ownerId === 0) {
-                alert(
-                  'An error has been ocurred while posting your pet as lost'
-                );
-              } else {
-                alert('Your pet now is marked as lost');
-                this._location.back();
-              }
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
+          this.router.navigate(['post/lostpet']);
         }
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+  postLostPet(additionalInfo: string) {
+    let lost: LostPet = {
+      owner: this.loggedOwner,
+      pet: this.currentPet,
+      lostPetAdditionalInfo: additionalInfo,
+    };
+    this.lostPetService.saveLostPet(lost).subscribe(
+      (data) => {
+        console.log(data);
+        if (data.owner.ownerId === 0) {
+          alert('An error has been ocurred while posting your pet as lost');
+        } else {
+          alert('Your pet now is marked as lost');
+          this._location.back();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  editLostPet(additionalInfo: string) {
+    let lostPetEdit: LostPet = {
+      owner: new Owner(),
+      pet: new Pets(),
+      lostPetAdditionalInfo: additionalInfo,
+    };
+    this.lostPetService
+      .updateLostPet(this.currentPet.petId, lostPetEdit)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          if (
+            data.lostPetAdditionalInfo === lostPetEdit.lostPetAdditionalInfo
+          ) {
+            alert('Lost Pet Updated');
+            this._location.back();
+          } else {
+            alert('Error updating lost pet');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }

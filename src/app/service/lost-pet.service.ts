@@ -35,9 +35,9 @@ export class LostPetService {
     );
   }
 
-  updateLostPet(id: number, lostPet: LostPet): Observable<any> {
+  updateLostPet(petId: number, lostPet: LostPet): Observable<any> {
     return this.http.put(
-      `${this.BASE_URL}/edit-lost-pet/${id}`,
+      `${this.BASE_URL}/edit-lost-pet/${petId}`,
       lostPet,
       this.header
     );

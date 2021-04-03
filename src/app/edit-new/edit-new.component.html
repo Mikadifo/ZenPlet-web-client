@@ -136,6 +136,7 @@
             rows="8"
             cols="40"
             placeholder="Additional Info"
+            value="{{ lostPetAdditionalInfo }}"
             #additionalInfo
           ></textarea>
         </div>
@@ -158,6 +159,7 @@
             text="Save"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
+            (click)="editLostPet(additionalInfo.value)"
           ></app-button>
           <app-button
             text="Pet Found"
