@@ -88,6 +88,7 @@
             text="Lost"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
+            (click)="postLostPetNav()"
           ></app-button>
           <app-button
             text="Delete"
@@ -135,6 +136,7 @@
             rows="8"
             cols="40"
             placeholder="Additional Info"
+            #additionalInfo
           ></textarea>
         </div>
       </div>
@@ -150,6 +152,7 @@
             text="Publish"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'post'"
+            (click)="postLostPet(additionalInfo.value)"
           ></app-button>
           <app-button
             text="Save"

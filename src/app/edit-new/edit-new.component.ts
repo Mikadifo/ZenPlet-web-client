@@ -1,8 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LostPet } from '../model/lost-pet.model';
 import { Owner } from '../model/owner/owner.model';
 import { Pets } from '../model/pets.model';
+import { LostPetService } from '../service/lost-pet.service';
 import { OwnerService } from '../service/owner.service';
 import { PetService } from '../service/pet.service';
 
@@ -24,6 +26,7 @@ export class EditNewComponent implements OnInit {
     private router: Router,
     private ownerService: OwnerService,
     private petService: PetService,
+    private lostPetService: LostPetService,
     private _location: Location
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
@@ -250,5 +253,46 @@ export class EditNewComponent implements OnInit {
       this.imgURL = reader.result;
       this.petImageBase64 = reader.result as string;
     };
+  }
+
+  postLostPetNav() {
+    this.router.navigate(['post/lostpet']);
+  }
+
+  postLostPet(additionalInfo: string) {
+    console.log(this.currentPet);
+    this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
+      (data) => {
+        console.log(data);
+        if (data !== null) {
+          this.router.navigate(['edit/lostpet']);
+        } else {
+          let lost: LostPet = {
+            owner: this.loggedOwner,
+            pet: this.currentPet,
+            lostPetAdditionalInfo: additionalInfo,
+          };
+          this.lostPetService.saveLostPet(lost).subscribe(
+            (data) => {
+              console.log(data);
+              if (data.owner.ownerId === 0) {
+                alert(
+                  'An error has been ocurred while posting your pet as lost'
+                );
+              } else {
+                alert('Your pet now is marked as lost');
+                this._location.back();
+              }
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
