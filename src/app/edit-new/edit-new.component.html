@@ -226,6 +226,7 @@
               <option
                 *ngFor="let pet of loggedOwner.ownerPets"
                 value="{{ pet.petId }}"
+                [selected]="pet.petId === selectedPetIdOfCombo"
               >
                 {{ pet.petName }}
               </option>

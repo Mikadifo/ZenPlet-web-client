@@ -11,6 +11,7 @@ import { Vaccine } from '../model/vaccine/vaccine.model';
 export class VaccineCardComponent implements OnInit {
   @Input()
   petVaccine: PetVaccine = {
+    id: { petId: 0, vaccineId: 0 },
     petVaccineDate: '',
     petVaccineNext: '',
     pet: new Pets(),

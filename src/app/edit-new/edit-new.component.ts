@@ -34,7 +34,18 @@ export class EditNewComponent implements OnInit {
   petImageBase64: string = '';
   lostPetAdditionalInfo: string = '';
   petIdForVaccine: string = '';
-  currentVaccine: PetVaccine = new PetVaccine();
+  currentVaccine: PetVaccine = {
+    id: { petId: 0, vaccineId: 0 },
+    petVaccineDate: '',
+    petVaccineNext: '',
+    pet: new Pets(),
+    vaccine: {
+      id: 0,
+      vaccinesName: '',
+      vaccinesDescription: '',
+    },
+  };
+  selectedPetIdOfCombo: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +72,7 @@ export class EditNewComponent implements OnInit {
       this.currentVaccine = JSON.parse(
         localStorage.getItem('selectedVaccine') || ''
       );
+      this.selectedPetIdOfCombo = this.currentVaccine.id.petId;
     }
   }
 
@@ -384,6 +396,7 @@ export class EditNewComponent implements OnInit {
             (pet) => pet.petId === parseInt(this.petIdForVaccine)
           )[0];
           let petVaccine: PetVaccine = {
+            id: { petId: 0, vaccineId: 0 },
             petVaccineDate: vaccineDate,
             petVaccineNext: vaccineNext,
             pet: pet,
@@ -398,7 +411,6 @@ export class EditNewComponent implements OnInit {
                 .filter((pet) => pet.petId === data.id.petId)
                 .forEach((pet) => pet.petVaccines.push(petVaccine));
               localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-              console.log(this.loggedOwner);
               alert('Your pet now has the vaccine');
               this._location.back();
             },
