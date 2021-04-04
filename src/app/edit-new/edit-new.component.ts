@@ -45,7 +45,7 @@ export class EditNewComponent implements OnInit {
       vaccinesDescription: '',
     },
   };
-  selectedPetIdOfCombo: number = 0;
+  selectedPetNameOfCombo: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -73,8 +73,9 @@ export class EditNewComponent implements OnInit {
       this.currentVaccine = JSON.parse(
         localStorage.getItem('selectedVaccine') || ''
       );
-      this.selectedPetIdOfCombo = this.currentVaccine.id.petId;
-      this.petIdForVaccine = this.selectedPetIdOfCombo.toString();
+      this.selectedPetNameOfCombo = this.loggedOwner.ownerPets.filter(
+        (pet) => pet.petId === this.currentVaccine.id.petId
+      )[0].petName;
     }
   }
 
@@ -448,7 +449,11 @@ export class EditNewComponent implements OnInit {
               vaccine: vaccineToUpdate,
             };
             this.petVaccineService
-              .updatePetVaccine(petVaccine.id.petId, petVaccine)
+              .updatePetVaccine(
+                petVaccine.id.petId,
+                petVaccine.vaccine.vaccinesId,
+                petVaccine
+              )
               .subscribe(
                 (data) => {
                   console.log(data);
@@ -478,6 +483,43 @@ export class EditNewComponent implements OnInit {
                   console.log(error);
                 }
               );
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  deleteVaccine() {
+    if (confirm('Are you sure to delete the vaccine?')) {
+      console.log(this.currentVaccine);
+      this.vaccineService
+        .deleteVaccine(this.currentVaccine.id.vaccineId)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            this.loggedOwner.ownerPets
+              .filter((pet) => pet.petId === this.currentVaccine.id.petId)
+              .forEach((pet) =>
+                pet.petVaccines.splice(
+                  pet.petVaccines.indexOf(
+                    this.loggedOwner.ownerPets
+                      .filter(
+                        (pet) => pet.petId === this.currentVaccine.id.petId
+                      )[0]
+                      .petVaccines.filter(
+                        (petVaccine) =>
+                          petVaccine.id.vaccineId ===
+                          this.currentVaccine.id.vaccineId
+                      )[0]
+                  ),
+                  1
+                )
+              );
+            localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+            alert('Vaccine has been deleted.');
+            this._location.back();
           },
           (error) => {
             console.log(error);

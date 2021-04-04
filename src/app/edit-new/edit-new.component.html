@@ -207,8 +207,11 @@
             <label class="form-label">
               <b>Vaccine for:</b>
             </label>
-            <!--missing select the previous pet selected when create dvaacine-->
+            <div *ngIf="mode === 'edit'">
+              {{ selectedPetNameOfCombo }}
+            </div>
             <select
+              *ngIf="mode === 'new'"
               class="form-select combo-pets"
               #selectedPetId
               (change)="petIdForVaccine = selectedPetId.value"
@@ -227,7 +230,6 @@
               <option
                 *ngFor="let pet of loggedOwner.ownerPets"
                 value="{{ pet.petId }}"
-                [selected]="pet.petId === selectedPetIdOfCombo"
               >
                 {{ pet.petName }}
               </option>
@@ -276,6 +278,7 @@
               [ngStyle]="{ width: 12 + 'em' }"
               type="danger"
               *ngIf="mode == 'edit'"
+              (click)="deleteVaccine()"
             ></app-button>
             <app-button
               text="Create Vaccine"

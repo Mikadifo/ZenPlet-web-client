@@ -31,9 +31,13 @@ export class PetVaccinesService {
     );
   }
 
-  updatePetVaccine(petId: number, petVaccines: PetVaccine): Observable<any> {
+  updatePetVaccine(
+    petId: number,
+    vaccineId: number,
+    petVaccines: PetVaccine
+  ): Observable<any> {
     return this.http.put(
-      `${this.BASE_URL}/edit-pet-vaccines/${petId}`,
+      `${this.BASE_URL}/edit-pet-vaccines/${petId}/${vaccineId}`,
       petVaccines,
       this.header
     );
