@@ -21,7 +21,13 @@ export class PetCardComponent implements OnInit {
     petVaccines: [],
   };
 
+  petAge: number = 0;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let petBirthdateAsDate = new Date(this.pet.petBirthdate);
+    let timeDiff = Math.abs(Date.now() - petBirthdateAsDate.getTime());
+    this.petAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
+  }
 }
