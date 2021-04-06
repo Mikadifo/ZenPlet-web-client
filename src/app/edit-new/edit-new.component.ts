@@ -76,6 +76,7 @@ export class EditNewComponent implements OnInit {
       this.selectedPetNameOfCombo = this.loggedOwner.ownerPets.filter(
         (pet) => pet.petId === this.currentVaccine.id.petId
       )[0].petName;
+      this.petIdForVaccine = this.currentVaccine.id.petId.toString();
     }
   }
 
