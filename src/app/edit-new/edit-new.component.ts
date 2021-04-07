@@ -309,7 +309,6 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPetNav() {
-    console.log(this.currentLostPet);
     if (this.currentLostPet.lostPetAdditionalInfo !== undefined) {
       this.router.navigate(['edit/lostpet']);
     } else {
