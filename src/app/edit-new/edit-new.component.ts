@@ -257,6 +257,7 @@ export class EditNewComponent implements OnInit {
         petGenre: genre,
         petOwner: this.loggedOwner,
         petVaccines: [],
+        petStatus: 0,
       };
       this.petService.createPet(newPet).subscribe(
         (data) => {
@@ -323,8 +324,19 @@ export class EditNewComponent implements OnInit {
         if (data.owner.ownerId === 0) {
           alert('An error has been ocurred while posting your pet as lost');
         } else {
-          alert('Your pet now is marked as lost');
-          this._location.back();
+          this.currentPet.petStatus = -1;
+          this.petService
+            .updatePet(this.currentPet.petId, this.currentPet)
+            .subscribe(
+              (data) => {
+                console.log(data);
+                alert('Your pet now is marked as lost'); //addd alod the counter
+                this._location.back();
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
         }
       },
       (error) => {

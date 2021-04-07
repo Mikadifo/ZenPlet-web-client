@@ -11,4 +11,5 @@ export class Pets {
   petGenre!: string;
   petOwner!: Owner;
   petVaccines!: PetVaccine[];
+  petStatus!: number;
 }
