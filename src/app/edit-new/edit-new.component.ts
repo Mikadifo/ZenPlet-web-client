@@ -1,4 +1,5 @@
 import { Location } from '@angular/common';
+import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LostPet } from '../model/lost-pet.model';
@@ -8,6 +9,7 @@ import { Pets } from '../model/pets.model';
 import { Vaccine } from '../model/vaccine/vaccine.model';
 import { LostPetService } from '../service/lost-pet.service';
 import { OwnerService } from '../service/owner.service';
+import { PetFoundService } from '../service/pet-found.service';
 import { PetVaccinesService } from '../service/pet-vaccines.service';
 import { PetService } from '../service/pet.service';
 import { VaccineService } from '../service/vaccine.service';
@@ -55,6 +57,7 @@ export class EditNewComponent implements OnInit {
     private lostPetService: LostPetService,
     private petVaccineService: PetVaccinesService,
     private vaccineService: VaccineService,
+    private petFoundService: PetFoundService,
     private _location: Location
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
@@ -257,7 +260,6 @@ export class EditNewComponent implements OnInit {
         petGenre: genre,
         petOwner: this.loggedOwner,
         petVaccines: [],
-        petStatus: 0,
       };
       this.petService.createPet(newPet).subscribe(
         (data) => {
@@ -324,19 +326,8 @@ export class EditNewComponent implements OnInit {
         if (data.owner.ownerId === 0) {
           alert('An error has been ocurred while posting your pet as lost');
         } else {
-          this.currentPet.petStatus = -1;
-          this.petService
-            .updatePet(this.currentPet.petId, this.currentPet)
-            .subscribe(
-              (data) => {
-                console.log(data);
-                alert('Your pet now is marked as lost'); //addd alod the counter
-                this._location.back();
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
+          alert('Your pet now is marked as lost');
+          this._location.back();
         }
       },
       (error) => {
@@ -376,9 +367,17 @@ export class EditNewComponent implements OnInit {
       (data) => {
         console.log(data);
         if (data === null) {
-          alert('We are happy to help you to find your pet.');
-          this.lostPetAdditionalInfo = '';
-          this._location.back();
+          this.petFoundService.addPetFound().subscribe(
+            (data) => {
+              console.log(data);
+              alert('We are happy to help you to find your pet.');
+              this.lostPetAdditionalInfo = '';
+              this._location.back();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         } else {
           alert('An error has been ocurred while setting your pet as lost');
         }
