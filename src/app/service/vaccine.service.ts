@@ -35,10 +35,6 @@ export class VaccineService {
     return this.http.get(`${this.BASE_URL}/vaccine/id/${id}`, this.header);
   }
 
-  getVaccinesByName(name: string): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/vaccine/name/${name}`, this.header);
-  }
-
   updateVaccine(id: number, vaccine: Vaccine): Observable<any> {
     return this.http.put(
       `${this.BASE_URL}/edit-vaccine/${id}`,
