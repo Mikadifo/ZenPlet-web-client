@@ -33,7 +33,7 @@ export class EditNewComponent implements OnInit {
   currentPet: Pets = new Pets();
   imgURL: any;
   petImageBase64: string = '';
-  lostPetAdditionalInfo: string = '';
+  currentLostPet: LostPet = new LostPet();
   petIdForVaccine: string = '';
   currentVaccine: PetVaccine = {
     id: { petId: 0, vaccineId: 0 },
@@ -71,6 +71,19 @@ export class EditNewComponent implements OnInit {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
       this.imgURL = this.currentPet.petImage;
       this.petImageBase64 = this.imgURL as string;
+      this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
+        (data) => {
+          console.log(data, 'fsafsafs');
+          if (data === null) {
+            this.currentLostPet = new LostPet();
+          } else {
+            this.currentLostPet = data;
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     } else if (this.mode === 'edit' && this.page === 'vaccine') {
       this.currentVaccine = JSON.parse(
         localStorage.getItem('selectedVaccine') || ''
@@ -78,7 +91,6 @@ export class EditNewComponent implements OnInit {
       this.selectedPetNameOfCombo = this.loggedOwner.ownerPets.filter(
         (pet) => pet.petId === this.currentVaccine.id.petId
       )[0].petName;
-      this.petIdForVaccine = this.currentVaccine.id.petId.toString();
     }
   }
 
@@ -297,20 +309,12 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPetNav() {
-    this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
-      (data) => {
-        console.log(data);
-        if (data !== null) {
-          this.lostPetAdditionalInfo = data.lostPetAdditionalInfo;
-          this.router.navigate(['edit/lostpet']);
-        } else {
-          this.router.navigate(['post/lostpet']);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    console.log(this.currentLostPet);
+    if (this.currentLostPet.lostPetAdditionalInfo !== undefined) {
+      this.router.navigate(['edit/lostpet']);
+    } else {
+      this.router.navigate(['post/lostpet']);
+    }
   }
 
   postLostPet(additionalInfo: string) {
@@ -326,6 +330,7 @@ export class EditNewComponent implements OnInit {
           alert('An error has been ocurred while posting your pet as lost');
         } else {
           alert('Your pet now is marked as lost');
+          this.currentLostPet = data;
           this._location.back();
         }
       },
@@ -370,7 +375,7 @@ export class EditNewComponent implements OnInit {
             (data) => {
               console.log(data);
               alert('We are happy to help you to find your pet.');
-              this.lostPetAdditionalInfo = '';
+              this.currentLostPet = new LostPet();
               this._location.back();
             },
             (error) => {
@@ -537,5 +542,10 @@ export class EditNewComponent implements OnInit {
           }
         );
     }
+  }
+
+  printLostPetNav() {
+    this.router.navigate(['/print-lost']);
+    localStorage.setItem('lostpet', JSON.stringify(this.currentLostPet));
   }
 }
