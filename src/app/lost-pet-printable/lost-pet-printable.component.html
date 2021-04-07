@@ -1,0 +1,44 @@
+<div class="card mb-3 lost-card page">
+  <div class="row g-0">
+    <div class="col-md-12 mt-2 text-center">
+      <h1>PET LOST</h1>
+    </div>
+    <div class="col-md-12 p-3">
+      <img
+        src="{{ lostPet.pet.petImage }}"
+        class="img-fluid mx-auto d-block"
+        alt="pet-img"
+      />
+    </div>
+    <div class="col-md-12">
+      <div class="card-body">
+        <h1 class="card-title text-center">
+          <b>
+            {{ lostPet.pet.petName }}
+          </b>
+        </h1>
+        <ul class="list-group list-group-flush card-info text-center">
+          <li class="list-group-item">
+            <h2 class="mt-4">
+              <b>Info:</b>
+            </h2>
+            <p>{{ lostPet.lostPetAdditionalInfo }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-0 m-3">
+  <div class="col-md-6 pe-2">
+    <app-button text="Back" class="buttons" (click)="back()"></app-button>
+  </div>
+  <div class="col-md-6 ps-3">
+    <app-button
+      text="Print"
+      (click)="onPrintLostPet()"
+      class="buttons"
+    ></app-button>
+  </div>
+</div>

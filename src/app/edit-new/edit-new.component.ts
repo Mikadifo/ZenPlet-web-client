@@ -1,5 +1,4 @@
 import { Location } from '@angular/common';
-import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LostPet } from '../model/lost-pet.model';

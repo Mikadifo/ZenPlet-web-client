@@ -69,4 +69,9 @@ export class ListComponent implements OnInit {
     this.router.navigate(['edit/vaccine']);
     localStorage.setItem('selectedVaccine', JSON.stringify(petVaccine));
   }
+
+  printLostPet(lostPet: LostPet) {
+    localStorage.setItem('lostpet', JSON.stringify(lostPet));
+    this.router.navigate(['print-lost']);
+  }
 }

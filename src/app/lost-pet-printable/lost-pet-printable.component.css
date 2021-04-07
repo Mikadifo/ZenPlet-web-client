@@ -1,0 +1,9 @@
+* {
+  background-color: transparent;
+}
+
+@media print {
+  .buttons {
+    visibility: hidden;
+  }
+}

@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { OwnerService } from './service/owner.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PetsFoundCounterComponent } from './pets-found-counter/pets-found-counter.component';
+import { LostPetPrintableComponent } from './lost-pet-printable/lost-pet-printable.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { PetsFoundCounterComponent } from './pets-found-counter/pets-found-count
     LoggedInComponent,
     LostPetCardComponent,
     PetsFoundCounterComponent,
+    LostPetPrintableComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [OwnerService],
