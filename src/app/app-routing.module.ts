@@ -4,6 +4,7 @@ import { AccessComponent } from './access/access.component';
 import { EditNewComponent } from './edit-new/edit-new.component';
 import { ListComponent } from './list/list.component';
 import { LoggedInComponent } from './logged-in/logged-in.component';
+import { LostPetPrintableComponent } from './lost-pet-printable/lost-pet-printable.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: ':mode/:page', component: EditNewComponent },
     ],
   },
+  { path: 'print-lost', component: LostPetPrintableComponent },
   { path: 'auth', component: AccessComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'auth' },
 ];

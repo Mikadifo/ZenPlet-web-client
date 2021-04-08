@@ -135,7 +135,7 @@
             rows="8"
             cols="40"
             placeholder="Additional Info"
-            value="{{ lostPetAdditionalInfo }}"
+            value="{{ currentLostPet.lostPetAdditionalInfo }}"
             #additionalInfo
           ></textarea>
       </div>
@@ -170,6 +170,12 @@
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="petFound()"
+          ></app-button>
+          <app-button
+            text="Print Lost Pet"
+            [ngStyle]="{ width: 12 + 'em' }"
+            *ngIf="mode == 'edit'"
+            (click)="printLostPetNav()"
           ></app-button>
         </div>
       </div>
