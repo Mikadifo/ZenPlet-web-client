@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { LostPet } from '../model/lost-pet.model';
 import { Owner } from '../model/owner/owner.model';
 import { PetVaccine } from '../model/pet-vaccine/pet-vaccine.model';
@@ -11,6 +12,7 @@ import { OwnerService } from '../service/owner.service';
 import { PetVaccinesService } from '../service/pet-vaccines.service';
 import { PetService } from '../service/pet.service';
 import { VaccineService } from '../service/vaccine.service';
+import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   selector: 'app-edit-new',
@@ -18,6 +20,14 @@ import { VaccineService } from '../service/vaccine.service';
   styleUrls: ['./edit-new.component.css'],
 })
 export class EditNewComponent implements OnInit {
+  map!: mapboxgl.Map;
+  mapbox = (mapboxgl as typeof mapboxgl);
+  style = `mapbox://styles/mapbox/streets-v11`;
+  lat = -79.004680;
+  lng = -2.897351;
+  zoom = 15;
+  lostPetLocation:string = `${this.lat},${this.lng}`;
+
   mode: string = '';
   page: string = '';
   loggedOwner: Owner = {
@@ -30,6 +40,7 @@ export class EditNewComponent implements OnInit {
     ownerPets: [],
   };
   currentPet: Pets = new Pets();
+  currentLostPet: LostPet = new LostPet();
   imgURL: any;
   petImageBase64: string = '';
   lostPetAdditionalInfo: string = '';
@@ -46,7 +57,7 @@ export class EditNewComponent implements OnInit {
     },
   };
   selectedPetNameOfCombo: string = '';
-
+  @ViewChild('mapElement') mapElement!: ElementRef;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -58,9 +69,15 @@ export class EditNewComponent implements OnInit {
     private _location: Location
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
+    console.log("este es el constructor")
+    this.router.routeReuseStrategy.shouldReuseRoute =()=>false
+    
   }
+  
 
   ngOnInit(): void {
+    console.log("este es el ngOnInit")
+    this.mapbox.accessToken=environment.mapboxKey;
     this.route.params.subscribe((params) => {
       this.mode = params['mode'];
       this.page = params['page'];
@@ -68,7 +85,20 @@ export class EditNewComponent implements OnInit {
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
       this.imgURL = this.currentPet.petImage;
-      this.petImageBase64 = this.imgURL as string;
+      this.petImageBase64 = this.imgURL as string; 
+      this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
+        (data) => {
+          console.log(data);
+          if(data === null){
+            this.currentLostPet = new LostPet()
+          }else{
+            this.currentLostPet = data; 
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     } else if (this.mode === 'edit' && this.page === 'vaccine') {
       this.currentVaccine = JSON.parse(
         localStorage.getItem('selectedVaccine') || ''
@@ -77,7 +107,56 @@ export class EditNewComponent implements OnInit {
         (pet) => pet.petId === this.currentVaccine.id.petId
       )[0].petName;
       this.petIdForVaccine = this.currentVaccine.id.petId.toString();
-    }
+    }else if(this.page==='lostpet'){
+      this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');   
+      this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
+        (data) => {
+          console.log(data);
+          if(data === null){
+            this.currentLostPet = new LostPet()
+          }else{
+            this.currentLostPet = data; 
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );  
+    } 
+    
+  }
+
+  createdMark(lng:number, lat:number){
+    const marker = new mapboxgl.Marker({
+      draggable: true
+    }).setLngLat([lng,lat])
+    .addTo(this.map);
+    marker.on('drag', ()=>{
+        this.lostPetLocation = `${marker.getLngLat().lat},${marker.getLngLat().lng}`;
+    })
+  }
+  
+  ngAfterViewInit(){
+    setTimeout(() => {
+      if(this.page==='lostpet'){
+        if(this.mode==='edit'){
+          console.log(this.currentLostPet.lostPetLocation as string)
+          console.log(this.currentLostPet.lostPetLocation)
+          this.lostPetLocation = this.currentLostPet.lostPetLocation as string;  
+        } 
+        let lostPetLocationArray:number[] = [...this.lostPetLocation.split(',')].map(item=>parseFloat(item))
+        console.log(this.mapElement.nativeElement);
+          this.map = new mapboxgl.Map({
+            container : this.mapElement.nativeElement,
+            style: this.style,
+            center: [lostPetLocationArray[0],lostPetLocationArray[1]],
+            zoom: this.zoom
+          }); 
+          this.map.addControl(new mapboxgl.NavigationControl); 
+          this.createdMark(lostPetLocationArray[0],lostPetLocationArray[1]);
+        
+      }
+    }, 250);
   }
 
   changePasswordNav() {
@@ -257,7 +336,6 @@ export class EditNewComponent implements OnInit {
         petGenre: genre,
         petOwner: this.loggedOwner,
         petVaccines: [],
-        petStatus: 0,
       };
       this.petService.createPet(newPet).subscribe(
         (data) => {
@@ -296,35 +374,31 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPetNav() {
-    this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
-      (data) => {
-        console.log(data);
-        if (data !== null) {
-          this.lostPetAdditionalInfo = data.lostPetAdditionalInfo;
-          this.router.navigate(['edit/lostpet']);
-        } else {
-          this.router.navigate(['post/lostpet']);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    console.log(this.currentLostPet);
+    if (this.currentLostPet.lostPetAdditionalInfo !== undefined) {
+      this.router.navigate(['edit/lostpet']);
+    } else {
+      this.router.navigate(['post/lostpet']);
+    }
   }
 
   postLostPet(additionalInfo: string) {
+    console.log(this.currentPet)
+    console.log(this.lostPetLocation)
     let lost: LostPet = {
       owner: this.loggedOwner,
       pet: this.currentPet,
       lostPetAdditionalInfo: additionalInfo,
+      lostPetLocation: this.lostPetLocation,
     };
+    console.log(lost)
     this.lostPetService.saveLostPet(lost).subscribe(
       (data) => {
         console.log(data);
         if (data.owner.ownerId === 0) {
           alert('An error has been ocurred while posting your pet as lost');
         } else {
-          this.currentPet.petStatus = -1;
+          console.log(this.currentPet)
           this.petService
             .updatePet(this.currentPet.petId, this.currentPet)
             .subscribe(
@@ -346,11 +420,14 @@ export class EditNewComponent implements OnInit {
   }
 
   editLostPet(additionalInfo: string) {
+    console.log(this.lostPetLocation)
     let lostPetEdit: LostPet = {
       owner: new Owner(),
       pet: new Pets(),
       lostPetAdditionalInfo: additionalInfo,
+      lostPetLocation: this.lostPetLocation
     };
+    console.log(lostPetEdit)
     this.lostPetService
       .updateLostPet(this.currentPet.petId, lostPetEdit)
       .subscribe(

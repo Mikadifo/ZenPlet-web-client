@@ -19,7 +19,6 @@ export class PetCardComponent implements OnInit {
     petGenre: '',
     petOwner: new Owner(),
     petVaccines: [],
-    petStatus: 0,
   };
 
   petAge: number = 0;

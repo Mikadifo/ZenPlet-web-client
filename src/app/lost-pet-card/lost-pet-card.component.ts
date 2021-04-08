@@ -14,6 +14,7 @@ export class LostPetCardComponent implements OnInit {
     owner: new Owner(),
     pet: new Pets(),
     lostPetAdditionalInfo: '',
+    lostPetLocation:''
   };
 
   constructor() {}

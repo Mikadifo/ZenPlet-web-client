@@ -126,12 +126,10 @@
           totam voluptas distinctio, autem aliquid unde. Libero vero rem est
           atque quas. Impedit ipsum et doloremque eum beatae? Laborum error.
         </p>
-      </div>
-      <div class="col col-sm-12 col-md-6">
-        <div class="row description ms-5">
-          <label for="additional" class="form-label"
-            ><b>Additional Info:</b></label
-          >
+        <b><p>Additional Info:</p></b>
+        <label for="additional" class="form-label"
+          ></label>
+          
           <textarea
             name="additional"
             rows="8"
@@ -140,6 +138,11 @@
             value="{{ lostPetAdditionalInfo }}"
             #additionalInfo
           ></textarea>
+      </div>
+      <div class="col col-sm-12 col-md-6">
+        <div class="row description ms-5">
+          <div id="map-mapbox" class="map-container" #mapElement> </div>
+
         </div>
       </div>
     </div>

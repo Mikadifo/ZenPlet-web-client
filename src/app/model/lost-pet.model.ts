@@ -5,5 +5,6 @@ export class LostPet {
   owner!: Owner;
   pet!: Pets;
   lostPetAdditionalInfo!: string;
+  lostPetLocation!:String;
   constructor() {}
 }
