@@ -23,8 +23,8 @@ export class EditNewComponent implements OnInit {
   map!: mapboxgl.Map;
   mapbox = (mapboxgl as typeof mapboxgl);
   style = `mapbox://styles/mapbox/streets-v11`;
-  lat = -79.004680;
-  lng = -2.897351;
+  lat = -2.897351;
+  lng = -79.004680;
   zoom = 15;
   lostPetLocation:string = `${this.lat},${this.lng}`;
 
@@ -129,7 +129,7 @@ export class EditNewComponent implements OnInit {
   createdMark(lng:number, lat:number){
     const marker = new mapboxgl.Marker({
       draggable: true
-    }).setLngLat([lng,lat])
+    }).setLngLat([lat,lng])
     .addTo(this.map);
     marker.on('drag', ()=>{
         this.lostPetLocation = `${marker.getLngLat().lat},${marker.getLngLat().lng}`;
@@ -149,8 +149,8 @@ export class EditNewComponent implements OnInit {
           this.map = new mapboxgl.Map({
             container : this.mapElement.nativeElement,
             style: this.style,
-            center: [lostPetLocationArray[0],lostPetLocationArray[1]],
-            zoom: this.zoom
+            center: [lostPetLocationArray[1],lostPetLocationArray[0]],
+            zoom: this.zoom            
           }); 
           this.map.addControl(new mapboxgl.NavigationControl); 
           this.createdMark(lostPetLocationArray[0],lostPetLocationArray[1]);
