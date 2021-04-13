@@ -27,7 +27,7 @@ export class EditNewComponent implements OnInit {
   lat = -2.897351;
   lng = -79.00468;
   zoom = 15;
-  lostPetLocation: string = `${this.lat},${this.lng}`;
+  lostPetLocation: string = `${this.lng},${this.lat}`;
 
   mode: string = '';
   page: string = '';
@@ -124,16 +124,16 @@ export class EditNewComponent implements OnInit {
     }
   }
 
-  createdMark(lng: number, lat: number) {
+  createdMark(lng: number,lat: number) {
     const marker = new mapboxgl.Marker({
       draggable: true,
     })
-      .setLngLat([lat, lng])
+      .setLngLat([lng, lat])
       .addTo(this.map);
 
     marker.on('drag', () => {
-      this.lostPetLocation = `${marker.getLngLat().lat},${
-        marker.getLngLat().lng
+      this.lostPetLocation = `${marker.getLngLat().lng},${
+        marker.getLngLat().lat
       }`;
     });
   }
@@ -153,7 +153,7 @@ export class EditNewComponent implements OnInit {
         this.map = new mapboxgl.Map({
           container: this.mapElement.nativeElement,
           style: this.style,
-          center: [lostPetLocationArray[1], lostPetLocationArray[0]],
+          center: [lostPetLocationArray[0], lostPetLocationArray[1]],
           zoom: this.zoom,
         });
         this.map.addControl(new mapboxgl.NavigationControl());

@@ -13,13 +13,13 @@ export class LostPetPrintableComponent implements OnInit {
   map!: mapboxgl.Map;
   mapbox = mapboxgl as typeof mapboxgl;
   style = `mapbox://styles/mapbox/streets-v11`;
-  lat = -79.00468;
-  lng = -2.897351;
+  lat = -2.897351;
+  lng = -79.00468;
   zoom = 15;
   lostPet: LostPet;
   visible: boolean = true;
   @ViewChild('lostMap') lostMap!: ElementRef;
-  lostPetLocation: string = `${this.lat},${this.lng}`;
+  lostPetLocation: string = `${this.lng},${this.lat}`;
 
   constructor(private _location: Location) {
     this.lostPet = JSON.parse(localStorage.getItem('lostpet') || '');
@@ -49,16 +49,12 @@ export class LostPetPrintableComponent implements OnInit {
     }, 250);
   }
 
-  createdMark(lat: number, lng: number) {
+  createdMark(lng: number, lat: number) {
     const marker = new mapboxgl.Marker({
-      draggable: true,
+      draggable: false,
     })
-      .setLngLat([lat, lng])
+      .setLngLat([lng, lat])
       .addTo(this.map);
-
-    marker.on('drag', () => {
-      this.lostPetLocation = `${marker.getLngLat().lat},${marker.getLngLat().lng}`;
-    });
   }
 
   onPrintLostPet() {
