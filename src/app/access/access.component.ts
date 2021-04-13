@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Owner } from '../model/owner/owner.model';
 import { OwnerService } from '../service/owner.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-access',
@@ -12,6 +13,7 @@ export class AccessComponent implements OnInit {
   @Input() page: string = 'menu';
 
   owner: Owner = new Owner();
+  key = CryptoJS.enc.Hex.parse('7a656e706c65745a5057436d70667074');
 
   constructor(private ownerService: OwnerService, private router: Router) {}
 
@@ -32,7 +34,10 @@ export class AccessComponent implements OnInit {
   }
 
   loginOwner(login: string, password: string) {
-    console.log('logining...');
+    password = CryptoJS.AES.encrypt(password, this.key, {
+      mode: CryptoJS.mode.ECB,
+    }).toString();
+    console.log(password);
     this.ownerService.login(login, password).subscribe(
       (data) => {
         console.log(data);
@@ -61,7 +66,13 @@ export class AccessComponent implements OnInit {
     this.owner.ownerName = username;
     this.owner.ownerEmail = email;
     this.owner.ownerPhoneNumber = phoneNumber;
-    this.owner.ownerPassword = password;
+
+    // Encrypt
+    let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
+      mode: CryptoJS.mode.ECB,
+    }).toString();
+    console.log(encryptedPassword);
+    this.owner.ownerPassword = encryptedPassword;
     this.ownerService.saveOwners(this.owner).subscribe(
       (data) => {
         console.log(data);
