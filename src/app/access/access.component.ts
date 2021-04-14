@@ -37,9 +37,11 @@ export class AccessComponent implements OnInit {
     let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
       mode: CryptoJS.mode.ECB,
     }).toString();
-    let urlSafeEncrypted: string = this.Base64EncodeUrlSafe(encryptedPassword);
-    console.log('hha =    ', urlSafeEncrypted);
-    this.ownerService.login(login, urlSafeEncrypted).subscribe(
+    let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
+      encryptedPassword
+    );
+    console.log(passwordUrlSafeEncrypted);
+    this.ownerService.login(login, passwordUrlSafeEncrypted).subscribe(
       (data) => {
         console.log(data);
         if (data.ownerId !== 0) {
@@ -67,13 +69,14 @@ export class AccessComponent implements OnInit {
     this.owner.ownerName = username;
     this.owner.ownerEmail = email;
     this.owner.ownerPhoneNumber = phoneNumber;
-
-    // Encrypt
     let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
       mode: CryptoJS.mode.ECB,
     }).toString();
-    console.log(encryptedPassword);
-    this.owner.ownerPassword = encryptedPassword;
+    let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
+      encryptedPassword
+    );
+    console.log(passwordUrlSafeEncrypted);
+    this.owner.ownerPassword = passwordUrlSafeEncrypted;
     this.ownerService.saveOwners(this.owner).subscribe(
       (data) => {
         console.log(data);
