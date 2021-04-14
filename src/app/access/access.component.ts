@@ -13,7 +13,7 @@ export class AccessComponent implements OnInit {
   @Input() page: string = 'menu';
 
   owner: Owner = new Owner();
-  key = CryptoJS.enc.Hex.parse('7a656e706c65745a5057436d70667074');
+  key = CryptoJS.enc.Hex.parse('070a0605060e0700060c06050704050a');
 
   constructor(private ownerService: OwnerService, private router: Router) {}
 
