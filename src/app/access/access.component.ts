@@ -34,11 +34,12 @@ export class AccessComponent implements OnInit {
   }
 
   loginOwner(login: string, password: string) {
-    password = CryptoJS.AES.encrypt(password, this.key, {
+    let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
       mode: CryptoJS.mode.ECB,
     }).toString();
-    console.log(password);
-    this.ownerService.login(login, password).subscribe(
+    let urlSafeEncrypted: string = this.Base64EncodeUrlSafe(encryptedPassword);
+    console.log('hha =    ', urlSafeEncrypted);
+    this.ownerService.login(login, urlSafeEncrypted).subscribe(
       (data) => {
         console.log(data);
         if (data.ownerId !== 0) {
@@ -86,5 +87,12 @@ export class AccessComponent implements OnInit {
 
   searchUser() {
     console.log('searching user...');
+  }
+
+  Base64EncodeUrlSafe(stringToEncode: string) {
+    return stringToEncode
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/\=+$/, '');
   }
 }
