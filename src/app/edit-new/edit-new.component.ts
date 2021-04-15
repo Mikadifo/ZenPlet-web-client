@@ -14,6 +14,7 @@ import { PetVaccinesService } from '../service/pet-vaccines.service';
 import { PetService } from '../service/pet.service';
 import { VaccineService } from '../service/vaccine.service';
 import * as mapboxgl from 'mapbox-gl';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-edit-new',
@@ -28,6 +29,7 @@ export class EditNewComponent implements OnInit {
   lng = -79.00468;
   zoom = 15;
   lostPetLocation: string = `${this.lng},${this.lat}`;
+  key = CryptoJS.enc.Hex.parse('070a0605060e0700060c06050704050a');
 
   mode: string = '';
   page: string = '';
@@ -124,7 +126,7 @@ export class EditNewComponent implements OnInit {
     }
   }
 
-  createdMark(lng: number,lat: number) {
+  createdMark(lng: number, lat: number) {
     const marker = new mapboxgl.Marker({
       draggable: true,
     })
@@ -175,9 +177,27 @@ export class EditNewComponent implements OnInit {
       (data) => {
         this.loggedOwner = data;
         console.log(data);
-        if (oldPassword === this.loggedOwner.ownerPassword) {
+        let encryptedOldPassword = CryptoJS.AES.encrypt(oldPassword, this.key, {
+          mode: CryptoJS.mode.ECB,
+        }).toString();
+        let oldPasswordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
+          encryptedOldPassword
+        );
+        console.log(oldPasswordUrlSafeEncrypted);
+        if (oldPasswordUrlSafeEncrypted === this.loggedOwner.ownerPassword) {
           if (newPassword === repeatPassword) {
-            this.loggedOwner.ownerPassword = newPassword;
+            let encryptedPassword = CryptoJS.AES.encrypt(
+              newPassword,
+              this.key,
+              {
+                mode: CryptoJS.mode.ECB,
+              }
+            ).toString();
+            let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
+              encryptedPassword
+            );
+            console.log(passwordUrlSafeEncrypted);
+            this.loggedOwner.ownerPassword = passwordUrlSafeEncrypted;
             this.ownerService
               .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
               .subscribe(
@@ -633,5 +653,12 @@ export class EditNewComponent implements OnInit {
   printLostPetNav() {
     this.router.navigate(['/print-lost']);
     localStorage.setItem('lostpet', JSON.stringify(this.currentLostPet));
+  }
+
+  Base64EncodeUrlSafe(stringToEncode: string) {
+    return stringToEncode
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/\=+$/, '');
   }
 }
