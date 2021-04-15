@@ -6,8 +6,8 @@
       </div>
 
       <div class="row text-start mt-5">
-        <h5>Welcome!</h5>
-        <p>Before start using the app you need to have an account.</p>
+        <h5>{{'Welcome!'| translate}}</h5>
+        <p>{{'Before start using the app you need to have an account.'| translate}}</p>
         <app-pets-found-counter> </app-pets-found-counter>
       </div>
 
@@ -15,16 +15,16 @@
         <div class="mx-auto btn-group-vertical gap-3">
           <app-button
             [ngStyle]="{ width: 100 + '%' }"
-            text="Sign Up"
+            text="{{'Sign Up'| translate}}"
             (onClick)="signUpNav()"
           ></app-button>
           <app-button
             [ngStyle]="{ width: 100 + '%' }"
-            text="Log In"
+            text="{{'Log In'| translate}}"
             (onClick)="logInNav()"
           ></app-button>
         </div>
-        <p class="text-end">Sign in with <b>Facebook</b> or <b>Google</b></p>
+        <p class="text-end">{{'Sign in with'| translate}} <b>Facebook</b> {{'or'| translate}} <b>Google</b></p>
       </div>
     </div>
 
@@ -39,7 +39,7 @@
             <div class="mb-3">
               <app-input
                 type="text"
-                placeholder="Username or Email"
+                placeholder="{{'Username or Email'| translate}}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #login
               ></app-input>
@@ -47,7 +47,7 @@
             <div class="mb-5">
               <app-input
                 type="password"
-                placeholder="Password"
+                placeholder="{{'Password'| translate}}"
                 [ngStyle]="{ width: 100 + '%' }"
                 aria-describedby="passwordHelp"
                 #password
@@ -61,7 +61,7 @@
             <div class="mb-1">
               <app-button
                 [ngStyle]="{ width: 100 + '%' }"
-                text="Log In"
+                text="{{'Log In'| translate}}"
                 (onClick)="loginOwner(login.value, password.value)"
               ></app-button>
             </div>
@@ -84,7 +84,7 @@
             <div class="mb-3">
               <app-input
                 type="text"
-                placeholder="Username"
+                placeholder="{{'Username'| translate}}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #username
               ></app-input>
@@ -92,7 +92,7 @@
             <div class="mb-3">
               <app-input
                 type="email"
-                placeholder="Email"
+                placeholder="{{'Email'| translate}}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #email
               ></app-input>
@@ -100,7 +100,7 @@
             <div class="mb-3">
               <app-input
                 type="tel"
-                placeholder="Phone Number (Optional)"
+                placeholder="{{'Phone Number (Optional)'| translate}}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #phoneNumber
               ></app-input>
@@ -108,7 +108,7 @@
             <div class="mb-5">
               <app-input
                 type="password"
-                placeholder="Password"
+                placeholder="{{'Password'| translate}}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #password
               ></app-input>
@@ -116,7 +116,7 @@
             <div class="mb-1">
               <app-button
                 [ngStyle]="{ width: 100 + '%' }"
-                text="Sign Up"
+                text="{{'Sign Up'| translate}}"
                 (onClick)="
                   signup(
                     username.value,
@@ -150,14 +150,14 @@
             <div class="mb-3">
               <app-input
                 type="text"
-                placeholder="Username or Email"
+                placeholder="{{'Username or Email'| translate}}"
                 [ngStyle]="{ width: 100 + '%' }"
               ></app-input>
             </div>
             <div class="mb-5">
               <app-button
                 [ngStyle]="{ width: 100 + '%' }"
-                text="Search"
+                text="{{'Search'| translate}}"
                 (click)="searchUser()"
               ></app-button>
             </div>

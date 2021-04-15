@@ -17,10 +17,15 @@ import { LoggedInComponent } from './logged-in/logged-in.component';
 import { LostPetCardComponent } from './lost-pet-card/lost-pet-card.component';
 import { FormsModule } from '@angular/forms';
 import { OwnerService } from './service/owner.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { PetsFoundCounterComponent } from './pets-found-counter/pets-found-counter.component';
 import { LostPetPrintableComponent } from './lost-pet-printable/lost-pet-printable.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+export function HttpLoaderFactory(http: HttpClient){
+    return new TranslateHttpLoader(http, './assets/i18n/','.json');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,8 +44,18 @@ import { LostPetPrintableComponent } from './lost-pet-printable/lost-pet-printab
     PetsFoundCounterComponent,
     LostPetPrintableComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule,
+ 
+  TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+
+      }
+    })
+  ],
   providers: [OwnerService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

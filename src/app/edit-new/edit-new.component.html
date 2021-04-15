@@ -2,49 +2,49 @@
   <div *ngIf="page == 'pet'">
     <div class="row">
       <div class="col col-sm-12 col-md-6">
-        <h1 class="edit-title"><b>MY PET</b></h1>
+        <h1 class="edit-title"><b>{{ 'MY PETS' | translate}}</b></h1>
         <form class="mt-5">
           <div class="mb-4">
-            <label for="pet-name" class="form-label"><b>Name:</b></label>
+            <label for="pet-name" class="form-label"><b>{{'Name:' | translate}}</b></label>
             <app-input
               type="text"
-              placeholder="Pet Name"
+              placeholder="{{'Pet Name'| translate}}"
               #petName
               value="{{ currentPet.petName }}"
             ></app-input>
           </div>
           <div class="mb-4">
-            <label for="pet-name" class="form-label"><b>Genre:</b></label>
+            <label for="pet-name" class="form-label"><b>{{'Genre:' | translate}}</b></label>
             <app-input
               type="text"
-              placeholder="Pet Genre"
+              placeholder="{{'Pet Genre'| translate}}"
               #petGenre
               value="{{ currentPet.petGenre }}"
             ></app-input>
           </div>
           <div class="mb-4">
-            <label for="pet-name" class="form-label"><b>Size:</b></label>
+            <label for="pet-name" class="form-label"><b>{{'Size:' | translate}}</b></label>
             <app-input
               type="text"
-              placeholder="Pet Size"
+              placeholder="{{'Pet Size'| translate}}"
               #petSize
               value="{{ currentPet.petSize }}"
             ></app-input>
           </div>
           <div class="mb-4">
-            <label for="pet-name" class="form-label"><b>Birthdate:</b></label>
+            <label for="pet-name" class="form-label"><b>{{'Birthdate:' | translate}}</b></label>
             <app-input
               type="date"
-              placeholder="Pet Birthdate"
+              placeholder="{{'Pet Birthdate'| translate}}"
               value="{{ currentPet.petBirthdate }}"
               #petBirthdate
             ></app-input>
           </div>
           <div>
-            <label for="pet-name" class="form-label"><b>Breed:</b></label>
+            <label for="pet-name" class="form-label"><b>{{'Breed:' | translate}}</b></label>
             <app-input
               type="text"
-              placeholder="Pet Breed"
+              placeholder="{{'Pet Breed'| translate}}"
               #petBreed
               value="{{ currentPet.petBreed }}"
             ></app-input>
@@ -72,7 +72,7 @@
           role="group"
         >
           <app-button
-            text="Save"
+            text="{{'Save'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="
@@ -86,20 +86,20 @@
             "
           ></app-button>
           <app-button
-            text="Lost"
+            text="{{'Lost'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="postLostPetNav()"
           ></app-button>
           <app-button
-            text="Delete"
+            text="{{'Delete'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             type="danger"
             *ngIf="mode == 'edit'"
             (click)="deletePet()"
           ></app-button>
           <app-button
-            text="Create Pet"
+            text="{{'Create Pet'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'new'"
             (click)="
@@ -120,13 +120,13 @@
   <div *ngIf="page == 'lostpet'">
     <div class="row">
       <div class="col col-sm-12 col-md-6">
-        <h1 class="edit-title"><b>LOST PET</b></h1>
+        <h1 class="edit-title"><b>{{'LOST PETS'| translate}}</b></h1>
         <p class="post-info">
           Amet repellendus alias eos in nam eveniet Consequatur voluptatem ad
           totam voluptas distinctio, autem aliquid unde. Libero vero rem est
           atque quas. Impedit ipsum et doloremque eum beatae? Laborum error.
         </p>
-        <b><p>Additional Info:</p></b>
+        <b><p>{{'Additional Info:'| translate}}</p></b>
         <label for="additional" class="form-label"
           ></label>
           
@@ -134,7 +134,7 @@
             name="additional"
             rows="8"
             cols="40"
-            placeholder="Additional Info"
+            placeholder="{{'Additional Info'| translate}}"
             value="{{ currentLostPet.lostPetAdditionalInfo }}"
             #additionalInfo
           ></textarea>
@@ -153,25 +153,25 @@
           role="group"
         >
           <app-button
-            text="Publish"
+            text="{{'Publish'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'post'"
             (click)="postLostPet(additionalInfo.value)"
           ></app-button>
           <app-button
-            text="Save"
+            text="{{'Save'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="editLostPet(additionalInfo.value)"
           ></app-button>
           <app-button
-            text="Pet Found"
+            text="{{'Pet Found'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="petFound()"
           ></app-button>
           <app-button
-            text="Print Lost Pet"
+            text="{{'Print Lost Pet'| translate}}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="printLostPetNav()"
@@ -184,19 +184,19 @@
   <div *ngIf="page == 'vaccine'">
     <div class="row">
       <div class="col col-sm-12 col-md-6">
-        <h1 class="edit-title"><b>VACCINE</b></h1>
+        <h1 class="edit-title"><b>{{'VACCINES'| translate}}</b></h1>
         <form class="mt-5">
           <div class="mb-4">
-            <label class="form-label"><b>Name:</b></label>
+            <label class="form-label"><b>{{'Name:'| translate}}</b></label>
             <app-input
               type="text"
-              placeholder="Vaccine Name"
+              placeholder="{{'Vaccine Name'| translate}}"
               value="{{ currentVaccine.vaccine.vaccinesName }}"
               #vaccineName
             ></app-input>
           </div>
           <div class="mb-4">
-            <label class="form-label"><b>Date:</b></label>
+            <label class="form-label"><b>{{'Date:'| translate}}</b></label>
             <app-input
               type="date"
               value="{{ currentVaccine.petVaccineDate }}"
@@ -204,7 +204,7 @@
             ></app-input>
           </div>
           <div class="mb-4">
-            <label class="form-label"><b>Next:</b></label>
+            <label class="form-label"><b>{{'Next:'| translate}}</b></label>
             <app-input
               type="date"
               value="{{ currentVaccine.petVaccineNext }}"
@@ -213,7 +213,7 @@
           </div>
           <div class="mb-4">
             <label class="form-label">
-              <b>Vaccine for:</b>
+              <b>{{'Vaccine for:'| translate}}</b>
             </label>
             <div *ngIf="mode === 'edit'">
               {{ selectedPetNameOfCombo }}
@@ -228,11 +228,11 @@
                 selected
                 *ngIf="loggedOwner.ownerPets.length > 0; else elseBlock"
               >
-                Select a pet to apply vaccine
+                {{'Select a pet to apply vaccine'| translate}}
               </option>
               <ng-template #elseBlock>
                 <option selected>
-                  You have no pets yet to create a vaccine
+                  {{'You have no pets yet to create a vaccine'| translate}}
                 </option>
               </ng-template>
               <option
@@ -248,14 +248,14 @@
       <div class="col col-sm-12 col-md-6">
         <div class="row description ms-5">
           <label for="vaccine-description" class="form-label"
-            ><b>Description:</b></label
+            ><b>{{'Description:'| translate}}</b></label
           >
           <textarea
             class="mb-4"
             name="vaccine-description"
             rows="8"
             cols="40"
-            placeholder="Vaccine Description"
+            placeholder="{{'Vaccine Description'| translate}}"
             #vaccineDescription
             value="{{ currentVaccine.vaccine.vaccinesDescription }}"
           ></textarea>
@@ -269,7 +269,7 @@
             role="group"
           >
             <app-button
-              text="Save"
+              text="{{'Save'| translate}}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
               (click)="
@@ -282,14 +282,14 @@
               "
             ></app-button>
             <app-button
-              text="Delete"
+              text="{{'Delete'| translate}}"
               [ngStyle]="{ width: 12 + 'em' }"
               type="danger"
               *ngIf="mode == 'edit'"
               (click)="deleteVaccine()"
             ></app-button>
             <app-button
-              text="Create Vaccine"
+              text="{{'Create Vaccine'| translate}}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'new'"
               (click)="
@@ -311,34 +311,34 @@
     <div class="row">
       <div class="col col-sm-12 col-md-6">
         <h1 class="edit-title">
-          <b>ACCOUNT SETTINGS</b>
+          <b>{{'ACCOUNT SETTINGS'| translate}}</b>
         </h1>
         <form class="mt-5">
           <div class="mb-4">
-            <label for="username" class="form-label"><b>Username:</b></label>
+            <label for="username" class="form-label"><b>{{'Username:'| translate}}</b></label>
             <app-input
               type="text"
-              placeholder="Username"
+              placeholder="{{'Username'| translate}}"
               value="{{ loggedOwner.ownerName }}"
               #username
             ></app-input>
           </div>
           <div class="mb-4">
-            <label for="email" class="form-label"><b>Email:</b></label>
+            <label for="email" class="form-label"><b>{{'Email:'| translate}}</b></label>
             <app-input
               type="email"
-              placeholder="Email"
+              placeholder="{{'Email'| translate}}"
               value="{{ loggedOwner.ownerEmail }}"
               #email
             ></app-input>
           </div>
           <div class="mb-4">
             <label for="phonenumber" class="form-label"
-              ><b>Phone Number:</b></label
+              ><b>{{'Phone Number:'| translate}}</b></label
             >
             <app-input
               type="tel"
-              placeholder="Phone Number"
+              placeholder="{{'Phone Number'| translate}}"
               value="{{ loggedOwner.ownerPhoneNumber }}"
               #phoneNumber
             ></app-input>
@@ -352,7 +352,7 @@
             role="group"
           >
             <app-button
-              text="Save"
+              text="{{'Save'| translate}}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
               (onClick)="
@@ -360,13 +360,13 @@
               "
             ></app-button>
             <app-button
-              text="Change Password"
+              text="{{'Change Password'| translate}}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
               (onClick)="changePasswordNav()"
             ></app-button>
             <app-button
-              text="Delete"
+              text="{{'Delete'| translate}}"
               [ngStyle]="{ width: 12 + 'em' }"
               type="danger"
               *ngIf="mode == 'edit'"
@@ -382,36 +382,36 @@
     <div class="row">
       <div class="col col-sm-12 col-md-6">
         <h1 class="edit-title">
-          <b>ACCOUNT SETTINGS</b>
+          <b>{{'ACCOUNT SETTINGS'| translate}}</b>
         </h1>
         <form class="mt-5">
           <div class="mb-4">
             <label for="username" class="form-label"
-              ><b>Old Password:</b></label
+              ><b>{{'Old Password:'| translate}}</b></label
             >
             <app-input
               type="password"
-              placeholder="Old Password"
+              placeholder="{{'Old Password'| translate}}"
               #oldPassword
             ></app-input>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
-              ><b>New Password:</b></label
+              ><b>{{'New Password:'| translate}}</b></label
             >
             <app-input
               type="password"
-              placeholder="New Password"
+              placeholder="{{'New Password'| translate}}"
               #newPassword
             ></app-input>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
-              ><b>Repeat Password:</b></label
+              ><b>{{'Repeat Password:'| translate}}</b></label
             >
             <app-input
               type="password"
-              placeholder="Repeat Password"
+              placeholder="{{'Repeat Password'| translate}}"
               #repeatPassword
             ></app-input>
           </div>
@@ -424,7 +424,7 @@
             role="group"
           >
             <app-button
-              text="Change Password"
+              text="{{'Change Password'| translate}}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'new'"
               (onClick)="
