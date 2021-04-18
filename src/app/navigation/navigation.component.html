@@ -19,14 +19,18 @@
             class="nav-link active"
             aria-current="page"
             [routerLink]="['list/lostpets']"
-            >Lost Pet</a
+            >{{ "Lost Pets" | translate }}</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['list/vaccines']">Vaccines</a>
+          <a class="nav-link" [routerLink]="['list/vaccines']">{{
+            "Vaccines" | translate
+          }}</a>
         </li>
         <li class="nav-item me-3">
-          <a class="nav-link" [routerLink]="['list/pets']">Pets</a>
+          <a class="nav-link" [routerLink]="['list/pets']">{{
+            "Pets" | translate
+          }}</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -43,12 +47,14 @@
             aria-labelledby="navbarDropdownMenuLink"
           >
             <li>
-              <a class="dropdown-item" [routerLink]="['edit/account']"
-                >Account Settings</a
-              >
+              <a class="dropdown-item" [routerLink]="['edit/account']">{{
+                "Account Settings" | translate
+              }}</a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="logOut()">Log Out</a>
+              <a class="dropdown-item" [routerLink]="['auth']">{{
+                "Log Out" | translate
+              }}</a>
             </li>
           </ul>
         </li>
