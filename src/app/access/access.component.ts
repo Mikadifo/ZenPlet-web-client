@@ -35,6 +35,9 @@ export class AccessComponent implements OnInit {
   }
 
   loginOwner(login: string, password: string) {
+    if (!this.dataIsOk) {
+      alert('Must fill in all the fields'); 
+    } else{
     let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
       mode: CryptoJS.mode.ECB,
     }).toString();
@@ -58,6 +61,7 @@ export class AccessComponent implements OnInit {
         console.log(error);
       }
     );
+    }
   }
 
   signup(
@@ -66,6 +70,9 @@ export class AccessComponent implements OnInit {
     password: string,
     phoneNumber: string
   ) {
+    if (!this.dataIsOk) {
+      alert('Must fill in all the fields'); 
+    } else{
     console.log('signingup...');
     this.owner.ownerName = username;
     this.owner.ownerEmail = email;
@@ -87,6 +94,7 @@ export class AccessComponent implements OnInit {
         console.log(error);
       }
     );
+    }
   }
 
   searchUser() {

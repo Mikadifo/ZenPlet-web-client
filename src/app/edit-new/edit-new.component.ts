@@ -174,6 +174,9 @@ export class EditNewComponent implements OnInit {
     newPassword: string,
     repeatPassword: string
   ) {
+    if(!this.dataIsOk){
+      alert('Must fill in all the fields'); 
+    }else{
     this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
       (data) => {
         this.loggedOwner = data;
@@ -223,6 +226,7 @@ export class EditNewComponent implements OnInit {
         console.log(error);
       }
     );
+    }
   }
 
   deleteAccount() {
@@ -270,6 +274,9 @@ export class EditNewComponent implements OnInit {
   }
 
   saveChanges(username: string, email: string, phoneNumber: string) {
+    if(!this.dataIsOk){
+      alert('Must fill in all the fields'); 
+    }else{
     this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
       (data) => {
         this.loggedOwner = data;
@@ -303,6 +310,7 @@ export class EditNewComponent implements OnInit {
         console.log(error);
       }
     );
+    }
   }
 
   editOrCreatePet(
@@ -312,8 +320,8 @@ export class EditNewComponent implements OnInit {
     genre: string,
     birthdate: string
   ) {
-    if (this.imgURL === undefined) {
-      alert('Pet Image is mandatory');
+    if (!this.dataIsOk||this.imgURL === undefined) {
+      alert('Must fill in all the fields'); 
     } else if (this.mode === 'edit') {
       console.log('editing');
       this.currentPet.petName = name;
@@ -407,6 +415,9 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPet(additionalInfo: string) {
+    if (!this.dataIsOk) {
+      alert('Must fill in all the fields'); 
+    } else{
     console.log(this.currentPet);
     console.log(this.lostPetLocation);
     let lost: LostPet = {
@@ -443,8 +454,12 @@ export class EditNewComponent implements OnInit {
       }
     );
   }
+  }
 
   editLostPet(additionalInfo: string) {
+    if (!this.dataIsOk) {
+      alert('Must fill in all the fields'); 
+    } else{
     console.log(this.lostPetLocation);
     let lostPetEdit: LostPet = {
       owner: new Owner(),
@@ -471,6 +486,7 @@ export class EditNewComponent implements OnInit {
           console.log(error);
         }
       );
+    }
   }
 
   petFound() {
@@ -510,6 +526,9 @@ export class EditNewComponent implements OnInit {
     } else if (isNaN(parseInt(this.petIdForVaccine))) {
       alert('You must select a pet to apply the vaccine');
     } else if (this.mode === 'new') {
+      if (!this.dataIsOk) {
+        alert('Must fill in all the fields'); 
+      } else{
       console.log('newing');
       let vaccine: Vaccine = {
         vaccinesId: 0,
@@ -551,7 +570,11 @@ export class EditNewComponent implements OnInit {
           console.log(error);
         }
       );
+      }
     } else {
+      if (!this.dataIsOk) {
+        alert('Must fill in all the fields'); 
+      } else{
       console.log('editing');
       let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
       vaccineToUpdate.vaccinesDescription = vaccinesDescription;
@@ -612,6 +635,7 @@ export class EditNewComponent implements OnInit {
           }
         );
     }
+  }
   }
 
   deleteVaccine() {
