@@ -65,6 +65,15 @@
     "Phone Number(Optional)":"Phone Number(Optional)",
     "Info:":"Info:",
     "Create Vaccine":"Create Vaccine",
-    "Change Password":"Change Password"
+    "Change Password":"Change Password",
+    "Enter only numbers, characters, or _. Minimum 3 charactersgi and maximum 30":"Enter only numbers, characters, or _. Minimum 3 characters and maximum 30",
+    "Email is incorrect":"Email is incorrect",
+    "Enter only numbers. Minimum 4 and maximum 15":"Enter only numbers. Minimum 4 and maximum 15",
+    "":"",
+    "":"",
+    "":"",
+    "":"",
+    "":"",
+    "":""
   
 }

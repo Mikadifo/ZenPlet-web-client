@@ -7,11 +7,13 @@
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>{{'Name:' | translate}}</b></label>
             <app-input
+              (input)="validateSoloLetras(petName.value)"
               type="text"
               placeholder="{{'Pet Name'| translate}}"
               #petName
               value="{{ currentPet.petName }}"
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">Enter only letters. Minimum 3 and maximum 30 </span>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"><b>{{'Genre:' | translate}}</b></label>
@@ -43,11 +45,13 @@
           <div>
             <label for="pet-name" class="form-label"><b>{{'Breed:' | translate}}</b></label>
             <app-input
+              (input)="validateSoloLetras(petBreed.value)"
               type="text"
               placeholder="{{'Pet Breed'| translate}}"
               #petBreed
               value="{{ currentPet.petBreed }}"
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">Enter only letters. Minimum 3 and maximum 30 </span>
           </div>
         </form>
       </div>
@@ -129,8 +133,8 @@
         <b><p>{{'Additional Info:'| translate}}</p></b>
         <label for="additional" class="form-label"
           ></label>
-          
           <textarea
+          (input)="validateAdditionalInfo(additionalInfo.value)"
             name="additional"
             rows="8"
             cols="40"
@@ -138,6 +142,7 @@
             value="{{ currentLostPet.lostPetAdditionalInfo }}"
             #additionalInfo
           ></textarea>
+          <span class="error" *ngIf="!dataIsOk">Enter only letters. Minimum 3 and maximum 300 </span>
       </div>
       <div class="col col-sm-12 col-md-6">
         <div class="row description ms-5">
@@ -189,11 +194,13 @@
           <div class="mb-4">
             <label class="form-label"><b>{{'Name:'| translate}}</b></label>
             <app-input
+            (input)="validateSoloLetras(vaccineName.value)"
               type="text"
               placeholder="{{'Vaccine Name'| translate}}"
               value="{{ currentVaccine.vaccine.vaccinesName }}"
               #vaccineName
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">Enter only letters. Minimum 3 and maximum 30 </span>
           </div>
           <div class="mb-4">
             <label class="form-label"><b>{{'Date:'| translate}}</b></label>
@@ -251,6 +258,7 @@
             ><b>{{'Description:'| translate}}</b></label
           >
           <textarea
+          (input)="validateAdditionalInfo(vaccineDescription.value)"
             class="mb-4"
             name="vaccine-description"
             rows="8"
@@ -259,6 +267,7 @@
             #vaccineDescription
             value="{{ currentVaccine.vaccine.vaccinesDescription }}"
           ></textarea>
+          <span class="error" *ngIf="!dataIsOk">Enter only letters. Minimum 3 and maximum 300 </span>
         </div>
       </div>
 
@@ -317,31 +326,38 @@
           <div class="mb-4">
             <label for="username" class="form-label"><b>{{'Username:'| translate}}</b></label>
             <app-input
+            (input)="validateUsername(username.value)"
               type="text"
               placeholder="{{'Username'| translate}}"
               value="{{ loggedOwner.ownerName }}"
               #username
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">Enter only numbers, characters, or _. Minimum 3 characters and maximum 30</span>
           </div>
           <div class="mb-4">
             <label for="email" class="form-label"><b>{{'Email:'| translate}}</b></label>
             <app-input
+            (input)="validateEmail(email.value)"
               type="email"
               placeholder="{{'Email'| translate}}"
               value="{{ loggedOwner.ownerEmail }}"
               #email
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">Email is incorrect</span>
+
           </div>
           <div class="mb-4">
             <label for="phonenumber" class="form-label"
               ><b>{{'Phone Number:'| translate}}</b></label
             >
             <app-input
+            (input)="validatePhone(phoneNumber.value)"
               type="tel"
               placeholder="{{'Phone Number'| translate}}"
               value="{{ loggedOwner.ownerPhoneNumber }}"
               #phoneNumber
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">Enter only numbers. Minimum 4 and maximum 15</span>
           </div>
         </form>
       </div>
@@ -390,30 +406,36 @@
               ><b>{{'Old Password:'| translate}}</b></label
             >
             <app-input
+            (input)="validatePassword(oldPassword.value)"
               type="password"
               placeholder="{{'Old Password'| translate}}"
               #oldPassword
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase </span>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
               ><b>{{'New Password:'| translate}}</b></label
             >
             <app-input
+            (input)="validatePassword(newPassword.value)"
               type="password"
               placeholder="{{'New Password'| translate}}"
               #newPassword
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase </span>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
               ><b>{{'Repeat Password:'| translate}}</b></label
             >
             <app-input
+            (input)="validatePassword(repeatPassword.value)"
               type="password"
               placeholder="{{'Repeat Password'| translate}}"
               #repeatPassword
             ></app-input>
+            <span class="error" *ngIf="!dataIsOk">The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase </span>
           </div>
         </form>
       </div>

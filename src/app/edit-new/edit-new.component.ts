@@ -22,6 +22,7 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./edit-new.component.css'],
 })
 export class EditNewComponent implements OnInit {
+  dataIsOk!: boolean;
   map!: mapboxgl.Map;
   mapbox = mapboxgl as typeof mapboxgl;
   style = `mapbox://styles/mapbox/streets-v11`;
@@ -661,4 +662,56 @@ export class EditNewComponent implements OnInit {
       .replace(/\//g, '_')
       .replace(/\=+$/, '');
   }
+  
+validatePetName(petName: string) {
+
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú]{3,30}$)/;
+  this.dataIsOk = regex.test(petName);
+
+}
+
+validateAdditionalInfo(additionalInfo: string) {
+
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,300}$)/;
+  this.dataIsOk = regex.test(additionalInfo);
+
+}
+validateUsername(username: string) {
+
+  let regex = /(^\w{3,20}$)/;
+  this.dataIsOk = regex.test(username);
+
+}
+validateLogin(username: string) {
+
+  let regex = /(^\w{3,20}$)/ || /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+  this.dataIsOk = regex.test(username);
+
+}
+validateSoloLetras(username: string) {
+
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
+  this.dataIsOk = regex.test(username);
+}
+
+validateEmail(email: string) {
+
+  let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+  this.dataIsOk = regex.test(email);
+
+}
+validatePhone(phone: string) {
+
+  let regex = /(^\d{4,15}$)/;
+  this.dataIsOk = regex.test(phone);
+
+}
+validatePassword(password: string) {
+
+  let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
+  this.dataIsOk = regex.test(password);
+
+
+}
+
 }

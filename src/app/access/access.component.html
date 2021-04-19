@@ -30,7 +30,7 @@
           ></app-button>
         </div>
         <p class="text-end">
-          {{ "Sign in with" | translate }} <b>Facebook</b>
+          {{ 'Sign in with' | translate }} <b>Facebook</b>
           {{ "or" | translate }} <b>Google</b>
         </p>
       </div>
@@ -62,7 +62,7 @@
               ></app-input>
               <div id="passwordHelp" class="form-text text-end">
                 <a class="forgot-pass" (click)="forgotNav()"
-                  >Forgot your password?</a
+                  >{{'Forgot your password?'| translate}}</a
                 >
               </div>
             </div>
@@ -74,7 +74,7 @@
               ></app-button>
             </div>
             <p class="text-end no-account-yet">
-              Don't have an account? <a (click)="signUpNav()">Sign Up</a>
+              {{'Don't have an account?| translate'}} <a (click)="signUpNav()">{{'Sign Up'| translate}}</a>
             </p>
           </div>
         </form>
@@ -91,35 +91,43 @@
           <div class="mx-auto">
             <div class="mb-3">
               <app-input
+              (input)="validateSoloLetras(username.value)"
                 type="text"
                 placeholder="{{ 'Username' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #username
               ></app-input>
+              <span class="error" *ngIf="!dataIsOk">Enter only numbers, characters, or _. Minimum 3 characters and maximum 30</span>
             </div>
             <div class="mb-3">
               <app-input
+              (input)="validateEmail(email.value)"
                 type="email"
                 placeholder="{{ 'Email' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #email
               ></app-input>
+              <span class="error" *ngIf="!dataIsOk">Email is incorrect</span>
             </div>
             <div class="mb-3">
               <app-input
+              (input)="validatePhone(phoneNumber.value)"
                 type="tel"
                 placeholder="{{ 'Phone Number (Optional)' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #phoneNumber
               ></app-input>
+              <span class="error" *ngIf="!dataIsOk">Enter only numbers. Minimum 4 and maximum 15</span>
             </div>
             <div class="mb-5">
               <app-input
+              (input)="validatePassword(password.value)"
                 type="password"
                 placeholder="{{ 'Password' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #password
               ></app-input>
+              <span class="error" *ngIf="!dataIsOk">The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase </span>
             </div>
             <div class="mb-1">
               <app-button
@@ -136,7 +144,7 @@
               ></app-button>
             </div>
             <p class="text-end no-account-yet">
-              Already have an account? <a (click)="logInNav()">Log In</a>
+              {{'Already have an account?'| translate }} <a (click)="logInNav()">{{'Log In'| translate }}</a>
             </p>
           </div>
         </form>

@@ -10,7 +10,7 @@ import { TranslateService } from "@ngx-translate/core";
 export class AppComponent {
   title = "zenplet-web-client";
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private translate: TranslateService) {
     this.translate.setDefaultLang("es");
     this.translate.use("es");
     router.navigate([
