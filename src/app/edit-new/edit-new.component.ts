@@ -174,7 +174,7 @@ export class EditNewComponent implements OnInit {
     newPassword: string,
     repeatPassword: string
   ) {
-    if(!this.dataIsOk){
+    if(this.dataIsOk){
       alert('Must fill in all the fields'); 
     }else{
     this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
@@ -696,7 +696,7 @@ validatePetName(petName: string) {
 
 validateAdditionalInfo(additionalInfo: string) {
 
-  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,300}$)/;
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{10,300}$)/;
   this.dataIsOk = regex.test(additionalInfo);
 
 }

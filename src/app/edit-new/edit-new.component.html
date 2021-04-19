@@ -51,7 +51,7 @@
               #petBreed
               value="{{ currentPet.petBreed }}"
             ></app-input>
-            <span class="error" *ngIf="!dataIsOk">{{'Enter only letters. Minimum 3 and maximum 30'}}</span>
+            <span class="error" *ngIf="!dataIsOk">{{'Enter only letters. Minimum 3 and maximum 30'| translate}}</span>
           </div>
         </form>
       </div>
@@ -142,7 +142,7 @@
             value="{{ currentLostPet.lostPetAdditionalInfo }}"
             #additionalInfo
           ></textarea>
-          <span class="error" *ngIf="!dataIsOk">{{'Enter only letters. Minimum 3 and maximum 300'| translate}} </span>
+          <span class="error" *ngIf="!dataIsOk">{{'Enter only letters. Minimum 10 and maximum 300'| translate}} </span>
       </div>
       <div class="col col-sm-12 col-md-6">
         <div class="row description ms-5">
@@ -267,7 +267,7 @@
             #vaccineDescription
             value="{{ currentVaccine.vaccine.vaccinesDescription }}"
           ></textarea>
-          <span class="error" *ngIf="!dataIsOk">{{'Enter only letters. Minimum 3 and maximum 300'| translate}}</span>
+          <span class="error" *ngIf="!dataIsOk">{{'Enter only letters. Minimum 10 and maximum 300'| translate}}</span>
         </div>
       </div>
 

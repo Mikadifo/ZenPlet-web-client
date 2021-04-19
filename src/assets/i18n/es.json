@@ -70,6 +70,6 @@
     "Email is incorrect":"El correo electrónico es incorrecto",
     "Enter only numbers. Minimum 4 and maximum 15":"Introduzca solo números. Mínimo 4 y máximo 15",
     "Must fill in all the fields":"Debe rellenar todos los campos",
-    "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase":"The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase",
-    "":""
+    "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase":"La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula",
+    "Enter only letters. Minimum 3 and maximum 30":"Introduzca solo letras. Mínimo 3 y máximo 30"
 }
