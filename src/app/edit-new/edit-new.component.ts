@@ -22,6 +22,7 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./edit-new.component.css'],
 })
 export class EditNewComponent implements OnInit {
+  dataIsOk!: boolean;
   map!: mapboxgl.Map;
   mapbox = mapboxgl as typeof mapboxgl;
   style = `mapbox://styles/mapbox/streets-v11`;
@@ -173,6 +174,9 @@ export class EditNewComponent implements OnInit {
     newPassword: string,
     repeatPassword: string
   ) {
+    if(this.dataIsOk){
+      alert('Must fill in all the fields'); 
+    }else{
     this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
       (data) => {
         this.loggedOwner = data;
@@ -222,6 +226,7 @@ export class EditNewComponent implements OnInit {
         console.log(error);
       }
     );
+    }
   }
 
   deleteAccount() {
@@ -269,6 +274,9 @@ export class EditNewComponent implements OnInit {
   }
 
   saveChanges(username: string, email: string, phoneNumber: string) {
+    if(!this.dataIsOk){
+      alert('Must fill in all the fields'); 
+    }else{
     this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
       (data) => {
         this.loggedOwner = data;
@@ -302,6 +310,7 @@ export class EditNewComponent implements OnInit {
         console.log(error);
       }
     );
+    }
   }
 
   editOrCreatePet(
@@ -311,8 +320,8 @@ export class EditNewComponent implements OnInit {
     genre: string,
     birthdate: string
   ) {
-    if (this.imgURL === undefined) {
-      alert('Pet Image is mandatory');
+    if (!this.dataIsOk||this.imgURL === undefined) {
+      alert('Must fill in all the fields'); 
     } else if (this.mode === 'edit') {
       console.log('editing');
       this.currentPet.petName = name;
@@ -406,6 +415,9 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPet(additionalInfo: string) {
+    if (!this.dataIsOk) {
+      alert('Must fill in all the fields'); 
+    } else{
     console.log(this.currentPet);
     console.log(this.lostPetLocation);
     let lost: LostPet = {
@@ -442,8 +454,12 @@ export class EditNewComponent implements OnInit {
       }
     );
   }
+  }
 
   editLostPet(additionalInfo: string) {
+    if (!this.dataIsOk) {
+      alert('Must fill in all the fields'); 
+    } else{
     console.log(this.lostPetLocation);
     let lostPetEdit: LostPet = {
       owner: new Owner(),
@@ -470,6 +486,7 @@ export class EditNewComponent implements OnInit {
           console.log(error);
         }
       );
+    }
   }
 
   petFound() {
@@ -509,6 +526,9 @@ export class EditNewComponent implements OnInit {
     } else if (isNaN(parseInt(this.petIdForVaccine))) {
       alert('You must select a pet to apply the vaccine');
     } else if (this.mode === 'new') {
+      if (!this.dataIsOk) {
+        alert('Must fill in all the fields'); 
+      } else{
       console.log('newing');
       let vaccine: Vaccine = {
         vaccinesId: 0,
@@ -550,7 +570,11 @@ export class EditNewComponent implements OnInit {
           console.log(error);
         }
       );
+      }
     } else {
+      if (!this.dataIsOk) {
+        alert('Must fill in all the fields'); 
+      } else{
       console.log('editing');
       let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
       vaccineToUpdate.vaccinesDescription = vaccinesDescription;
@@ -612,6 +636,7 @@ export class EditNewComponent implements OnInit {
         );
     }
   }
+  }
 
   deleteVaccine() {
     if (confirm('Are you sure to delete the vaccine?')) {
@@ -661,4 +686,56 @@ export class EditNewComponent implements OnInit {
       .replace(/\//g, '_')
       .replace(/\=+$/, '');
   }
+  
+validatePetName(petName: string) {
+
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú]{3,30}$)/;
+  this.dataIsOk = regex.test(petName);
+
+}
+
+validateAdditionalInfo(additionalInfo: string) {
+
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{10,300}$)/;
+  this.dataIsOk = regex.test(additionalInfo);
+
+}
+validateUsername(username: string) {
+
+  let regex = /(^\w{3,20}$)/;
+  this.dataIsOk = regex.test(username);
+
+}
+validateLogin(username: string) {
+
+  let regex = /(^\w{3,20}$)/ || /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+  this.dataIsOk = regex.test(username);
+
+}
+validateSoloLetras(username: string) {
+
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
+  this.dataIsOk = regex.test(username);
+}
+
+validateEmail(email: string) {
+
+  let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+  this.dataIsOk = regex.test(email);
+
+}
+validatePhone(phone: string) {
+
+  let regex = /(^\d{4,15}$)/;
+  this.dataIsOk = regex.test(phone);
+
+}
+validatePassword(password: string) {
+
+  let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
+  this.dataIsOk = regex.test(password);
+
+
+}
+
 }

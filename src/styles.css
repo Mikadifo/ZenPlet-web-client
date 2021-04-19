@@ -6,3 +6,7 @@
 body {
   background-color: #EEEBD3;
 }
+.error {
+  font-size: small;
+   color: brown;
+}

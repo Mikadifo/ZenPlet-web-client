@@ -11,8 +11,8 @@ export class AppComponent {
   title = 'zenplet-web-client';
 
   constructor(private router: Router, private translate: TranslateService) {
-    this.translate.setDefaultLang('es');
-    this.translate.use('es');
+    this.translate.setDefaultLang('en');
+    this.translate.use(this.translate.getBrowserLang());
     router.navigate([
       localStorage.getItem('owner') === null ? '/auth' : '/list/pets',
     ]);
