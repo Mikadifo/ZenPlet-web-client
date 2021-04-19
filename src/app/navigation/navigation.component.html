@@ -52,7 +52,7 @@
               }}</a>
             </li>
             <li>
-              <a class="dropdown-item" [routerLink]="['auth']">{{
+              <a class="dropdown-item" (click)="logOut()">{{
                 "Log Out" | translate
               }}</a>
             </li>
