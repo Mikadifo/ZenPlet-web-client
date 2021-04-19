@@ -71,5 +71,6 @@
     "Enter only numbers. Minimum 4 and maximum 15":"Enter only numbers. Minimum 4 and maximum 15",
     "Must fill in all the fields":"Must fill in all the fields",
     "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase":"The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase",
-    "Enter only letters. Minimum 3 and maximum 30":"Enter only letters. Minimum 3 and maximum 30"
+    "Enter only letters. Minimum 3 and maximum 30":"Enter only letters. Minimum 3 and maximum 30",
+    "data.missing": "Some fields are missing."
 }
