@@ -10,6 +10,7 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./access.component.css'],
 })
 export class AccessComponent implements OnInit {
+  dataIsOk!: boolean;
   @Input() page: string = 'menu';
 
   owner: Owner = new Owner();
@@ -97,5 +98,31 @@ export class AccessComponent implements OnInit {
       .replace(/\+/g, '-')
       .replace(/\//g, '_')
       .replace(/\=+$/, '');
+  }
+ 
+  validateUsername(username: string) {
+
+    let regex = /(^\w{3,20}$)/;
+    this.dataIsOk = regex.test(username);
+  
+  }
+  validateEmail(email: string) {
+
+    let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+    this.dataIsOk = regex.test(email);
+  
+  }
+  validatePhone(phone: string) {
+  
+    let regex = /(^\d{4,15}$)/;
+    this.dataIsOk = regex.test(phone);
+  
+  }
+  validatePassword(password: string) {
+  
+    let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
+    this.dataIsOk = regex.test(password);
+  
+  
   }
 }
