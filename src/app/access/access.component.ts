@@ -12,6 +12,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AccessComponent implements OnInit {
   dataIsOk!: boolean;
+  username!: boolean;
+  email!: boolean;
+  phone!: boolean;
+  login!: boolean;
+  password!: boolean;
   dataMissingAlert: string = '';
   @Input() page: string = 'menu';
 
@@ -49,9 +54,8 @@ export class AccessComponent implements OnInit {
   }
 
   loginOwner(login: string, password: string) {
-    if (!this.dataIsOk) {
+    if (this.dataIsOk) {
       alert(this.dataMissingAlert);
-      //alert('Must fill in all the fields');
     } else {
       let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
         mode: CryptoJS.mode.ECB,
@@ -126,17 +130,26 @@ export class AccessComponent implements OnInit {
   validateUsername(username: string) {
     let regex = /(^\w{3,20}$)/;
     this.dataIsOk = regex.test(username);
+    this.username = regex.test(username);
+  }
+  validateLogin(username: string) {
+    let regex = /(^\w{3,20}$)/ || /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+    this.dataIsOk = regex.test(username);
+    this.login = regex.test(username);
   }
   validateEmail(email: string) {
     let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
     this.dataIsOk = regex.test(email);
+    this.email = regex.test(email);
   }
   validatePhone(phone: string) {
     let regex = /(^\d{4,15}$)/;
     this.dataIsOk = regex.test(phone);
+    this.phone = regex.test(phone);
   }
   validatePassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
     this.dataIsOk = regex.test(password);
+    this.password = regex.test(password);
   }
 }

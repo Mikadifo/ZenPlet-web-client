@@ -23,6 +23,17 @@ import * as CryptoJS from 'crypto-js';
 })
 export class EditNewComponent implements OnInit {
   dataIsOk!: boolean;
+  name!: boolean;
+  description!: boolean;
+  email!: boolean;
+  username!: boolean;
+  oldpassword!: boolean;
+  newpassword!: boolean;
+  repeatpassword!: boolean;
+  password!: boolean;
+  breed!: boolean;
+  phone!: boolean;
+  login!: boolean;
   map!: mapboxgl.Map;
   mapbox = mapboxgl as typeof mapboxgl;
   style = `mapbox://styles/mapbox/streets-v11`;
@@ -174,7 +185,7 @@ export class EditNewComponent implements OnInit {
     newPassword: string,
     repeatPassword: string
   ) {
-    if(this.dataIsOk){
+    if(!this.dataIsOk){
       alert('Must fill in all the fields'); 
     }else{
     this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
@@ -687,55 +698,67 @@ export class EditNewComponent implements OnInit {
       .replace(/\=+$/, '');
   }
   
-validatePetName(petName: string) {
-
-  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú]{3,30}$)/;
-  this.dataIsOk = regex.test(petName);
-
-}
-
 validateAdditionalInfo(additionalInfo: string) {
 
   let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{10,300}$)/;
   this.dataIsOk = regex.test(additionalInfo);
+  this.description = regex.test(additionalInfo);
 
 }
 validateUsername(username: string) {
-
   let regex = /(^\w{3,20}$)/;
   this.dataIsOk = regex.test(username);
+  this.username = regex.test(username);
 
 }
 validateLogin(username: string) {
-
   let regex = /(^\w{3,20}$)/ || /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
   this.dataIsOk = regex.test(username);
-
+  this.login = regex.test(username);
 }
-validateSoloLetras(username: string) {
+validateName(name: string) {
 
   let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
-  this.dataIsOk = regex.test(username);
+  this.dataIsOk = regex.test(name);
+  this.name = regex.test(name);
+}
+validateBreed(name: string) {
+
+  let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
+  this.dataIsOk = regex.test(name);
+  this.breed = regex.test(name);
 }
 
 validateEmail(email: string) {
 
   let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
   this.dataIsOk = regex.test(email);
-
+  this.email = regex.test(email);
 }
 validatePhone(phone: string) {
 
   let regex = /(^\d{4,15}$)/;
   this.dataIsOk = regex.test(phone);
-
+  this.phone = regex.test(phone);
 }
-validatePassword(password: string) {
+
+validateOldPassword(password: string) {
 
   let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
   this.dataIsOk = regex.test(password);
+  this.oldpassword = regex.test(password);
+}
+validateNewPassword(password: string) {
 
+  let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
+  this.dataIsOk = regex.test(password);
+  this.newpassword = regex.test(password);
+}
+validateRepeatPassword(password: string) {
 
+  let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
+  this.dataIsOk = regex.test(password);
+  this.repeatpassword = regex.test(password);
 }
 
 }

@@ -98,7 +98,7 @@
                 [ngStyle]="{ width: 100 + '%' }"
                 #username
               ></app-input>
-              <span class="error" *ngIf="!dataIsOk">{{
+              <span class="error" *ngIf="!username">{{
                 "Enter only numbers, characters, or _. Minimum 3 characters and maximum 30"
                   | translate
               }}</span>
@@ -111,7 +111,7 @@
                 [ngStyle]="{ width: 100 + '%' }"
                 #email
               ></app-input>
-              <span class="error" *ngIf="!dataIsOk">{{
+              <span class="error" *ngIf="!email">{{
                 "Email is incorrect" | translate
               }}</span>
             </div>
@@ -123,7 +123,7 @@
                 [ngStyle]="{ width: 100 + '%' }"
                 #phoneNumber
               ></app-input>
-              <span class="error" *ngIf="!dataIsOk">{{
+              <span class="error" *ngIf="!phone">{{
                 "Enter only numbers. Minimum 4 and maximum 15" | translate
               }}</span>
             </div>
@@ -135,7 +135,7 @@
                 [ngStyle]="{ width: 100 + '%' }"
                 #password
               ></app-input>
-              <span class="error" *ngIf="!dataIsOk">{{
+              <span class="error" *ngIf="!password">{{
                 "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
                   | translate
               }}</span>
