@@ -7,7 +7,7 @@ import { Owner } from '../model/owner/owner.model';
   providedIn: 'root',
 })
 export class OwnerService {
-  private BASE_URL = 'http://localhost:8080/api';
+  private BASE_URL = 'https://zenplet.herokuapp.com/api';
   private header = {};
 
   constructor(private http: HttpClient) {

@@ -7,7 +7,7 @@ import { PetVaccine } from '../model/pet-vaccine/pet-vaccine.model';
   providedIn: 'root',
 })
 export class PetVaccinesService {
-  private BASE_URL = 'http://localhost:8080/api';
+  private BASE_URL = 'https://zenplet.herokuapp.com/api';
   private header = {};
 
   constructor(private http: HttpClient) {

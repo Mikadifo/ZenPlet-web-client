@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PetFoundService {
-  private BASE_URL = 'http://localhost:8080/api';
+  private BASE_URL = 'https://zenplet.herokuapp.com/api';
   private header = {};
 
   constructor(private http: HttpClient) {

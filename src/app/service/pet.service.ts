@@ -7,6 +7,7 @@ import { Pets } from '../model/pets.model';
   providedIn: 'root',
 })
 export class PetService {
+  private BASE_URL = 'https://zenplet.herokuapp.com/api';
   private header = {};
 
   constructor(private http: HttpClient) {
@@ -17,8 +18,6 @@ export class PetService {
       ),
     };
   }
-
-  private BASE_URL = 'http://localhost:8080/api';
 
   getPets(): Observable<any> {
     return this.http.get(`${this.BASE_URL}/pets`, this.header);

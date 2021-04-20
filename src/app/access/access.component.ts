@@ -132,21 +132,27 @@ export class AccessComponent implements OnInit {
     this.dataIsOk = regex.test(username);
     this.username = regex.test(username);
   }
+
   validateLogin(username: string) {
-    let regex = /(^\w{3,20}$)/ || /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+    let regex =
+      /(^\w{3,20}$)/ ||
+      /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
     this.dataIsOk = regex.test(username);
     this.login = regex.test(username);
   }
+
   validateEmail(email: string) {
     let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
     this.dataIsOk = regex.test(email);
     this.email = regex.test(email);
   }
+
   validatePhone(phone: string) {
     let regex = /(^\d{4,15}$)/;
     this.dataIsOk = regex.test(phone);
     this.phone = regex.test(phone);
   }
+
   validatePassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
     this.dataIsOk = regex.test(password);
