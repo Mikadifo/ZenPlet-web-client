@@ -442,27 +442,15 @@ export class EditNewComponent implements OnInit {
         lostPetAdditionalInfo: additionalInfo,
         lostPetLocation: this.lostPetLocation,
       };
-      console.log(lost);
       this.lostPetService.saveLostPet(lost).subscribe(
         (data) => {
           console.log(data);
           if (data.owner.ownerId === 0) {
             alert('An error has been ocurred while posting your pet as lost');
           } else {
-            console.log(this.currentPet);
-            this.petService
-              .updatePet(this.currentPet.petId, this.currentPet)
-              .subscribe(
-                (data) => {
-                  console.log(data);
-                  alert('Your pet now is marked as lost');
-                  this.currentLostPet = data;
-                  this._location.back();
-                },
-                (error) => {
-                  console.log(error);
-                }
-              );
+            alert('Your pet now is marked as lost');
+            this.currentLostPet = data;
+            this._location.back();
           }
         },
         (error) => {
