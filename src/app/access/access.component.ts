@@ -49,34 +49,29 @@ export class AccessComponent implements OnInit {
   }
 
   loginOwner(login: string, password: string) {
-    if (!this.dataIsOk) {
-      alert(this.dataMissingAlert);
-      //alert('Must fill in all the fields');
-    } else {
-      let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
-        mode: CryptoJS.mode.ECB,
-      }).toString();
-      let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
-        encryptedPassword
-      );
-      console.log(passwordUrlSafeEncrypted);
-      this.ownerService.login(login, passwordUrlSafeEncrypted).subscribe(
-        (data) => {
-          console.log(data);
-          if (data.ownerId !== 0) {
-            this.owner = data;
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('owner', JSON.stringify(this.owner));
-            this.router.navigate(['/list/pets']);
-          } else {
-            alert('Username or Password are not correct');
-          }
-        },
-        (error) => {
-          console.log(error);
+    let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
+      mode: CryptoJS.mode.ECB,
+    }).toString();
+    let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
+      encryptedPassword
+    );
+    console.log(passwordUrlSafeEncrypted);
+    this.ownerService.login(login, passwordUrlSafeEncrypted).subscribe(
+      (data) => {
+        console.log(data);
+        if (data.ownerId !== 0) {
+          this.owner = data;
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('owner', JSON.stringify(this.owner));
+          this.router.navigate(['/list/pets']);
+        } else {
+          alert('Username or Password are not correct');
         }
-      );
-    }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   signup(
