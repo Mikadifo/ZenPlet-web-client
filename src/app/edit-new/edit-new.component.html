@@ -8,7 +8,7 @@
         <form class="mt-5">
           <div class="mb-4">
             <label for="pet-name" class="form-label"
-              ><b>{{ "Name:" | translate }}</b></label
+              ><b>{{ "NAME:" | translate }}</b></label
             >
             <app-input
               (input)="validateName(petName.value)"
@@ -17,7 +17,7 @@
               #petName
               value="{{ currentPet.petName }}"
             ></app-input>
-            <span class="error" *ngIf="!name"
+            <span class="error" *ngIf="!nameEdit"
               >{{ "Enter only letters. Minimum 3 and maximum 30" | translate }}
             </span>
           </div>
@@ -34,7 +34,7 @@
                 [checked]="genreSelecction == 'M'"
                 (change)="genreSelecction = 'Male'"
               />
-              <label class="form-check-label" for="radioMale">Male</label>
+              <label class="form-check-label" for="radioMale">{{'Male'| translate}}</label>
             </div>
             <div class="form-check form-check-inline">
               <input
@@ -45,7 +45,7 @@
                 [checked]="genreSelecction == 'F'"
                 (change)="genreSelecction = 'Female'"
               />
-              <label class="form-check-label" for="radioFemale">Female</label>
+              <label class="form-check-label" for="radioFemale">{{'Female'| translate}}</label>
             </div>
           </div>
           <div class="mb-4">
@@ -54,7 +54,7 @@
             >
             <select class="form-select combo-input" #petSize>
               <option selected *ngIf="mode === 'new'">
-                Select your pet size:
+                {{'Select your pet size:'|translate}}
               </option>
               <option
                 *ngFor="
@@ -89,7 +89,7 @@
               #petBreed
               value="{{ currentPet.petBreed }}"
             ></app-input>
-            <span class="error" *ngIf="!breed">{{
+            <span class="error" *ngIf="!breedEdit">{{
               "Enter only letters. Minimum 3 and maximum 30" | translate
             }}</span>
           </div>
@@ -166,9 +166,7 @@
           <b>{{ "LOST PETS" | translate }}</b>
         </h1>
         <p class="post-info">
-          Amet repellendus alias eos in nam eveniet Consequatur voluptatem ad
-          totam voluptas distinctio, autem aliquid unde. Libero vero rem est
-          atque quas. Impedit ipsum et doloremque eum beatae? Laborum error.
+         {{'To publish your pet as lost you need to include additional information such as: place where it was last seen, details of your pet, or if you did not configure your phone number, it is advisable to provide contact information'| translate}}
         </p>
         <b
           ><p>{{ "Additional Info:" | translate }}</p></b
@@ -183,7 +181,7 @@
           value="{{ currentLostPet.lostPetAdditionalInfo }}"
           #additionalInfo
         ></textarea>
-        <span class="error" *ngIf="!description"
+        <span class="error" *ngIf="!descriptionEdit"
           >{{ "Enter only letters. Minimum 10 and maximum 300" | translate }}
         </span>
       </div>
@@ -247,7 +245,7 @@
               value="{{ currentVaccine.vaccine.vaccinesName }}"
               #vaccineName
             ></app-input>
-            <span class="error" *ngIf="!name">{{
+            <span class="error" *ngIf="!nameEdit">{{
               "Enter only letters. Minimum 3 and maximum 30"
             }}</span>
           </div>
@@ -320,7 +318,7 @@
             #vaccineDescription
             value="{{ currentVaccine.vaccine.vaccinesDescription }}"
           ></textarea>
-          <span class="error" *ngIf="!description">{{
+          <span class="error" *ngIf="!descriptionEdit">{{
             "Enter only letters. Minimum 10 and maximum 300" | translate
           }}</span>
         </div>
@@ -389,7 +387,7 @@
               value="{{ loggedOwner.ownerName }}"
               #username
             ></app-input>
-            <span class="error" *ngIf="!username">{{
+            <span class="error" *ngIf="!usernameEdit">{{
               "Enter only numbers, characters, or _. Minimum 3 characters and maximum 30"
                 | translate
             }}</span>
@@ -405,7 +403,7 @@
               value="{{ loggedOwner.ownerEmail }}"
               #email
             ></app-input>
-            <span class="error" *ngIf="!email">{{
+            <span class="error" *ngIf="!emailEdit">{{
               "Email is incorrect" | translate
             }}</span>
           </div>
@@ -420,7 +418,7 @@
               value="{{ loggedOwner.ownerPhoneNumber }}"
               #phoneNumber
             ></app-input>
-            <span class="error" *ngIf="!phone">{{
+            <span class="error" *ngIf="!phoneEdit">{{
               "Enter only numbers. Minimum 4 and maximum 15" | translate
             }}</span>
           </div>
@@ -476,7 +474,7 @@
               placeholder="{{ 'Old Password' | translate }}"
               #oldPassword
             ></app-input>
-            <span class="error" *ngIf="!oldpassword"
+            <span class="error" *ngIf="!oldpasswordEdit"
               >{{
                 "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
                   | translate
@@ -493,7 +491,7 @@
               placeholder="{{ 'New Password' | translate }}"
               #newPassword
             ></app-input>
-            <span class="error" *ngIf="!newpassword"
+            <span class="error" *ngIf="!newpasswordEdit"
               >{{
                 "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
                   | translate
@@ -510,7 +508,7 @@
               placeholder="{{ 'Repeat Password' | translate }}"
               #repeatPassword
             ></app-input>
-            <span class="error" *ngIf="!repeatpassword"
+            <span class="error" *ngIf="!repeatpasswordEdit"
               >{{
                 "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
                   | translate

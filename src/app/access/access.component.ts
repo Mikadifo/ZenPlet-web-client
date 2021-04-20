@@ -12,12 +12,13 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AccessComponent implements OnInit {
   dataIsOk!: boolean;
-  username!: boolean;
-  email!: boolean;
-  phone!: boolean;
-  login!: boolean;
-  password!: boolean;
+  usernameAcc!: boolean;
+  emailAcc!: boolean;
+  phoneAcc!: boolean;
+  loginAcc!: boolean;
+  passwordAcc!: boolean;
   dataMissingAlert: string = '';
+  incorrectData: string = '';
   @Input() page: string = 'menu';
 
   owner: Owner = new Owner();
@@ -29,10 +30,11 @@ export class AccessComponent implements OnInit {
     private translate: TranslateService
   ) {
     this.translate
-      .get(['data.missing', 'Cualquiera...', '...'])
+      .get(['data.missing', 'incorrectUserOrPwd'])
       .subscribe((values) => {
         console.log(values);
         this.dataMissingAlert = values['data.missing'];
+        this.incorrectData = values['incorrectUserOrPwd'];
         //aqui poner las demas alert
       });
   }
@@ -54,9 +56,7 @@ export class AccessComponent implements OnInit {
   }
 
   loginOwner(login: string, password: string) {
-    if (this.dataIsOk) {
-      alert(this.dataMissingAlert);
-    } else {
+  
       let encryptedPassword = CryptoJS.AES.encrypt(password, this.key, {
         mode: CryptoJS.mode.ECB,
       }).toString();
@@ -73,14 +73,14 @@ export class AccessComponent implements OnInit {
             localStorage.setItem('owner', JSON.stringify(this.owner));
             this.router.navigate(['/list/pets']);
           } else {
-            alert('Username or Password are not correct');
+            alert(this.incorrectData);
           }
         },
         (error) => {
           console.log(error);
         }
       );
-    }
+    
   }
 
   signup(
@@ -90,7 +90,7 @@ export class AccessComponent implements OnInit {
     phoneNumber: string
   ) {
     if (!this.dataIsOk) {
-      alert('Must fill in all the fields');
+      alert(this.dataMissingAlert);
     } else {
       console.log('signingup...');
       this.owner.ownerName = username;
@@ -130,32 +130,23 @@ export class AccessComponent implements OnInit {
   validateUsername(username: string) {
     let regex = /(^\w{3,20}$)/;
     this.dataIsOk = regex.test(username);
-    this.username = regex.test(username);
-  }
-
-  validateLogin(username: string) {
-    let regex =
-      /(^\w{3,20}$)/ ||
-      /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
-    this.dataIsOk = regex.test(username);
-    this.login = regex.test(username);
-  }
-
-  validateEmail(email: string) {
-    let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
-    this.dataIsOk = regex.test(email);
-    this.email = regex.test(email);
+    this.usernameAcc = regex.test(username);
   }
 
   validatePhone(phone: string) {
     let regex = /(^\d{4,15}$)/;
     this.dataIsOk = regex.test(phone);
-    this.phone = regex.test(phone);
+    this.phoneAcc = regex.test(phone);
   }
 
   validatePassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
     this.dataIsOk = regex.test(password);
-    this.password = regex.test(password);
+    this.passwordAcc = regex.test(password);
+  }
+  validateEmail(email: string) {
+    let regex = /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b)/;
+    this.dataIsOk = regex.test(email);
+    this.emailAcc = regex.test(email);
   }
 }

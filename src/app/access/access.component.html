@@ -98,7 +98,7 @@
                 [ngStyle]="{ width: 100 + '%' }"
                 #username
               ></app-input>
-              <span class="error" *ngIf="!username">{{
+              <span class="error" *ngIf="!usernameAcc">{{
                 "Enter only numbers, characters, or _. Minimum 3 characters and maximum 30"
                   | translate
               }}</span>
@@ -111,7 +111,7 @@
                 [ngStyle]="{ width: 100 + '%' }"
                 #email
               ></app-input>
-              <span class="error" *ngIf="!email">{{
+              <span class="error" *ngIf="!emailAcc">{{
                 "Email is incorrect" | translate
               }}</span>
             </div>
@@ -119,11 +119,11 @@
               <app-input
                 (input)="validatePhone(phoneNumber.value)"
                 type="tel"
-                placeholder="{{ 'Phone Number (Optional)' | translate }}"
+                placeholder="{{ 'Phone Number' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #phoneNumber
               ></app-input>
-              <span class="error" *ngIf="!phone">{{
+              <span class="error" *ngIf="!phoneAcc">{{
                 "Enter only numbers. Minimum 4 and maximum 15" | translate
               }}</span>
             </div>
@@ -135,7 +135,7 @@
                 [ngStyle]="{ width: 100 + '%' }"
                 #password
               ></app-input>
-              <span class="error" *ngIf="!password">{{
+              <span class="error" *ngIf="!passwordAcc">{{
                 "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
                   | translate
               }}</span>
