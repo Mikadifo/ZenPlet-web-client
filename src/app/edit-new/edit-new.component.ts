@@ -866,12 +866,10 @@ export class EditNewComponent implements OnInit {
     let yearMonthDay : {year:number, month:number, day:number }=EditNewComponent.getYearMonthDayFromStringDate(date);
     if(yearMonthDay.year<-5 || yearMonthDay.year>0){
       this.petNextVaccine = false;
-      this.currentVaccine.petVaccineNext = "";
     }else if(yearMonthDay.year===0){
       if(yearMonthDay.month==0){
         if(yearMonthDay.day>0){
           this.petNextVaccine = false;
-          this.currentVaccine.petVaccineNext = "";
         }else{
           this.petNextVaccine = true;
         }
