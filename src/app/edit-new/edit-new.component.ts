@@ -471,7 +471,7 @@ export class EditNewComponent implements OnInit {
           newPet = data;
           this.loggedOwner.ownerPets.push(newPet);
           localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-          alert(this.dataChangeAlert);
+          alert(this.petInsertedAlert);
           this._location.back();
         },
         (error) => {
