@@ -470,20 +470,9 @@ export class EditNewComponent implements OnInit {
           console.log(data);
           newPet = data;
           this.loggedOwner.ownerPets.push(newPet);
-          this.ownerService
-            .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
-            .subscribe(
-              (data) => {
-                console.log(data);
-                this.loggedOwner = data;
-                localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-                alert(this.dataChangeAlert);
-                this._location.back();
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
+          localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+          alert(this.dataChangeAlert);
+          this._location.back();
         },
         (error) => {
           console.log(error);
