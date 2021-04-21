@@ -6,10 +6,10 @@
       </div>
 
       <div class="row text-start mt-5">
-        <h5>{{ "Welcome!" | translate }}</h5>
+        <h5>{{ "text.welcome" | translate }}</h5>
         <p>
           {{
-            "Before start using the app you need to have an account."
+            "text.beforeaccount"
               | translate
           }}
         </p>
@@ -20,18 +20,18 @@
         <div class="mx-auto btn-group-vertical gap-3">
           <app-button
             [ngStyle]="{ width: 100 + '%' }"
-            text="{{ 'Sign Up' | translate }}"
+            text="{{ 'title.siginup' | translate }}"
             (onClick)="signUpNav()"
           ></app-button>
           <app-button
             [ngStyle]="{ width: 100 + '%' }"
-            text="{{ 'Log In' | translate }}"
+            text="{{ 'title.login' | translate }}"
             (onClick)="logInNav()"
           ></app-button>
         </div>
         <p class="text-end">
-          {{ "Sign in with" | translate }} <b>Facebook</b>
-          {{ "or" | translate }} <b>Google</b>
+          {{ "text.signinwith" | translate }} <b>Facebook</b>
+          {{ "text.or" | translate }} <b>Google</b>
         </p>
       </div>
     </div>
@@ -47,7 +47,7 @@
             <div class="mb-3">
               <app-input
                 type="text"
-                placeholder="{{ 'Username or Email' | translate }}"
+                placeholder="{{ 'subtitle.usernameoremail' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #login
               ></app-input>
@@ -55,27 +55,27 @@
             <div class="mb-5">
               <app-input
                 type="password"
-                placeholder="{{ 'Password' | translate }}"
+                placeholder="{{ 'placeholder.password' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 aria-describedby="passwordHelp"
                 #password
               ></app-input>
               <div id="passwordHelp" class="form-text text-end">
                 <a class="forgot-pass" (click)="forgotNav()">{{
-                  "Forgot your password?" | translate
+                  "text.forgotpassword" | translate
                 }}</a>
               </div>
             </div>
             <div class="mb-1">
               <app-button
                 [ngStyle]="{ width: 100 + '%' }"
-                text="{{ 'Log In' | translate }}"
+                text="{{ 'title.login' | translate }}"
                 (onClick)="loginOwner(login.value, password.value)"
               ></app-button>
             </div>
             <p class="text-end no-account-yet">
-              {{ "Don't have an account?" | translate }}
-              <a (click)="signUpNav()">{{ "Sign Up" | translate }}</a>
+              {{ "text.don'thaveaccount" | translate }}
+              <a (click)="signUpNav()">{{ "title.siginup" | translate }}</a>
             </p>
           </div>
         </form>
@@ -94,12 +94,12 @@
               <app-input
                 (input)="validateUsername(username.value)"
                 type="text"
-                placeholder="{{ 'Username' | translate }}"
+                placeholder="{{ 'placeholder.username' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #username
               ></app-input>
               <span class="error" *ngIf="!usernameAcc">{{
-                "Enter only numbers, characters, or _. Minimum 3 characters and maximum 30"
+                "validate.username"
                   | translate
               }}</span>
             </div>
@@ -107,43 +107,43 @@
               <app-input
                 (input)="validateEmail(email.value)"
                 type="email"
-                placeholder="{{ 'Email' | translate }}"
+                placeholder="{{ 'placeholder.email' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #email
               ></app-input>
               <span class="error" *ngIf="!emailAcc">{{
-                "Email is incorrect" | translate
+                "text.emailincorrect" | translate
               }}</span>
             </div>
             <div class="mb-3">
               <app-input
                 (input)="validatePhone(phoneNumber.value)"
                 type="tel"
-                placeholder="{{ 'Phone Number' | translate }}"
+                placeholder="{{ 'placeholder.phone' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #phoneNumber
               ></app-input>
               <span class="error" *ngIf="!phoneAcc">{{
-                "Enter only numbers. Minimum 4 and maximum 15" | translate
+                "validate.numbers" | translate
               }}</span>
             </div>
             <div class="mb-5">
               <app-input
                 (input)="validatePassword(password.value)"
                 type="password"
-                placeholder="{{ 'Password' | translate }}"
+                placeholder="{{ 'placeholder.password' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
                 #password
               ></app-input>
               <span class="error" *ngIf="!passwordAcc">{{
-                "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
+                "validate.password"
                   | translate
               }}</span>
             </div>
             <div class="mb-1">
               <app-button
                 [ngStyle]="{ width: 100 + '%' }"
-                text="{{ 'Sign Up' | translate }}"
+                text="{{ 'title.siginup' | translate }}"
                 (onClick)="
                   signup(
                     username.value,
@@ -155,8 +155,8 @@
               ></app-button>
             </div>
             <p class="text-end no-account-yet">
-              {{ "Already have an account?" | translate }}
-              <a (click)="logInNav()">{{ "Log In" | translate }}</a>
+              {{ "text.alreadyhaveaccount" | translate }}
+              <a (click)="logInNav()">{{ "title.login" | translate }}</a>
             </p>
           </div>
         </form>
@@ -178,14 +178,14 @@
             <div class="mb-3">
               <app-input
                 type="text"
-                placeholder="{{ 'Username or Email' | translate }}"
+                placeholder="{{ 'subtitle.usernameoremail' | translate }}"
                 [ngStyle]="{ width: 100 + '%' }"
               ></app-input>
             </div>
             <div class="mb-5">
               <app-button
                 [ngStyle]="{ width: 100 + '%' }"
-                text="{{ 'Search' | translate }}"
+                text="{{ 'btn.search' | translate }}"
                 (click)="searchUser()"
               ></app-button>
             </div>

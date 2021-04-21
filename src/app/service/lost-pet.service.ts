@@ -7,7 +7,8 @@ import { LostPet } from '../model/lost-pet.model';
   providedIn: 'root',
 })
 export class LostPetService {
-  private BASE_URL = 'https://zenplet.herokuapp.com/api';
+  //private BASE_URL = 'https://zenplet.herokuapp.com/api';
+  private BASE_URL = 'http://localhost:8080/api';
   private header = {};
 
   constructor(private http: HttpClient) {
