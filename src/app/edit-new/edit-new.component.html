@@ -3,27 +3,27 @@
     <div class="row">
       <div class="col col-sm-12 col-md-6">
         <h1 class="edit-title">
-          <b>{{ "MY PETS" | translate }}</b>
+          <b>{{ "title.mypets" | translate }}</b>
         </h1>
         <form class="mt-5">
           <div class="mb-4">
             <label for="pet-name" class="form-label"
-              ><b>{{ "Name:" | translate }}</b></label
+              ><b>{{ "subtitle.name" | translate }}</b></label
             >
             <app-input
               (input)="validateName(petName.value)"
               type="text"
-              placeholder="{{ 'Pet Name' | translate }}"
+              placeholder="{{ 'placeholder.petname' | translate }}"
               #petName
               value="{{ currentPet.petName }}"
             ></app-input>
-            <span class="error" *ngIf="!name"
-              >{{ "Enter only letters. Minimum 3 and maximum 30" | translate }}
+            <span class="error" *ngIf="!nameEdit"
+              >{{ "validate.letters" | translate }}
             </span>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"
-              ><b>{{ "Genre:" | translate }}</b></label
+              ><b>{{ "subtitle.genre" | translate }}</b></label
             >
             <div class="form-check">
               <input
@@ -34,7 +34,7 @@
                 [checked]="genreSelecction == 'M'"
                 (change)="genreSelecction = 'Male'"
               />
-              <label class="form-check-label" for="radioMale">Male</label>
+              <label class="form-check-label" for="radioMale">{{'pet.male'| translate}}</label>
             </div>
             <div class="form-check form-check-inline">
               <input
@@ -45,16 +45,16 @@
                 [checked]="genreSelecction == 'F'"
                 (change)="genreSelecction = 'Female'"
               />
-              <label class="form-check-label" for="radioFemale">Female</label>
+              <label class="form-check-label" for="radioFemale">{{'pet.female'| translate}}</label>
             </div>
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"
-              ><b>{{ "Size:" | translate }}</b></label
+              ><b>{{ "subtitle.petsize" | translate }}</b></label
             >
             <select class="form-select combo-input" #petSize>
               <option selected *ngIf="mode === 'new'">
-                Select your pet size:
+                {{'text.selectpetsize'|translate}}
               </option>
               <option
                 *ngFor="
@@ -69,28 +69,28 @@
           </div>
           <div class="mb-4">
             <label for="pet-name" class="form-label"
-              ><b>{{ "Birthdate:" | translate }}</b></label
+              ><b>{{ "subtitle.birthdate" | translate }}</b></label
             >
             <app-input
               type="date"
-              placeholder="{{ 'Pet Birthdate' | translate }}"
+              placeholder="{{ 'placeholder.petbirthdate' | translate }}"
               value="{{ currentPet.petBirthdate }}"
               #petBirthdate
             ></app-input>
           </div>
           <div>
             <label for="pet-name" class="form-label"
-              ><b>{{ "Breed:" | translate }}</b></label
+              ><b>{{ "subtitle.breed" | translate }}</b></label
             >
             <app-input
               (input)="validateBreed(petBreed.value)"
               type="text"
-              placeholder="{{ 'Pet Breed' | translate }}"
+              placeholder="{{ 'placeholder.petbreed' | translate }}"
               #petBreed
               value="{{ currentPet.petBreed }}"
             ></app-input>
-            <span class="error" *ngIf="!breed">{{
-              "Enter only letters. Minimum 3 and maximum 30" | translate
+            <span class="error" *ngIf="!breedEdit">{{
+              "validate.letters" | translate
             }}</span>
           </div>
         </form>
@@ -116,7 +116,7 @@
           role="group"
         >
           <app-button
-            text="{{ 'Save' | translate }}"
+            text="{{ 'btn.save' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="
@@ -129,20 +129,20 @@
             "
           ></app-button>
           <app-button
-            text="{{ 'Lost' | translate }}"
+            text="{{ 'btn.lost' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="postLostPetNav()"
           ></app-button>
           <app-button
-            text="{{ 'Delete' | translate }}"
+            text="{{ 'btn.delete' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             type="danger"
             *ngIf="mode == 'edit'"
             (click)="deletePet()"
           ></app-button>
           <app-button
-            text="{{ 'Create Pet' | translate }}"
+            text="{{ 'btn.createpet' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'new'"
             (click)="
@@ -163,15 +163,13 @@
     <div class="row">
       <div class="col col-sm-12 col-md-6">
         <h1 class="edit-title">
-          <b>{{ "LOST PETS" | translate }}</b>
+          <b>{{ "title.lostpet" | translate }}</b>
         </h1>
         <p class="post-info">
-          Amet repellendus alias eos in nam eveniet Consequatur voluptatem ad
-          totam voluptas distinctio, autem aliquid unde. Libero vero rem est
-          atque quas. Impedit ipsum et doloremque eum beatae? Laborum error.
+         {{'text.postlostpet'| translate}}
         </p>
         <b
-          ><p>{{ "Additional Info:" | translate }}</p></b
+          ><p>{{ "subtitle.aditionalnfo" | translate }}</p></b
         >
         <label for="additional" class="form-label"></label>
         <textarea
@@ -180,12 +178,12 @@
           class="additional-info"
           rows="8"
           cols="40"
-          placeholder="{{ 'Additional Info' | translate }}"
+          placeholder="{{ 'subtitle.aditionaInfo' | translate }}"
           value="{{ currentLostPet.lostPetAdditionalInfo }}"
           #additionalInfo
         ></textarea>
-        <span class="error" *ngIf="!description"
-          >{{ "Enter only letters. Minimum 10 and maximum 300" | translate }}
+        <span class="error" *ngIf="!descriptionEdit"
+          >{{ " "validate.description" | translate }}
         </span>
       </div>
       <div class="col col-sm-12 col-md-6">
@@ -202,25 +200,25 @@
           role="group"
         >
           <app-button
-            text="{{ 'Publish' | translate }}"
+            text="{{ 'btn.publish' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'post'"
             (click)="postLostPet(additionalInfo.value)"
           ></app-button>
           <app-button
-            text="{{ 'Save' | translate }}"
+            text="{{ 'btn.save' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="editLostPet(additionalInfo.value)"
           ></app-button>
           <app-button
-            text="{{ 'Pet Found' | translate }}"
+            text="{{ 'btn.found' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="petFound()"
           ></app-button>
           <app-button
-            text="{{ 'Print Lost Pet' | translate }}"
+            text="{{ 'btn.printlostpet' | translate }}"
             [ngStyle]="{ width: 12 + 'em' }"
             *ngIf="mode == 'edit'"
             (click)="printLostPetNav()"
@@ -234,27 +232,27 @@
     <div class="row">
       <div class="col col-sm-12 col-md-6">
         <h1 class="edit-title">
-          <b>{{ "VACCINES" | translate }}</b>
+          <b>{{ "title.vaccines" | translate }}</b>
         </h1>
         <form class="mt-5">
           <div class="mb-4">
             <label class="form-label"
-              ><b>{{ "Name:" | translate }}</b></label
+              ><b>{{ "subtitle.name" | translate }}</b></label
             >
             <app-input
               (input)="validateName(vaccineName.value)"
               type="text"
-              placeholder="{{ 'Vaccine Name' | translate }}"
+              placeholder="{{ 'placeholder.vaccinename' | translate }}"
               value="{{ currentVaccine.vaccine.vaccinesName }}"
               #vaccineName
             ></app-input>
-            <span class="error" *ngIf="!name">{{
-              "Enter only letters. Minimum 3 and maximum 30"
+            <span class="error" *ngIf="!nameEdit">{{
+              "validate.letters"| translate
             }}</span>
           </div>
           <div class="mb-4">
             <label class="form-label"
-              ><b>{{ "Date:" | translate }}</b></label
+              ><b>{{ "subtitle.date" | translate }}</b></label
             >
             <app-input
               type="date"
@@ -264,7 +262,7 @@
           </div>
           <div class="mb-4">
             <label class="form-label"
-              ><b>{{ "Next:" | translate }}</b></label
+              ><b>{{ "subtitle.next" | translate }}</b></label
             >
             <app-input
               type="date"
@@ -274,7 +272,7 @@
           </div>
           <div class="mb-4">
             <label class="form-label">
-              <b>{{ "Vaccine for:" | translate }}</b>
+              <b>{{ "subtitle.vaccinefor" | translate }}</b>
             </label>
             <div *ngIf="mode === 'edit'">
               {{ selectedPetNameOfCombo }}
@@ -289,11 +287,11 @@
                 selected
                 *ngIf="loggedOwner.ownerPets.length > 0; else elseBlock"
               >
-                {{ "Select a pet to apply vaccine" | translate }}
+                {{ "text.selectpetv" | translate }}
               </option>
               <ng-template #elseBlock>
                 <option selected>
-                  {{ "You have no pets yet to create a vaccine" | translate }}
+                  {{ "text.nopetsv" | translate }}
                 </option>
               </ng-template>
               <option
@@ -309,7 +307,7 @@
       <div class="col col-sm-12 col-md-6">
         <div class="row description ms-5">
           <label for="vaccine-description" class="form-label"
-            ><b>{{ "Description:" | translate }}</b></label
+            ><b>{{ "subtitle.description" | translate }}</b></label
           >
           <textarea
             (input)="validateAdditionalInfo(vaccineDescription.value)"
@@ -317,12 +315,12 @@
             name="vaccine-description"
             rows="8"
             cols="40"
-            placeholder="{{ 'Vaccine Description' | translate }}"
+            placeholder="{{ 'placeholder.description' | translate }}"
             #vaccineDescription
             value="{{ currentVaccine.vaccine.vaccinesDescription }}"
           ></textarea>
-          <span class="error" *ngIf="!description">{{
-            "Enter only letters. Minimum 10 and maximum 300" | translate
+          <span class="error" *ngIf="!descriptionEdit">{{
+            "validate.description" | translate
           }}</span>
         </div>
       </div>
@@ -334,7 +332,7 @@
             role="group"
           >
             <app-button
-              text="{{ 'Save' | translate }}"
+              text="{{ 'btnsave' | translate }}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
               (click)="
@@ -347,14 +345,14 @@
               "
             ></app-button>
             <app-button
-              text="{{ 'Delete' | translate }}"
+              text="{{ 'btn.delete' | translate }}"
               [ngStyle]="{ width: 12 + 'em' }"
               type="danger"
               *ngIf="mode == 'edit'"
               (click)="deleteVaccine()"
             ></app-button>
             <app-button
-              text="{{ 'Create Vaccine' | translate }}"
+              text="{{ 'btn.createvaccine' | translate }}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'new'"
               (click)="
@@ -376,53 +374,53 @@
     <div class="row">
       <div class="col col-sm-12 col-md-6">
         <h1 class="edit-title">
-          <b>{{ "ACCOUNT SETTINGS" | translate }}</b>
+          <b>{{ "title.accountsettings" | translate }}</b>
         </h1>
         <form class="mt-5">
           <div class="mb-4">
             <label for="username" class="form-label"
-              ><b>{{ "Username:" | translate }}</b></label
+              ><b>{{ "subtitle.username" | translate }}</b></label
             >
             <app-input
               (input)="validateUsername(username.value)"
               type="text"
-              placeholder="{{ 'Username' | translate }}"
+              placeholder="{{ 'placeholder.username' | translate }}"
               value="{{ loggedOwner.ownerName }}"
               #username
             ></app-input>
-            <span class="error" *ngIf="!username">{{
-              "Enter only numbers, characters, or _. Minimum 3 characters and maximum 30"
+            <span class="error" *ngIf="!usernameEdit">{{
+              "validate.username"
                 | translate
             }}</span>
           </div>
           <div class="mb-4">
             <label for="email" class="form-label"
-              ><b>{{ "Email:" | translate }}</b></label
+              ><b>{{ "subtitle.email" | translate }}</b></label
             >
             <app-input
               (input)="validateEmail(email.value)"
               type="email"
-              placeholder="{{ 'Email' | translate }}"
+              placeholder="{{ 'placeholder.email' | translate }}"
               value="{{ loggedOwner.ownerEmail }}"
               #email
             ></app-input>
-            <span class="error" *ngIf="!email">{{
-              "Email is incorrect" | translate
+            <span class="error" *ngIf="!emailEdit">{{
+              "text.emailincorrect" | translate
             }}</span>
           </div>
           <div class="mb-4">
             <label for="phonenumber" class="form-label"
-              ><b>{{ "Phone Number:" | translate }}</b></label
+              ><b>{{ "subtitle.phone" | translate }}</b></label
             >
             <app-input
               (input)="validatePhone(phoneNumber.value)"
               type="tel"
-              placeholder="{{ 'Phone Number' | translate }}"
+              placeholder="{{ 'placeholder.phone' | translate }}"
               value="{{ loggedOwner.ownerPhoneNumber }}"
               #phoneNumber
             ></app-input>
-            <span class="error" *ngIf="!phone">{{
-              "Enter only numbers. Minimum 4 and maximum 15" | translate
+            <span class="error" *ngIf="!phoneEdit">{{
+              "validate.numbers" | translate
             }}</span>
           </div>
         </form>
@@ -434,7 +432,7 @@
             role="group"
           >
             <app-button
-              text="{{ 'Save' | translate }}"
+              text="{{ 'btn.save' | translate }}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
               (onClick)="
@@ -442,13 +440,13 @@
               "
             ></app-button>
             <app-button
-              text="{{ 'Change Password' | translate }}"
+              text="{{ 'btn.changepassword' | translate }}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'edit'"
               (onClick)="changePasswordNav()"
             ></app-button>
             <app-button
-              text="{{ 'Delete' | translate }}"
+              text="{{ 'btn.delete' | translate }}"
               [ngStyle]="{ width: 12 + 'em' }"
               type="danger"
               *ngIf="mode == 'edit'"
@@ -464,56 +462,56 @@
     <div class="row">
       <div class="col col-sm-12 col-md-6">
         <h1 class="edit-title">
-          <b>{{ "ACCOUNT SETTINGS" | translate }}</b>
+          <b>{{ "title.accountsettings" | translate }}</b>
         </h1>
         <form class="mt-5">
           <div class="mb-4">
             <label for="username" class="form-label"
-              ><b>{{ "Old Password:" | translate }}</b></label
+              ><b>{{ "subtitle.oldpassword" | translate }}</b></label
             >
             <app-input
               (input)="validateOldPassword(oldPassword.value)"
               type="password"
-              placeholder="{{ 'Old Password' | translate }}"
+              placeholder="{{ 'placeholder.newpassword' | translate }}"
               #oldPassword
             ></app-input>
-            <span class="error" *ngIf="!oldpassword"
+            <span class="error" *ngIf="!oldpasswordEdit"
               >{{
-                "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
+                "validate.password"
                   | translate
               }}
             </span>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
-              ><b>{{ "New Password:" | translate }}</b></label
+              ><b>{{ "subtitle.newpassword" | translate }}</b></label
             >
             <app-input
               (input)="validateNewPassword(newPassword.value)"
               type="password"
-              placeholder="{{ 'New Password' | translate }}"
+              placeholder="{{ 'placeholder.newpassword' | translate }}"
               #newPassword
             ></app-input>
-            <span class="error" *ngIf="!newpassword"
+            <span class="error" *ngIf="!newpasswordEdit"
               >{{
-                "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
+                "validate.password"
                   | translate
               }}
             </span>
           </div>
           <div class="mb-4">
             <label for="username" class="form-label"
-              ><b>{{ "Repeat Password:" | translate }}</b></label
+              ><b>{{ "subtitle.repeatpassword" | translate }}</b></label
             >
             <app-input
               (input)="validateRepeatPassword(repeatPassword.value)"
-              type="password"
-              placeholder="{{ 'Repeat Password' | translate }}"
+              type="password" 
+              placeholder="{{ 'placeholder.repeatpassword' | translate }}"
               #repeatPassword
             ></app-input>
-            <span class="error" *ngIf="!repeatpassword"
+            <span class="error" *ngIf="!repeatpasswordEdit"
               >{{
-                "The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase"
+                "validate.password"
                   | translate
               }}
             </span>
@@ -527,7 +525,7 @@
             role="group"
           >
             <app-button
-              text="{{ 'Change Password' | translate }}"
+              text="{{ 'btn.changepassword' | translate }}"
               [ngStyle]="{ width: 12 + 'em' }"
               *ngIf="mode == 'new'"
               (onClick)="

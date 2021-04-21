@@ -15,6 +15,7 @@ import { PetService } from '../service/pet.service';
 import { VaccineService } from '../service/vaccine.service';
 import * as mapboxgl from 'mapbox-gl';
 import * as CryptoJS from 'crypto-js';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-new',
@@ -23,17 +24,41 @@ import * as CryptoJS from 'crypto-js';
 })
 export class EditNewComponent implements OnInit {
   dataIsOk!: boolean;
-  name!: boolean;
-  description!: boolean;
-  email!: boolean;
-  username!: boolean;
-  oldpassword!: boolean;
-  newpassword!: boolean;
-  repeatpassword!: boolean;
-  password!: boolean;
-  breed!: boolean;
-  phone!: boolean;
-  login!: boolean;
+  nameEdit!: boolean;
+  descriptionEdit!: boolean;
+  emailEdit!: boolean;
+  usernameEdit!: boolean;
+  oldpasswordEdit!: boolean;
+  newpasswordEdit!: boolean;
+  repeatpasswordEdit!: boolean;
+  passwordEdit!: boolean;
+  breedEdit!: boolean;
+  phoneEdit!: boolean;
+  loginEdit!: boolean;
+  dataMissingAlert: string = '';
+  oldPswIncorrectAlert: string = '';
+  pswUpdatedAlert: string = '';
+  pswNoSameAlert: string = '';
+  confirmDltAccountAlert: string = '';
+  accountDltAlert: string = '';
+  confirmDltPetAlert: string = '';
+  dltPetAlert: string = '';
+  dataSameAlert: string = '';
+  dataChangeAlert: string = '';
+  petUpdatedAlert: string = '';
+  petInsertedAlert: string = '';
+  errorPostAlert: string = '';
+  petMarkedLostAlert: string = '';
+  lostPetUpdatedAlert: string = '';
+  errorlostPetUpdatedAlert: string = '';
+  errorOcurredAlert: string = '';
+  noHavePetsAlert: string = '';
+  findPetAlert: string = '';
+  selectedPetVaccineAlert: string = '';
+  petVaccineUpdatedAlert: string = '';
+  petHaveVaccineAlert: string = '';
+  confirmDltVaccineAlert: string = '';
+  dltVaccineAlert: string = '';
   map!: mapboxgl.Map;
   mapbox = mapboxgl as typeof mapboxgl;
   style = `mapbox://styles/mapbox/streets-v11`;
@@ -82,11 +107,66 @@ export class EditNewComponent implements OnInit {
     private petVaccineService: PetVaccinesService,
     private vaccineService: VaccineService,
     private petFoundService: PetFoundService,
-    private _location: Location
+    private _location: Location,
+    private translate: TranslateService
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
     console.log('este es el constructor');
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    this.translate
+      .get([
+        'data.missing',
+        'findPet',
+        'confirmDltVaccine',
+        'petHaveVaccine',
+        'petVacUpdate',
+        'selectedPetVaccine',
+        'errorOcurred',
+        'noHavePets',
+        'lostPet',
+        'lostPetUpdated',
+        'errorPost',
+        'petInserted',
+        '',
+        'pwsUpdated',
+        'petUpdated',
+        'dataSame',
+        'dataChange',
+        'oldPswIncorrect',
+        'confirmDltAccount',
+        'pswNoSame',
+        'accountDlt',
+        'petDlt',
+        'confirmDltPet',
+      ])
+      .subscribe((values) => {
+        console.log(values);
+        this.dataMissingAlert = values['data.missing'];
+        this.oldPswIncorrectAlert = values['oldPswIncorrect'];
+        this.pswNoSameAlert = values['pswNoSame'];
+        this.pswUpdatedAlert = values['pwsUpdated'];
+        this.confirmDltAccountAlert = values['confirmDltAccount'];
+        this.accountDltAlert = values['accountDlt'];
+        this.confirmDltPetAlert = values['confirmDltpet'];
+        this.dltPetAlert = values['petDlt'];
+        this.dataSameAlert = values['dataSame'];
+        this.dataChangeAlert = values['dataChange'];
+        this.petUpdatedAlert = values['petUpdated'];
+        this.petInsertedAlert = values['petInserted'];
+        this.errorPostAlert = values['errorOcurred'];
+        this.petMarkedLostAlert = values['lostPet'];
+        this.lostPetUpdatedAlert = values['lostPetUpdated'];
+        this.errorOcurredAlert = values['errorOcurred'];
+        this.findPetAlert = values['findPet'];
+        this.errorOcurredAlert = values['errorOcurred'];
+        this.noHavePetsAlert = values['noHavePets'];
+        this.selectedPetVaccineAlert = values['selectedPetVaccine'];
+        this.petHaveVaccineAlert = values['petHaveVaccine'];
+        this.petVaccineUpdatedAlert = values['petVacUpdate'];
+        this.confirmDltVaccineAlert = values['confirmDltVaccine'];
+        this.dltVaccineAlert = values['confirmDltVaccine'];
+      });
   }
 
   ngOnInit(): void {
@@ -188,7 +268,7 @@ export class EditNewComponent implements OnInit {
     repeatPassword: string
   ) {
     if (!this.dataIsOk) {
-      alert('Must fill in all the fields');
+      alert(this.dataMissingAlert);
     } else {
       this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
         (data) => {
@@ -225,7 +305,7 @@ export class EditNewComponent implements OnInit {
                   (data) => {
                     console.log(data);
                     localStorage.setItem('owner', JSON.stringify(data));
-                    alert('Password has been updated');
+                    alert(this.pswUpdatedAlert);
                     this._location.back();
                   },
                   (error) => {
@@ -233,10 +313,10 @@ export class EditNewComponent implements OnInit {
                   }
                 );
             } else {
-              alert('new password and repeated are NOT the same');
+              alert(this.pswNoSameAlert);
             }
           } else {
-            alert('old password is NOT correct');
+            alert(this.oldPswIncorrectAlert);
           }
         },
         (error) => {
@@ -247,11 +327,11 @@ export class EditNewComponent implements OnInit {
   }
 
   deleteAccount() {
-    if (confirm('Are you sure to delete your account?')) {
+    if (confirm(this.confirmDltAccountAlert)) {
       this.ownerService.deleteOwner(this.loggedOwner.ownerId).subscribe(
         (data) => {
           console.log(data);
-          alert('Your account has been deleted.');
+          alert(this.accountDltAlert);
           localStorage.clear();
           this.router.navigate(['auth']);
         },
@@ -263,7 +343,7 @@ export class EditNewComponent implements OnInit {
   }
 
   deletePet() {
-    if (confirm('Are you sure to delete your pet?')) {
+    if (confirm(this.confirmDltPetAlert)) {
       this.petService.deletePet(this.currentPet.petId).subscribe(
         (data) => {
           console.log(data);
@@ -277,7 +357,7 @@ export class EditNewComponent implements OnInit {
                 console.log(data);
                 this.loggedOwner = data;
                 localStorage.setItem('owner', JSON.stringify(data));
-                alert('Pet deleted');
+                alert(this.dltPetAlert);
                 this._location.back();
               },
               (error) => {
@@ -292,7 +372,7 @@ export class EditNewComponent implements OnInit {
 
   saveChanges(username: string, email: string, phoneNumber: string) {
     if (!this.dataIsOk) {
-      alert('Must fill in all the fields');
+      alert(this.dataMissingAlert);
     } else {
       this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
         (data) => {
@@ -303,7 +383,7 @@ export class EditNewComponent implements OnInit {
             this.loggedOwner.ownerEmail === email &&
             this.loggedOwner.ownerPhoneNumber === phoneNumber
           ) {
-            alert('Data is the same, you can not save changes.');
+            alert(this.dataSameAlert);
           } else {
             this.loggedOwner.ownerName = username;
             this.loggedOwner.ownerEmail = email;
@@ -315,7 +395,7 @@ export class EditNewComponent implements OnInit {
                   console.log(data);
                   this.loggedOwner = data;
                   localStorage.setItem('owner', JSON.stringify(data));
-                  alert('Data changed successful');
+                  alert(this.dataChangeAlert);
                 },
                 (error) => {
                   console.log(error);
@@ -337,7 +417,7 @@ export class EditNewComponent implements OnInit {
     birthdate: string
   ) {
     if (!this.dataIsOk || this.imgURL === undefined) {
-      alert('Must fill in all the fields');
+      alert(this.dataMissingAlert);
     } else if (this.mode === 'edit') {
       console.log('editing');
       this.currentPet.petName = name;
@@ -360,7 +440,7 @@ export class EditNewComponent implements OnInit {
                   console.log(data);
                   this.loggedOwner = data;
                   localStorage.setItem('owner', JSON.stringify(data));
-                  alert('Pet Updated');
+                  alert(this.petUpdatedAlert);
                   this._location.back();
                 },
                 (error) => {
@@ -397,7 +477,7 @@ export class EditNewComponent implements OnInit {
                 console.log(data);
                 this.loggedOwner = data;
                 localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-                alert('Pet Inserted');
+                alert(this.dataChangeAlert);
                 this._location.back();
               },
               (error) => {
@@ -432,7 +512,7 @@ export class EditNewComponent implements OnInit {
 
   postLostPet(additionalInfo: string) {
     if (!this.dataIsOk) {
-      alert('Must fill in all the fields');
+      alert(this.dataMissingAlert);
     } else {
       console.log(this.currentPet);
       console.log(this.lostPetLocation);
@@ -446,7 +526,7 @@ export class EditNewComponent implements OnInit {
         (data) => {
           console.log(data);
           if (data.owner.ownerId === 0) {
-            alert('An error has been ocurred while posting your pet as lost');
+            alert(this.errorPostAlert);
           } else {
             alert('Your pet now is marked as lost');
             this.currentLostPet = data;
@@ -462,7 +542,7 @@ export class EditNewComponent implements OnInit {
 
   editLostPet(additionalInfo: string) {
     if (!this.dataIsOk) {
-      alert('Must fill in all the fields');
+      alert(this.dataMissingAlert);
     } else {
       console.log(this.lostPetLocation);
       let lostPetEdit: LostPet = {
@@ -480,10 +560,10 @@ export class EditNewComponent implements OnInit {
             if (
               data.lostPetAdditionalInfo === lostPetEdit.lostPetAdditionalInfo
             ) {
-              alert('Lost Pet Updated');
+              alert(this.lostPetUpdatedAlert);
               this._location.back();
             } else {
-              alert('Error updating lost pet');
+              alert(this.errorlostPetUpdatedAlert);
             }
           },
           (error) => {
@@ -501,7 +581,7 @@ export class EditNewComponent implements OnInit {
           this.petFoundService.addPetFound().subscribe(
             (data) => {
               console.log(data);
-              alert('We are happy to help you to find your pet.');
+              alert(this.findPetAlert);
               this.currentLostPet = new LostPet();
               this._location.back();
             },
@@ -510,7 +590,7 @@ export class EditNewComponent implements OnInit {
             }
           );
         } else {
-          alert('An error has been ocurred while setting your pet as lost');
+          alert(this.errorOcurredAlert);
         }
       },
       (error) => {
@@ -526,12 +606,12 @@ export class EditNewComponent implements OnInit {
     vaccinesDescription: string
   ) {
     if (this.loggedOwner.ownerPets.length === 0) {
-      alert('You Dont Have Pets Yet');
+      alert(this.noHavePetsAlert);
     } else if (isNaN(parseInt(this.petIdForVaccine))) {
-      alert('You must select a pet to apply the vaccine');
+      alert(this.selectedPetVaccineAlert);
     } else if (this.mode === 'new') {
       if (!this.dataIsOk) {
-        alert('Must fill in all the fields');
+        alert(this.dataMissingAlert);
       } else {
         console.log('newing');
         let vaccine: Vaccine = {
@@ -562,7 +642,7 @@ export class EditNewComponent implements OnInit {
                   .filter((pet) => pet.petId === data.id.petId)
                   .forEach((pet) => pet.petVaccines.push(petVaccine));
                 localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-                alert('Your pet now has the vaccine');
+                alert(this.petHaveVaccineAlert);
                 this._location.back();
               },
               (error) => {
@@ -577,7 +657,7 @@ export class EditNewComponent implements OnInit {
       }
     } else {
       if (!this.dataIsOk) {
-        alert('Must fill in all the fields');
+        alert(this.dataMissingAlert);
       } else {
         console.log('editing');
         let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
@@ -626,7 +706,7 @@ export class EditNewComponent implements OnInit {
                       'owner',
                       JSON.stringify(this.loggedOwner)
                     );
-                    alert('Pet Vaccine updated');
+                    alert(this.petVaccineUpdatedAlert);
                     this._location.back();
                   },
                   (error) => {
@@ -643,7 +723,7 @@ export class EditNewComponent implements OnInit {
   }
 
   deleteVaccine() {
-    if (confirm('Are you sure to delete the vaccine?')) {
+    if (confirm(this.confirmDltVaccineAlert)) {
       console.log(this.currentVaccine);
       this.vaccineService
         .deleteVaccine(this.currentVaccine.id.vaccineId)
@@ -669,7 +749,7 @@ export class EditNewComponent implements OnInit {
                 )
               );
             localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-            alert('Vaccine has been deleted.');
+            alert(this.dltVaccineAlert);
             this._location.back();
           },
           (error) => {
@@ -694,62 +774,60 @@ export class EditNewComponent implements OnInit {
   validateAdditionalInfo(additionalInfo: string) {
     let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{10,300}$)/;
     this.dataIsOk = regex.test(additionalInfo);
-    this.description = regex.test(additionalInfo);
+    this.descriptionEdit = regex.test(additionalInfo);
   }
 
   validateUsername(username: string) {
     let regex = /(^\w{3,20}$)/;
     this.dataIsOk = regex.test(username);
-    this.username = regex.test(username);
+    this.usernameEdit = regex.test(username);
   }
 
   validateLogin(username: string) {
-    let regex =
-      /(^\w{3,20}$)/ ||
-      /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+    let regex = /(^\w{3,20}$)/ || /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b)/;
     this.dataIsOk = regex.test(username);
-    this.login = regex.test(username);
+    this.loginEdit = regex.test(username);
   }
 
   validateName(name: string) {
     let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
     this.dataIsOk = regex.test(name);
-    this.name = regex.test(name);
+    this.nameEdit = regex.test(name);
   }
 
   validateBreed(name: string) {
     let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
     this.dataIsOk = regex.test(name);
-    this.breed = regex.test(name);
+    this.breedEdit = regex.test(name);
   }
 
   validateEmail(email: string) {
-    let regex = /(^[[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$]{3,30}$)/;
+    let regex = /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b) /;
     this.dataIsOk = regex.test(email);
-    this.email = regex.test(email);
+    this.emailEdit = regex.test(email);
   }
 
   validatePhone(phone: string) {
     let regex = /(^\d{4,15}$)/;
     this.dataIsOk = regex.test(phone);
-    this.phone = regex.test(phone);
+    this.phoneEdit = regex.test(phone);
   }
 
   validateOldPassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
     this.dataIsOk = regex.test(password);
-    this.oldpassword = regex.test(password);
+    this.oldpasswordEdit = regex.test(password);
   }
 
   validateNewPassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
     this.dataIsOk = regex.test(password);
-    this.newpassword = regex.test(password);
+    this.newpasswordEdit = regex.test(password);
   }
 
   validateRepeatPassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
     this.dataIsOk = regex.test(password);
-    this.repeatpassword = regex.test(password);
+    this.repeatpasswordEdit = regex.test(password);
   }
 }

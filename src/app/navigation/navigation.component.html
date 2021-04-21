@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['list/pets']">ZENPLET</a>
+    <a class="navbar-brand" [routerLink]="['list/pets']">{{'logo.ZENPLET'| translate}}</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -19,17 +19,17 @@
             class="nav-link active"
             aria-current="page"
             [routerLink]="['list/lostpets']"
-            >{{ "Lost Pets" | translate }}</a
+            >{{ "nav.lostpets" | translate }}</a
           >
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['list/vaccines']">{{
-            "Vaccines" | translate
+            "nav.vaccines" | translate
           }}</a>
         </li>
         <li class="nav-item me-3">
           <a class="nav-link" [routerLink]="['list/pets']">{{
-            "Pets" | translate
+            "nav.pets" | translate
           }}</a>
         </li>
         <li class="nav-item dropdown">
@@ -48,12 +48,12 @@
           >
             <li>
               <a class="dropdown-item" [routerLink]="['edit/account']">{{
-                "Account Settings" | translate
+                "nav.accountsettings" | translate
               }}</a>
             </li>
             <li>
               <a class="dropdown-item" (click)="logOut()">{{
-                "Log Out" | translate
+                "nav.logout" | translate
               }}</a>
             </li>
           </ul>
