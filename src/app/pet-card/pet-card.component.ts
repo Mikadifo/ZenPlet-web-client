@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Owner } from '../model/owner/owner.model';
 import { Pets } from '../model/pets.model';
-import * as moment from 'moment';
+import {EditNewComponent} from '../edit-new/edit-new.component';
+
 
 @Component({
   selector: 'app-pet-card',
@@ -27,16 +28,8 @@ export class PetCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    let petBirthdate: any = moment(this.pet.petBirthdate, 'YYYY-MM-DD');
-    let now: any = moment();
-    let petYears = now.diff(petBirthdate, 'year');
-    petBirthdate.add(petYears, 'years');
-    let petMonths = now.diff(petBirthdate, 'month');
-    petBirthdate.add(petMonths, 'months');
-    let petDays = now.diff(petBirthdate, 'day');
-
-    this.petAge = `${petYears} year(s) ${petMonths} month(s) ${petDays} day(s)`;
-
-    console.log(this.petAge);
+    let yearMonthDay : {year:number, month:number, day:number }=EditNewComponent.getYearMonthDayFromStringDate(this.pet.petBirthdate);
+    this.petAge =`${yearMonthDay.year} year(s) ${yearMonthDay.month} month(s) ${yearMonthDay.day} day(s)`;
   }
+
 }

@@ -31,8 +31,8 @@
                 type="radio"
                 name="flexRadioDefault"
                 id="radioMale"
-                [checked]="genreSelecction == 'M'"
-                (change)="genreSelecction = 'Male'"
+                [checked]="genreSelecction === 'M' || mode === 'new'"
+                (change)="genreSelecction = 'Male'" 
               />
               <label class="form-check-label" for="radioMale">{{'pet.male'| translate}}</label>
             </div>
@@ -42,7 +42,7 @@
                 type="radio"
                 name="flexRadioDefault"
                 id="radioFemale"
-                [checked]="genreSelecction == 'F'"
+                [checked]="genreSelecction === 'F'"
                 (change)="genreSelecction = 'Female'"
               />
               <label class="form-check-label" for="radioFemale">{{'pet.female'| translate}}</label>
@@ -53,9 +53,6 @@
               ><b>{{ "subtitle.petsize" | translate }}</b></label
             >
             <select class="form-select combo-input" #petSize>
-              <option selected *ngIf="mode === 'new'">
-                {{'text.selectpetsize'|translate}}
-              </option>
               <option
                 *ngFor="
                   let item of ['Miniature', 'Small', 'Medium', 'Big', 'Giant']
@@ -75,6 +72,7 @@
               type="date"
               placeholder="{{ 'placeholder.petbirthdate' | translate }}"
               value="{{ currentPet.petBirthdate }}"
+              (input)="validatePetBirthdate(petBirthdate.value)"
               #petBirthdate
             ></app-input>
           </div>
@@ -257,6 +255,7 @@
             <app-input
               type="date"
               value="{{ currentVaccine.petVaccineDate }}"
+              (input)="validatePetVaccineDate(vaccineDate.value)"
               #vaccineDate
             ></app-input>
           </div>
@@ -267,6 +266,7 @@
             <app-input
               type="date"
               value="{{ currentVaccine.petVaccineNext }}"
+              (input)="validatePetVaccineDate(vaccineNext.value)"
               #vaccineNext
             ></app-input>
           </div>
