@@ -36,9 +36,9 @@ export class EditNewComponent implements OnInit {
   breedEdit!: boolean;
   phoneEdit!: boolean;
   loginEdit!: boolean;
-  petBirthdateEdit!:boolean;
-  petDateVaccine!:boolean;
-  petNextVaccine!:boolean;
+  petBirthdateEdit!: boolean;
+  petDateVaccine!: boolean;
+  petNextVaccine!: boolean;
   dataMissingAlert: string = '';
   oldPswIncorrectAlert: string = '';
   pswUpdatedAlert: string = '';
@@ -132,7 +132,6 @@ export class EditNewComponent implements OnInit {
         'lostPetUpdated',
         'errorPost',
         'petInserted',
-        '',
         'pwsUpdated',
         'petUpdated',
         'dataSame',
@@ -174,7 +173,6 @@ export class EditNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('este es el ngOnInit');
     this.mapbox.accessToken = environment.mapboxKey;
     this.route.params.subscribe((params) => {
       this.mode = params['mode'];
@@ -221,6 +219,8 @@ export class EditNewComponent implements OnInit {
           console.log(error);
         }
       );
+    } else if (this.mode === 'new' && this.page === 'pet') {
+      this.currentPet.petBirthdate = moment().format('YYYY-MM-DD');
     }
   }
 
@@ -420,7 +420,12 @@ export class EditNewComponent implements OnInit {
     size: string,
     birthdate: string
   ) {
-    if (!this.dataIsOk || this.imgURL === undefined ) {
+    if (
+      !this.dataIsOk ||
+      this.imgURL === undefined ||
+      !this.nameEdit ||
+      !this.breedEdit
+    ) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'edit') {
       console.log('editing');
@@ -823,66 +828,79 @@ export class EditNewComponent implements OnInit {
     this.dataIsOk = regex.test(password);
     this.repeatpasswordEdit = regex.test(password);
   }
-  
-  validatePetBirthdate(date: string){
-    let yearMonthDay : {year:number, month:number, day:number }=EditNewComponent.getYearMonthDayFromStringDate(date);
-    if(yearMonthDay.year>50 || yearMonthDay.year<0){
+
+  validatePetBirthdate(date: string) {
+    let yearMonthDay: {
+      year: number;
+      month: number;
+      day: number;
+    } = EditNewComponent.getYearMonthDayFromStringDate(date);
+    if (yearMonthDay.year > 50 || yearMonthDay.year < 0) {
       this.petBirthdateEdit = false;
-    }else if(yearMonthDay.year===0){
-      if(yearMonthDay.month==0){
-        if(yearMonthDay.day<0){
+    } else if (yearMonthDay.year === 0) {
+      if (yearMonthDay.month == 0) {
+        if (yearMonthDay.day < 0) {
           this.petBirthdateEdit = false;
-        }else{
+        } else {
           this.petBirthdateEdit = true;
         }
-      }else{
+      } else {
         this.petBirthdateEdit = true;
       }
-    }else{
+    } else {
       this.petBirthdateEdit = true;
-    } 
+    }
   }
 
-  validatePetVaccineDate(date:string){
-    let yearMonthDay : {year:number, month:number, day:number }=EditNewComponent.getYearMonthDayFromStringDate(date);
-    if(yearMonthDay.year>50 || yearMonthDay.year<0){
+  validatePetVaccineDate(date: string) {
+    let yearMonthDay: {
+      year: number;
+      month: number;
+      day: number;
+    } = EditNewComponent.getYearMonthDayFromStringDate(date);
+    if (yearMonthDay.year > 50 || yearMonthDay.year < 0) {
       this.petDateVaccine = false;
-    }else if(yearMonthDay.year===0){
-      if(yearMonthDay.month==0){
-        if(yearMonthDay.day<0){
+    } else if (yearMonthDay.year === 0) {
+      if (yearMonthDay.month == 0) {
+        if (yearMonthDay.day < 0) {
           this.petDateVaccine = false;
-        }else{
+        } else {
           this.petDateVaccine = true;
         }
-      }else{
+      } else {
         this.petDateVaccine = true;
       }
-    }else{
+    } else {
       this.petDateVaccine = true;
-    } 
+    }
   }
 
-  validatePetVaccineNext(date:string){
-    let yearMonthDay : {year:number, month:number, day:number }=EditNewComponent.getYearMonthDayFromStringDate(date);
-    if(yearMonthDay.year<-5 || yearMonthDay.year>0){
+  validatePetVaccineNext(date: string) {
+    let yearMonthDay: {
+      year: number;
+      month: number;
+      day: number;
+    } = EditNewComponent.getYearMonthDayFromStringDate(date);
+    if (yearMonthDay.year < -5 || yearMonthDay.year > 0) {
       this.petNextVaccine = false;
-    }else if(yearMonthDay.year===0){
-      if(yearMonthDay.month==0){
-        if(yearMonthDay.day>0){
+    } else if (yearMonthDay.year === 0) {
+      if (yearMonthDay.month == 0) {
+        if (yearMonthDay.day > 0) {
           this.petNextVaccine = false;
-        }else{
+        } else {
           this.petNextVaccine = true;
         }
-      }else{
+      } else {
         this.petNextVaccine = true;
       }
-    }else{
+    } else {
       this.petNextVaccine = true;
-    } 
+    }
   }
 
-
-  static getYearMonthDayFromStringDate(stringDate: string):{year:number, month:number, day:number } {
+  static getYearMonthDayFromStringDate(
+    stringDate: string
+  ): { year: number; month: number; day: number } {
     let petBirthdate: any = moment(stringDate, 'YYYY-MM-DD');
     let now: any = moment();
     let petYears = now.diff(petBirthdate, 'year');
@@ -891,6 +909,6 @@ export class EditNewComponent implements OnInit {
     petBirthdate.add(petMonths, 'months');
     let petDays = now.diff(petBirthdate, 'day');
 
-    return {year:petYears, month:petMonths, day:petDays};
+    return { year: petYears, month: petMonths, day: petDays };
   }
 }
