@@ -11,18 +11,16 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./access.component.css'],
 })
 export class AccessComponent implements OnInit {
-  dataIsOk!: boolean;
   usernameAcc!: boolean;
   emailAcc!: boolean;
   phoneAcc!: boolean;
-  loginAcc!: boolean;
   passwordAcc!: boolean;
   dataMissingAlert: string = '';
   incorrectData: string = '';
-  @Input() page: string = 'menu';
-
   owner: Owner = new Owner();
   key = CryptoJS.enc.Hex.parse('070a0605060e0700060c06050704050a');
+
+  @Input() page: string = 'menu';
 
   constructor(
     private ownerService: OwnerService,
@@ -32,10 +30,8 @@ export class AccessComponent implements OnInit {
     this.translate
       .get(['data.missing', 'incorrectUserOrPwd'])
       .subscribe((values) => {
-        console.log(values);
         this.dataMissingAlert = values['data.missing'];
         this.incorrectData = values['incorrectUserOrPwd'];
-        //aqui poner las demas alert
       });
   }
 
@@ -62,7 +58,6 @@ export class AccessComponent implements OnInit {
     let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
       encryptedPassword
     );
-    console.log(passwordUrlSafeEncrypted);
     this.ownerService.login(login, passwordUrlSafeEncrypted).subscribe(
       (data) => {
         console.log(data);
@@ -87,7 +82,12 @@ export class AccessComponent implements OnInit {
     password: string,
     phoneNumber: string
   ) {
-    if (!this.dataIsOk) {
+    if (
+      !this.usernameAcc ||
+      !this.emailAcc ||
+      !this.passwordAcc ||
+      !this.phoneAcc
+    ) {
       alert(this.dataMissingAlert);
     } else {
       console.log('signingup...');
@@ -127,24 +127,21 @@ export class AccessComponent implements OnInit {
 
   validateUsername(username: string) {
     let regex = /(^\w{3,20}$)/;
-    this.dataIsOk = regex.test(username);
     this.usernameAcc = regex.test(username);
   }
 
   validatePhone(phone: string) {
     let regex = /(^\d{4,15}$)/;
-    this.dataIsOk = regex.test(phone);
     this.phoneAcc = regex.test(phone);
   }
 
   validatePassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
-    this.dataIsOk = regex.test(password);
     this.passwordAcc = regex.test(password);
   }
+
   validateEmail(email: string) {
     let regex = /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b)/;
-    this.dataIsOk = regex.test(email);
     this.emailAcc = regex.test(email);
   }
 }

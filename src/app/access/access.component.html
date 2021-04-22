@@ -8,10 +8,7 @@
       <div class="row text-start mt-5">
         <h5>{{ "text.welcome" | translate }}</h5>
         <p>
-          {{
-            "text.beforeaccount"
-              | translate
-          }}
+          {{ "text.beforeaccount" | translate }}
         </p>
         <app-pets-found-counter> </app-pets-found-counter>
       </div>
@@ -99,8 +96,7 @@
                 #username
               ></app-input>
               <span class="error" *ngIf="!usernameAcc">{{
-                "validate.username"
-                  | translate
+                "validate.username" | translate
               }}</span>
             </div>
             <div class="mb-3">
@@ -136,8 +132,7 @@
                 #password
               ></app-input>
               <span class="error" *ngIf="!passwordAcc">{{
-                "validate.password"
-                  | translate
+                "validate.password" | translate
               }}</span>
             </div>
             <div class="mb-1">
