@@ -180,6 +180,22 @@ export class EditNewComponent implements OnInit {
       this.mode = params['mode'];
       this.page = params['page'];
     });
+    if(this.mode=== 'edit'){
+    this.nameEdit = true;
+    this.descriptionEdit= true;
+    this.emailEdit= true;
+    this.usernameEdit= true;
+    this.oldpasswordEdit= true;
+    this.newpasswordEdit= true;
+    this.repeatpasswordEdit= true;
+    this.passwordEdit= true;
+    this.breedEdit= true;
+    this.phoneEdit= true;
+    this.loginEdit= true;
+    this.petBirthdateEdit= true;
+    this.petDateVaccine= true;
+    this.petNextVaccine= true;
+    }
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
       this.genreSelecction = this.currentPet.petGenre[0];
