@@ -32,20 +32,18 @@ export class LostPetPrintableComponent implements OnInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-          console.log(this.lostPet.lostPetLocation as string);
-          this.lostPetLocation = this.lostPet.lostPetLocation as string;
-        let lostPetLocationArray: number[] = [
-          ...this.lostPetLocation.split(','),
-        ].map((item) => parseFloat(item));
-        console.log(this.lostMap.nativeElement);
-        this.map = new mapboxgl.Map({
-          container: this.lostMap.nativeElement,
-          style: this.style,
-          center: [lostPetLocationArray[0], lostPetLocationArray[1]],
-          zoom: this.zoom,
-        });
-        this.map.addControl(new mapboxgl.NavigationControl());
-        this.createdMark(lostPetLocationArray[0], lostPetLocationArray[1]);
+      this.lostPetLocation = this.lostPet.lostPetLocation as string;
+      let lostPetLocationArray: number[] = [
+        ...this.lostPetLocation.split(','),
+      ].map((item) => parseFloat(item));
+      this.map = new mapboxgl.Map({
+        container: this.lostMap.nativeElement,
+        style: this.style,
+        center: [lostPetLocationArray[0], lostPetLocationArray[1]],
+        zoom: this.zoom,
+      });
+      this.map.addControl(new mapboxgl.NavigationControl());
+      this.createdMark(lostPetLocationArray[0], lostPetLocationArray[1]);
     }, 250);
   }
 

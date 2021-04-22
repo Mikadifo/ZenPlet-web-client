@@ -8,9 +8,8 @@ describe('LostPetPrintableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LostPetPrintableComponent ]
-    })
-    .compileComponents();
+      declarations: [LostPetPrintableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

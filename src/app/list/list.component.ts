@@ -34,11 +34,10 @@ export class ListComponent implements OnInit {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
     lostPetService.getLostPets().subscribe(
       (data) => {
-        console.log(data);
         this.lostPets = data;
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       }
     );
     this.loggedOwner.ownerPets.forEach((pet) => {

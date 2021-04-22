@@ -70,7 +70,7 @@ export class EditNewComponent implements OnInit {
   zoom = 15;
   lostPetLocation: string = `${this.lng},${this.lat}`;
   key = CryptoJS.enc.Hex.parse('070a0605060e0700060c06050704050a');
-  genreSelecction: string = '';
+  genreSelecction: string = 'Male';
 
   mode: string = '';
   page: string = '';
@@ -114,7 +114,6 @@ export class EditNewComponent implements OnInit {
     private translate: TranslateService
   ) {
     this.loggedOwner = JSON.parse(localStorage.getItem('owner') || '');
-    console.log('este es el constructor');
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.translate
@@ -143,7 +142,6 @@ export class EditNewComponent implements OnInit {
         'confirmDltPet',
       ])
       .subscribe((values) => {
-        console.log(values);
         this.dataMissingAlert = values['data.missing'];
         this.oldPswIncorrectAlert = values['oldPswIncorrect'];
         this.pswNoSameAlert = values['pswNoSame'];
@@ -177,21 +175,21 @@ export class EditNewComponent implements OnInit {
       this.mode = params['mode'];
       this.page = params['page'];
     });
-    if(this.mode=== 'edit'){
-    this.nameEdit = true;
-    this.descriptionEdit= true;
-    this.emailEdit= true;
-    this.usernameEdit= true;
-    this.oldpasswordEdit= true;
-    this.newpasswordEdit= true;
-    this.repeatpasswordEdit= true;
-    this.passwordEdit= true;
-    this.breedEdit= true;
-    this.phoneEdit= true;
-    this.loginEdit= true;
-    this.petBirthdateEdit= true;
-    this.petDateVaccine= true;
-    this.petNextVaccine= true;
+    if (this.mode === 'edit') {
+      this.nameEdit = true;
+      this.descriptionEdit = true;
+      this.emailEdit = true;
+      this.usernameEdit = true;
+      this.oldpasswordEdit = true;
+      this.newpasswordEdit = true;
+      this.repeatpasswordEdit = true;
+      this.passwordEdit = true;
+      this.breedEdit = true;
+      this.phoneEdit = true;
+      this.loginEdit = true;
+      this.petBirthdateEdit = true;
+      this.petDateVaccine = true;
+      this.petNextVaccine = true;
     }
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
@@ -200,7 +198,6 @@ export class EditNewComponent implements OnInit {
       this.petImageBase64 = this.imgURL as string;
       this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
         (data) => {
-          console.log(data);
           if (data === null) {
             this.currentLostPet = new LostPet();
           } else {
@@ -208,7 +205,7 @@ export class EditNewComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     } else if (this.mode === 'edit' && this.page === 'vaccine') {
@@ -223,7 +220,6 @@ export class EditNewComponent implements OnInit {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
       this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(
         (data) => {
-          console.log(data);
           if (data === null) {
             this.currentLostPet = new LostPet();
           } else {
@@ -231,7 +227,7 @@ export class EditNewComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     } else if (this.mode === 'new') {
@@ -263,14 +259,11 @@ export class EditNewComponent implements OnInit {
     setTimeout(() => {
       if (this.page === 'lostpet') {
         if (this.mode === 'edit') {
-          console.log(this.currentLostPet.lostPetLocation as string);
-          console.log(this.currentLostPet.lostPetLocation);
           this.lostPetLocation = this.currentLostPet.lostPetLocation as string;
         }
         let lostPetLocationArray: number[] = [
           ...this.lostPetLocation.split(','),
         ].map((item) => parseFloat(item));
-        console.log(this.mapElement.nativeElement);
         this.map = new mapboxgl.Map({
           container: this.mapElement.nativeElement,
           style: this.style,
@@ -302,7 +295,6 @@ export class EditNewComponent implements OnInit {
       this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
         (data) => {
           this.loggedOwner = data;
-          console.log(data);
           let encryptedOldPassword = CryptoJS.AES.encrypt(
             oldPassword,
             this.key,
@@ -313,7 +305,7 @@ export class EditNewComponent implements OnInit {
           let oldPasswordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
             encryptedOldPassword
           );
-          console.log(oldPasswordUrlSafeEncrypted);
+          console.error(oldPasswordUrlSafeEncrypted);
           if (oldPasswordUrlSafeEncrypted === this.loggedOwner.ownerPassword) {
             if (newPassword === repeatPassword) {
               let encryptedPassword = CryptoJS.AES.encrypt(
@@ -326,19 +318,17 @@ export class EditNewComponent implements OnInit {
               let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
                 encryptedPassword
               );
-              console.log(passwordUrlSafeEncrypted);
               this.loggedOwner.ownerPassword = passwordUrlSafeEncrypted;
               this.ownerService
                 .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
                 .subscribe(
                   (data) => {
-                    console.log(data);
                     localStorage.setItem('owner', JSON.stringify(data));
                     alert(this.pswUpdatedAlert);
                     this._location.back();
                   },
                   (error) => {
-                    console.log(error);
+                    console.error(error);
                   }
                 );
             } else {
@@ -349,7 +339,7 @@ export class EditNewComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -359,13 +349,12 @@ export class EditNewComponent implements OnInit {
     if (confirm(this.confirmDltAccountAlert)) {
       this.ownerService.deleteOwner(this.loggedOwner.ownerId).subscribe(
         (data) => {
-          console.log(data);
           alert(this.accountDltAlert);
           localStorage.clear();
           this.router.navigate(['auth']);
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -375,7 +364,6 @@ export class EditNewComponent implements OnInit {
     if (confirm(this.confirmDltPetAlert)) {
       this.petService.deletePet(this.currentPet.petId).subscribe(
         (data) => {
-          console.log(data);
           this.loggedOwner.ownerPets = this.loggedOwner.ownerPets.filter(
             (pet) => pet.petId !== this.currentPet.petId
           );
@@ -383,18 +371,17 @@ export class EditNewComponent implements OnInit {
             .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
             .subscribe(
               (data) => {
-                console.log(data);
                 this.loggedOwner = data;
                 localStorage.setItem('owner', JSON.stringify(data));
                 alert(this.dltPetAlert);
                 this._location.back();
               },
               (error) => {
-                console.log(error);
+                console.error(error);
               }
             );
         },
-        (err) => console.log(err)
+        (error) => console.error(error)
       );
     }
   }
@@ -406,7 +393,6 @@ export class EditNewComponent implements OnInit {
       this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
         (data) => {
           this.loggedOwner = data;
-          console.log(data);
           if (
             this.loggedOwner.ownerName === username &&
             this.loggedOwner.ownerEmail === email &&
@@ -421,19 +407,18 @@ export class EditNewComponent implements OnInit {
               .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
               .subscribe(
                 (data) => {
-                  console.log(data);
                   this.loggedOwner = data;
                   localStorage.setItem('owner', JSON.stringify(data));
                   alert(this.dataChangeAlert);
                 },
                 (error) => {
-                  console.log(error);
+                  console.error(error);
                 }
               );
           }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -448,7 +433,6 @@ export class EditNewComponent implements OnInit {
     if (this.imgURL === undefined || !this.nameEdit || !this.breedEdit) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'edit') {
-      console.log('editing');
       this.currentPet.petName = name;
       this.currentPet.petBreed = breed;
       this.currentPet.petSize = size;
@@ -460,29 +444,26 @@ export class EditNewComponent implements OnInit {
         .updatePet(this.currentPet.petId, this.currentPet)
         .subscribe(
           (data) => {
-            console.log(data);
             this.currentPet = data;
             this.ownerService
               .updateOwner(this.loggedOwner.ownerId, this.loggedOwner)
               .subscribe(
                 (data) => {
-                  console.log(data);
                   this.loggedOwner = data;
                   localStorage.setItem('owner', JSON.stringify(data));
                   alert(this.petUpdatedAlert);
                   this._location.back();
                 },
                 (error) => {
-                  console.log(error);
+                  console.error(error);
                 }
               );
           },
           (error) => {
-            console.log(error);
+            console.error(error);
           }
         );
     } else if (this.mode === 'new') {
-      console.log('newing');
       let newPet: Pets = {
         petId: 0,
         petName: name,
@@ -496,7 +477,6 @@ export class EditNewComponent implements OnInit {
       };
       this.petService.createPet(newPet).subscribe(
         (data) => {
-          console.log(data);
           newPet = data;
           this.loggedOwner.ownerPets.push(newPet);
           localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
@@ -504,7 +484,7 @@ export class EditNewComponent implements OnInit {
           this._location.back();
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -520,7 +500,6 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPetNav() {
-    console.log(this.currentLostPet);
     if (this.currentLostPet.lostPetAdditionalInfo !== undefined) {
       this.router.navigate(['edit/lostpet']);
     } else {
@@ -540,7 +519,6 @@ export class EditNewComponent implements OnInit {
       };
       this.lostPetService.saveLostPet(lost).subscribe(
         (data) => {
-          console.log(data);
           if (data.owner.ownerId === 0) {
             alert(this.errorPostAlert);
           } else {
@@ -550,7 +528,7 @@ export class EditNewComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -570,7 +548,6 @@ export class EditNewComponent implements OnInit {
         .updateLostPet(this.currentPet.petId, lostPetEdit)
         .subscribe(
           (data) => {
-            console.log(data);
             if (
               data.lostPetAdditionalInfo === lostPetEdit.lostPetAdditionalInfo
             ) {
@@ -581,7 +558,7 @@ export class EditNewComponent implements OnInit {
             }
           },
           (error) => {
-            console.log(error);
+            console.error(error);
           }
         );
     }
@@ -590,17 +567,15 @@ export class EditNewComponent implements OnInit {
   petFound() {
     this.lostPetService.deleteLostPet(this.currentPet.petId).subscribe(
       (data) => {
-        console.log(data);
         if (data === null) {
           this.petFoundService.addPetFound().subscribe(
             (data) => {
-              console.log(data);
               alert(this.findPetAlert);
               this.currentLostPet = new LostPet();
               this._location.back();
             },
             (error) => {
-              console.log(error);
+              console.error(error);
             }
           );
         } else {
@@ -608,7 +583,7 @@ export class EditNewComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -626,7 +601,6 @@ export class EditNewComponent implements OnInit {
     } else if (!this.nameEdit || !this.descriptionEdit) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'new') {
-      console.log('newing');
       let vaccine: Vaccine = {
         vaccinesId: 0,
         vaccinesName: vaccineName,
@@ -634,7 +608,6 @@ export class EditNewComponent implements OnInit {
       };
       this.vaccineService.saveVaccine(vaccine).subscribe(
         (data) => {
-          console.log(data);
           vaccine = data;
           let pet: Pets = this.loggedOwner.ownerPets.filter(
             (pet) => pet.petId === parseInt(this.petIdForVaccine)
@@ -646,10 +619,8 @@ export class EditNewComponent implements OnInit {
             pet: pet,
             vaccine: vaccine,
           };
-          console.log(petVaccine);
           this.petVaccineService.savePetVaccine(petVaccine).subscribe(
             (data) => {
-              console.log(data);
               petVaccine = data;
               this.loggedOwner.ownerPets
                 .filter((pet) => pet.petId === data.id.petId)
@@ -659,16 +630,15 @@ export class EditNewComponent implements OnInit {
               this._location.back();
             },
             (error) => {
-              console.log(error);
+              console.error(error);
             }
           );
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     } else {
-      console.log('editing');
       let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
       vaccineToUpdate.vaccinesDescription = vaccinesDescription;
       vaccineToUpdate.vaccinesName = vaccineName;
@@ -676,7 +646,6 @@ export class EditNewComponent implements OnInit {
         .updateVaccine(vaccineToUpdate.vaccinesId, vaccineToUpdate)
         .subscribe(
           (data) => {
-            console.log(data);
             vaccineToUpdate = data;
             let pet: Pets = this.loggedOwner.ownerPets.filter(
               (pet) => pet.petId === parseInt(this.petIdForVaccine)
@@ -695,7 +664,6 @@ export class EditNewComponent implements OnInit {
               )
               .subscribe(
                 (data) => {
-                  console.log(data);
                   petVaccine = data;
 
                   this.loggedOwner.ownerPets
@@ -719,12 +687,12 @@ export class EditNewComponent implements OnInit {
                   this._location.back();
                 },
                 (error) => {
-                  console.log(error);
+                  console.error(error);
                 }
               );
           },
           (error) => {
-            console.log(error);
+            console.error(error);
           }
         );
     }
@@ -732,12 +700,10 @@ export class EditNewComponent implements OnInit {
 
   deleteVaccine() {
     if (confirm(this.confirmDltVaccineAlert)) {
-      console.log(this.currentVaccine);
       this.vaccineService
         .deleteVaccine(this.currentVaccine.id.vaccineId)
         .subscribe(
           (data) => {
-            console.log(data);
             this.loggedOwner.ownerPets
               .filter((pet) => pet.petId === this.currentVaccine.id.petId)
               .forEach((pet) =>
@@ -761,7 +727,7 @@ export class EditNewComponent implements OnInit {
             this._location.back();
           },
           (error) => {
-            console.log(error);
+            console.error(error);
           }
         );
     }

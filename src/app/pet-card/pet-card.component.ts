@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Owner } from '../model/owner/owner.model';
 import { Pets } from '../model/pets.model';
-import {EditNewComponent} from '../edit-new/edit-new.component';
-
+import { EditNewComponent } from '../edit-new/edit-new.component';
 
 @Component({
   selector: 'app-pet-card',
@@ -28,8 +27,11 @@ export class PetCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    let yearMonthDay : {year:number, month:number, day:number }=EditNewComponent.getYearMonthDayFromStringDate(this.pet.petBirthdate);
-    this.petAge =`${yearMonthDay.year} year(s) ${yearMonthDay.month} month(s) ${yearMonthDay.day} day(s)`;
+    let yearMonthDay: {
+      year: number;
+      month: number;
+      day: number;
+    } = EditNewComponent.getYearMonthDayFromStringDate(this.pet.petBirthdate);
+    this.petAge = `${yearMonthDay.year} year(s) ${yearMonthDay.month} month(s) ${yearMonthDay.day} day(s)`;
   }
-
 }
