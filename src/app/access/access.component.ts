@@ -60,7 +60,6 @@ export class AccessComponent implements OnInit {
     );
     this.ownerService.login(login, passwordUrlSafeEncrypted).subscribe(
       (data) => {
-        console.log(data);
         if (data.ownerId !== 0) {
           this.owner = data;
           localStorage.setItem('token', data.token);
@@ -71,7 +70,7 @@ export class AccessComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -90,7 +89,6 @@ export class AccessComponent implements OnInit {
     ) {
       alert(this.dataMissingAlert);
     } else {
-      console.log('signingup...');
       this.owner.ownerName = username;
       this.owner.ownerEmail = email;
       this.owner.ownerPhoneNumber = phoneNumber;
@@ -100,15 +98,13 @@ export class AccessComponent implements OnInit {
       let passwordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
         encryptedPassword
       );
-      console.log(passwordUrlSafeEncrypted);
       this.owner.ownerPassword = passwordUrlSafeEncrypted;
       this.ownerService.saveOwners(this.owner).subscribe(
         (data) => {
-          console.log(data);
           this.logInNav();
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
     }

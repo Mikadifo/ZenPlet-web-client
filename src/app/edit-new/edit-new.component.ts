@@ -193,7 +193,7 @@ export class EditNewComponent implements OnInit {
     }
     if (this.mode === 'edit' && this.page === 'pet') {
       this.currentPet = JSON.parse(localStorage.getItem('selectedPet') || '');
-      this.genreSelecction = this.currentPet.petGenre[0];
+      this.genreSelecction = this.currentPet.petGenre;
       this.imgURL = this.currentPet.petImage;
       this.petImageBase64 = this.imgURL as string;
       this.lostPetService.getLostPetByPetId(this.currentPet.petId).subscribe(

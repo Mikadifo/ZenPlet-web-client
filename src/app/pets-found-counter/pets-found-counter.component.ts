@@ -12,7 +12,6 @@ export class PetsFoundCounterComponent implements OnInit {
   constructor(private petsFoundService: PetFoundService) {
     petsFoundService.getPetsFound().subscribe(
       (data) => {
-        console.log(data);
         this.petsFoundCounter = data;
       },
       (error) => {
