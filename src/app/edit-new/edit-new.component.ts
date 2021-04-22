@@ -219,8 +219,14 @@ export class EditNewComponent implements OnInit {
           console.log(error);
         }
       );
-    } else if (this.mode === 'new' && this.page === 'pet') {
-      this.currentPet.petBirthdate = moment().format('YYYY-MM-DD');
+    } else if (this.mode === 'new') {
+      let today: string = moment().format('YYYY-MM-DD');
+      if (this.page === 'pet') {
+        this.currentPet.petBirthdate = today;
+      } else if (this.page === 'vaccine') {
+        this.currentVaccine.petVaccineDate = today;
+        this.currentVaccine.petVaccineNext = today;
+      }
     }
   }
 
@@ -607,6 +613,8 @@ export class EditNewComponent implements OnInit {
       alert(this.noHavePetsAlert);
     } else if (isNaN(parseInt(this.petIdForVaccine))) {
       alert(this.selectedPetVaccineAlert);
+    } else if (!this.nameEdit || !this.descriptionEdit) {
+      alert(this.dataMissingAlert);
     } else if (this.mode === 'new') {
       if (!this.dataIsOk) {
         alert(this.dataMissingAlert);

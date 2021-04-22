@@ -31,10 +31,12 @@
                 type="radio"
                 name="flexRadioDefault"
                 id="radioMale"
-                [checked]="genreSelecction === 'M' || mode === 'new'"
-                (change)="genreSelecction = 'Male'" 
+                [checked]="genreSelecction.startsWith('M') || mode === 'new'"
+                (change)="genreSelecction = 'Male'"
               />
-              <label class="form-check-label" for="radioMale">{{'pet.male'| translate}}</label>
+              <label class="form-check-label" for="radioMale">{{
+                "pet.male" | translate
+              }}</label>
             </div>
             <div class="form-check form-check-inline">
               <input
@@ -42,10 +44,12 @@
                 type="radio"
                 name="flexRadioDefault"
                 id="radioFemale"
-                [checked]="genreSelecction === 'F'"
+                [checked]="genreSelecction.startsWith('F')"
                 (change)="genreSelecction = 'Female'"
               />
-              <label class="form-check-label" for="radioFemale">{{'pet.female'| translate}}</label>
+              <label class="form-check-label" for="radioFemale">{{
+                "pet.female" | translate
+              }}</label>
             </div>
           </div>
           <div class="mb-4">
@@ -164,10 +168,10 @@
           <b>{{ "title.lostpet" | translate }}</b>
         </h1>
         <p class="post-info">
-         {{'text.postlostpet'| translate}}
+          {{ "text.postlostpet" | translate }}
         </p>
         <b
-          ><p>{{ 'subtitle.aditionalinfo'| translate }}</p></b
+          ><p>{{ "subtitle.aditionalinfo" | translate }}</p></b
         >
         <label for="additional" class="form-label"></label>
         <textarea
@@ -181,7 +185,7 @@
           #additionalInfo
         ></textarea>
         <span class="error" *ngIf="!descriptionEdit"
-          >{{"validate.description" | translate }}
+          >{{ "validate.description" | translate }}
         </span>
       </div>
       <div class="col col-sm-12 col-md-6">
@@ -245,7 +249,7 @@
               #vaccineName
             ></app-input>
             <span class="error" *ngIf="!nameEdit">{{
-              "validate.letters"| translate
+              "validate.letters" | translate
             }}</span>
           </div>
           <div class="mb-4">
@@ -389,8 +393,7 @@
               #username
             ></app-input>
             <span class="error" *ngIf="!usernameEdit">{{
-              "validate.username"
-                | translate
+              "validate.username" | translate
             }}</span>
           </div>
           <div class="mb-4">
@@ -476,10 +479,7 @@
               #oldPassword
             ></app-input>
             <span class="error" *ngIf="!oldpasswordEdit"
-              >{{
-                "validate.password"
-                  | translate
-              }}
+              >{{ "validate.password" | translate }}
             </span>
           </div>
           <div class="mb-4">
@@ -493,10 +493,7 @@
               #newPassword
             ></app-input>
             <span class="error" *ngIf="!newpasswordEdit"
-              >{{
-                "validate.password"
-                  | translate
-              }}
+              >{{ "validate.password" | translate }}
             </span>
           </div>
           <div class="mb-4">
@@ -505,15 +502,12 @@
             >
             <app-input
               (input)="validateRepeatPassword(repeatPassword.value)"
-              type="password" 
+              type="password"
               placeholder="{{ 'placeholder.repeatpassword' | translate }}"
               #repeatPassword
             ></app-input>
             <span class="error" *ngIf="!repeatpasswordEdit"
-              >{{
-                "validate.password"
-                  | translate
-              }}
+              >{{ "validate.password" | translate }}
             </span>
           </div>
         </form>
