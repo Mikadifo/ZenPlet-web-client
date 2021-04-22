@@ -746,7 +746,7 @@ export class EditNewComponent implements OnInit {
   }
 
   validateAdditionalInfo(additionalInfo: string) {
-    let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{10,300}$)/;
+    let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{10,250}$)/;
     this.descriptionEdit = regex.test(additionalInfo);
   }
 
