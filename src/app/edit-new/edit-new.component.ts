@@ -24,7 +24,6 @@ import * as moment from 'moment';
   styleUrls: ['./edit-new.component.css'],
 })
 export class EditNewComponent implements OnInit {
-  dataIsOk!: boolean;
   nameEdit!: boolean;
   descriptionEdit!: boolean;
   emailEdit!: boolean;
@@ -277,7 +276,11 @@ export class EditNewComponent implements OnInit {
     newPassword: string,
     repeatPassword: string
   ) {
-    if (!this.dataIsOk) {
+    if (
+      !this.oldpasswordEdit ||
+      !this.newpasswordEdit ||
+      !this.repeatpasswordEdit
+    ) {
       alert(this.dataMissingAlert);
     } else {
       this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
@@ -381,7 +384,7 @@ export class EditNewComponent implements OnInit {
   }
 
   saveChanges(username: string, email: string, phoneNumber: string) {
-    if (!this.dataIsOk) {
+    if (!this.usernameEdit || !this.emailEdit || !this.phoneEdit) {
       alert(this.dataMissingAlert);
     } else {
       this.ownerService.getOwnerById(this.loggedOwner.ownerId).subscribe(
@@ -426,12 +429,7 @@ export class EditNewComponent implements OnInit {
     size: string,
     birthdate: string
   ) {
-    if (
-      !this.dataIsOk ||
-      this.imgURL === undefined ||
-      !this.nameEdit ||
-      !this.breedEdit
-    ) {
+    if (this.imgURL === undefined || !this.nameEdit || !this.breedEdit) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'edit') {
       console.log('editing');
@@ -612,115 +610,107 @@ export class EditNewComponent implements OnInit {
     } else if (!this.nameEdit || !this.descriptionEdit) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'new') {
-      if (!this.dataIsOk) {
-        alert(this.dataMissingAlert);
-      } else {
-        console.log('newing');
-        let vaccine: Vaccine = {
-          vaccinesId: 0,
-          vaccinesName: vaccineName,
-          vaccinesDescription: vaccinesDescription,
-        };
-        this.vaccineService.saveVaccine(vaccine).subscribe(
-          (data) => {
-            console.log(data);
-            vaccine = data;
-            let pet: Pets = this.loggedOwner.ownerPets.filter(
-              (pet) => pet.petId === parseInt(this.petIdForVaccine)
-            )[0];
-            let petVaccine: PetVaccine = {
-              id: { petId: 0, vaccineId: 0 },
-              petVaccineDate: vaccineDate,
-              petVaccineNext: vaccineNext,
-              pet: pet,
-              vaccine: vaccine,
-            };
-            console.log(petVaccine);
-            this.petVaccineService.savePetVaccine(petVaccine).subscribe(
-              (data) => {
-                console.log(data);
-                petVaccine = data;
-                this.loggedOwner.ownerPets
-                  .filter((pet) => pet.petId === data.id.petId)
-                  .forEach((pet) => pet.petVaccines.push(petVaccine));
-                localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
-                alert(this.petHaveVaccineAlert);
-                this._location.back();
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-    } else {
-      if (!this.dataIsOk) {
-        alert(this.dataMissingAlert);
-      } else {
-        console.log('editing');
-        let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
-        vaccineToUpdate.vaccinesDescription = vaccinesDescription;
-        vaccineToUpdate.vaccinesName = vaccineName;
-        this.vaccineService
-          .updateVaccine(vaccineToUpdate.vaccinesId, vaccineToUpdate)
-          .subscribe(
+      console.log('newing');
+      let vaccine: Vaccine = {
+        vaccinesId: 0,
+        vaccinesName: vaccineName,
+        vaccinesDescription: vaccinesDescription,
+      };
+      this.vaccineService.saveVaccine(vaccine).subscribe(
+        (data) => {
+          console.log(data);
+          vaccine = data;
+          let pet: Pets = this.loggedOwner.ownerPets.filter(
+            (pet) => pet.petId === parseInt(this.petIdForVaccine)
+          )[0];
+          let petVaccine: PetVaccine = {
+            id: { petId: 0, vaccineId: 0 },
+            petVaccineDate: vaccineDate,
+            petVaccineNext: vaccineNext,
+            pet: pet,
+            vaccine: vaccine,
+          };
+          console.log(petVaccine);
+          this.petVaccineService.savePetVaccine(petVaccine).subscribe(
             (data) => {
               console.log(data);
-              vaccineToUpdate = data;
-              let pet: Pets = this.loggedOwner.ownerPets.filter(
-                (pet) => pet.petId === parseInt(this.petIdForVaccine)
-              )[0];
-              let petVaccine: PetVaccine = {
-                id: { petId: pet.petId, vaccineId: 0 },
-                petVaccineDate: vaccineDate,
-                petVaccineNext: vaccineNext,
-                vaccine: vaccineToUpdate,
-              };
-              this.petVaccineService
-                .updatePetVaccine(
-                  petVaccine.id.petId,
-                  petVaccine.vaccine.vaccinesId,
-                  petVaccine
-                )
-                .subscribe(
-                  (data) => {
-                    console.log(data);
-                    petVaccine = data;
-
-                    this.loggedOwner.ownerPets
-                      .filter((pet) => pet.petId === data.id.petId)
-                      .forEach((pet) =>
-                        pet.petVaccines.splice(
-                          pet.petVaccines.indexOf(petVaccine),
-                          1
-                        )
-                      );
-
-                    this.loggedOwner.ownerPets
-                      .filter((pet) => pet.petId === data.id.petId)
-                      .forEach((pet) => pet.petVaccines.push(petVaccine));
-
-                    localStorage.setItem(
-                      'owner',
-                      JSON.stringify(this.loggedOwner)
-                    );
-                    alert(this.petVaccineUpdatedAlert);
-                    this._location.back();
-                  },
-                  (error) => {
-                    console.log(error);
-                  }
-                );
+              petVaccine = data;
+              this.loggedOwner.ownerPets
+                .filter((pet) => pet.petId === data.id.petId)
+                .forEach((pet) => pet.petVaccines.push(petVaccine));
+              localStorage.setItem('owner', JSON.stringify(this.loggedOwner));
+              alert(this.petHaveVaccineAlert);
+              this._location.back();
             },
             (error) => {
               console.log(error);
             }
           );
-      }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log('editing');
+      let vaccineToUpdate: Vaccine = this.currentVaccine.vaccine;
+      vaccineToUpdate.vaccinesDescription = vaccinesDescription;
+      vaccineToUpdate.vaccinesName = vaccineName;
+      this.vaccineService
+        .updateVaccine(vaccineToUpdate.vaccinesId, vaccineToUpdate)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            vaccineToUpdate = data;
+            let pet: Pets = this.loggedOwner.ownerPets.filter(
+              (pet) => pet.petId === parseInt(this.petIdForVaccine)
+            )[0];
+            let petVaccine: PetVaccine = {
+              id: { petId: pet.petId, vaccineId: 0 },
+              petVaccineDate: vaccineDate,
+              petVaccineNext: vaccineNext,
+              vaccine: vaccineToUpdate,
+            };
+            this.petVaccineService
+              .updatePetVaccine(
+                petVaccine.id.petId,
+                petVaccine.vaccine.vaccinesId,
+                petVaccine
+              )
+              .subscribe(
+                (data) => {
+                  console.log(data);
+                  petVaccine = data;
+
+                  this.loggedOwner.ownerPets
+                    .filter((pet) => pet.petId === data.id.petId)
+                    .forEach((pet) =>
+                      pet.petVaccines.splice(
+                        pet.petVaccines.indexOf(petVaccine),
+                        1
+                      )
+                    );
+
+                  this.loggedOwner.ownerPets
+                    .filter((pet) => pet.petId === data.id.petId)
+                    .forEach((pet) => pet.petVaccines.push(petVaccine));
+
+                  localStorage.setItem(
+                    'owner',
+                    JSON.stringify(this.loggedOwner)
+                  );
+                  alert(this.petVaccineUpdatedAlert);
+                  this._location.back();
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     }
   }
 
@@ -775,61 +765,51 @@ export class EditNewComponent implements OnInit {
 
   validateAdditionalInfo(additionalInfo: string) {
     let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{10,300}$)/;
-    this.dataIsOk = regex.test(additionalInfo);
     this.descriptionEdit = regex.test(additionalInfo);
   }
 
   validateUsername(username: string) {
     let regex = /(^\w{3,20}$)/;
-    this.dataIsOk = regex.test(username);
     this.usernameEdit = regex.test(username);
   }
 
   validateLogin(username: string) {
     let regex = /(^\w{3,20}$)/ || /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b)/;
-    this.dataIsOk = regex.test(username);
     this.loginEdit = regex.test(username);
   }
 
   validateName(name: string) {
     let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
-    this.dataIsOk = regex.test(name);
     this.nameEdit = regex.test(name);
   }
 
   validateBreed(name: string) {
     let regex = /(^[ÁÉÍÓÚA-Za-záéíóú ]{3,30}$)/;
-    this.dataIsOk = regex.test(name);
     this.breedEdit = regex.test(name);
   }
 
   validateEmail(email: string) {
     let regex = /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b) /;
-    this.dataIsOk = regex.test(email);
     this.emailEdit = regex.test(email);
   }
 
   validatePhone(phone: string) {
     let regex = /(^\d{4,15}$)/;
-    this.dataIsOk = regex.test(phone);
     this.phoneEdit = regex.test(phone);
   }
 
   validateOldPassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
-    this.dataIsOk = regex.test(password);
     this.oldpasswordEdit = regex.test(password);
   }
 
   validateNewPassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
-    this.dataIsOk = regex.test(password);
     this.newpasswordEdit = regex.test(password);
   }
 
   validateRepeatPassword(password: string) {
     let regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,40}/;
-    this.dataIsOk = regex.test(password);
     this.repeatpasswordEdit = regex.test(password);
   }
 
