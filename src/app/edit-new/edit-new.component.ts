@@ -789,7 +789,7 @@ export class EditNewComponent implements OnInit {
   }
 
   validateEmail(email: string) {
-    let regex = /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b) /;
+    let regex = /(\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b)/;
     this.emailEdit = regex.test(email);
   }
 
