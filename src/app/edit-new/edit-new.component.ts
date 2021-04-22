@@ -515,11 +515,9 @@ export class EditNewComponent implements OnInit {
   }
 
   postLostPet(additionalInfo: string) {
-    if (!this.dataIsOk) {
+    if (!this.descriptionEdit) {
       alert(this.dataMissingAlert);
     } else {
-      console.log(this.currentPet);
-      console.log(this.lostPetLocation);
       let lost: LostPet = {
         owner: this.loggedOwner,
         pet: this.currentPet,
@@ -545,17 +543,15 @@ export class EditNewComponent implements OnInit {
   }
 
   editLostPet(additionalInfo: string) {
-    if (!this.dataIsOk) {
+    if (!this.descriptionEdit) {
       alert(this.dataMissingAlert);
     } else {
-      console.log(this.lostPetLocation);
       let lostPetEdit: LostPet = {
         owner: new Owner(),
         pet: new Pets(),
         lostPetAdditionalInfo: additionalInfo,
         lostPetLocation: this.lostPetLocation,
       };
-      console.log(lostPetEdit);
       this.lostPetService
         .updateLostPet(this.currentPet.petId, lostPetEdit)
         .subscribe(
