@@ -104,7 +104,13 @@
     "confirmDltVaccine":"Are you sure to delete the vaccine?",
     "dltVaccine":"Vaccine has been deleted.",
     "nav.accountsettings":"Account settings",
-    "footer.description":"We are a group of fourth cycle software developers who decided to create as a final project this application taking into account certain needs in terms of pets that we were able to observe in ourenvironment."
+    "footer.description":"We are a group of fourth cycle software developers who decided to create as a final project this application taking into account certain needs in terms of pets that we were able to observe in ourenvironment.",
+    "sizeArray1":"Miniature",
+    "sizeArray2":"Small", 
+    "sizeArray3":"Medium",
+    "sizeArray4":"Big",
+    "sizeArray5":"Gigant"
+    
 
 
 }

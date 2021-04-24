@@ -104,7 +104,13 @@
     "dltVaccine":"Se ha eliminado la vacuna.",
     "oldPswIncorrect":"La contraseña anterior no es correcta",
     "nav.accountsettings":"Configuración de la cuenta",
-    "footer.description":"Somos un grupo de desarrolladores de software de cuarto ciclo que decidieron crear como proyecto final esta aplicación teniendo en cuenta ciertas necesidades en términos de mascotas que pudimos observar en nuestro entorno."
+    "footer.description":"Somos un grupo de desarrolladores de software de cuarto ciclo que decidieron crear como proyecto final esta aplicación teniendo en cuenta ciertas necesidades en términos de mascotas que pudimos observar en nuestro entorno.",
+    "fecha":"AAAA/MM/DD",
+    "sizeArray1":"Miniatura",
+    "sizeArray2":"Pequeño", 
+    "sizeArray3":"Mediano",
+    "sizeArray4":"Grande",
+    "sizeArray5":"Gigante"
     
 
 
