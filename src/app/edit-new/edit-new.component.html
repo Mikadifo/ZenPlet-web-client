@@ -59,7 +59,7 @@
             <select class="form-select combo-input" #petSize>
               <option
                 *ngFor="
-                  let item of ['sizeArray1'| translate,'sizeArray2'| translate,'sizeArray3'| translate,'sizeArray4'| translate,'sizeAray5'| translate]                "
+                  let item of ['sizeArray1'| translate,'sizeArray2'| translate,'sizeArray3'| translate,'sizeArray4'| translate,'sizeArray5'| translate]                "
                 value="{{ item }}"
                 [attr.selected]="item === currentPet.petSize ? true : null"
               >
