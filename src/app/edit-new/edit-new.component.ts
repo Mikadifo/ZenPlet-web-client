@@ -305,7 +305,6 @@ export class EditNewComponent implements OnInit {
           let oldPasswordUrlSafeEncrypted: string = this.Base64EncodeUrlSafe(
             encryptedOldPassword
           );
-          console.error(oldPasswordUrlSafeEncrypted);
           if (oldPasswordUrlSafeEncrypted === this.loggedOwner.ownerPassword) {
             if (newPassword === repeatPassword) {
               let encryptedPassword = CryptoJS.AES.encrypt(
