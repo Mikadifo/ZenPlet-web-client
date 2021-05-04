@@ -301,7 +301,7 @@
                 *ngFor="let pet of loggedOwner.ownerPets"
                 value="{{ pet.petId }}"
               >
-                {{ pet.petName }}
+                {{ pet.petName | translate}}
               </option>
             </select>
           </div>

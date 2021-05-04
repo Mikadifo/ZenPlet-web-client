@@ -47,6 +47,7 @@ export class EditNewComponent implements OnInit {
   confirmDltPetAlert: string = '';
   dltPetAlert: string = '';
   dataSameAlert: string = '';
+  dataLostPetAlert: string = '';
   dataChangeAlert: string = '';
   petUpdatedAlert: string = '';
   petInsertedAlert: string = '';
@@ -118,6 +119,7 @@ export class EditNewComponent implements OnInit {
 
     this.translate
       .get([
+        'dataLostPet',
         'data.missing',
         'findPet',
         'confirmDltVaccine',
@@ -166,6 +168,7 @@ export class EditNewComponent implements OnInit {
         this.petVaccineUpdatedAlert = values['petVacUpdate'];
         this.confirmDltVaccineAlert = values['confirmDltVaccine'];
         this.dltVaccineAlert = values['confirmDltVaccine'];
+        this.dataLostPetAlert = values['dataLostPet'];
       });
   }
 
@@ -521,7 +524,7 @@ export class EditNewComponent implements OnInit {
           if (data.owner.ownerId === 0) {
             alert(this.errorPostAlert);
           } else {
-            alert('Your pet now is marked as lost');
+            alert(this.dataLostPetAlert);
             this.currentLostPet = data;
             this._location.back();
           }
@@ -745,7 +748,7 @@ export class EditNewComponent implements OnInit {
   }
 
   validateAdditionalInfo(additionalInfo: string) {
-    let regex = /(^[/w ]{10,250}$)/;
+    let regex = /(^[\w ]{10,300}$)/;
     this.descriptionEdit = regex.test(additionalInfo);
   }
 

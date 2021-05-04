@@ -73,7 +73,7 @@
     "text.emailincorrect":"Email is incorrect",
     "validate.numbers":"Enter only numbers. Minimum 4 and maximum 15",
     "validate.password":"The password must be between 8 and 16 characters long, at least one digit, at least one lowercase and at least one uppercase",
-    "validate.letters":"Enter only letters. Minimum 3 and maximum 300",
+    "validate.letters":"Enter only letters. Minimum 3 and maximum 30",
     "validate.description":"Enter only letters. Minimum 10 and maximum 300",
     "data.missing": "Some fields are missing.",
     "incorrectUserOrPwd":"incorrectUserOrPwd",
@@ -109,7 +109,8 @@
     "sizeArray2":"Small", 
     "sizeArray3":"Medium",
     "sizeArray4":"Big",
-    "sizeArray5":"Giant"
+    "sizeArray5":"Giant",
+    "dataLostPet":"Your pet now is marked as lost"
     
 
 

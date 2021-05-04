@@ -75,7 +75,8 @@
     "text.emailincorrect":"El correo electrónico es incorrecto",
     "validate.numbers":"Introduzca solo números. Mínimo 4 y máximo 15",
     "validate.password":"La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula",
-    "validate.letters":"Introduzca solo letras. Mínimo 3 y máximo 300",
+    "validate.description":"Introduzca solo letras. Mínimo 10 y máximo 300",
+    "validate.letters":"Introduzca solo letras. Mínimo 3 y máximo 30",
     "data.missing": "Algunos datos faltan por llenar",
     "incorrectUserOrPwd":"El nombre de usuario o contraseña no son correctos",
     "text.postlostpet":"Para publicar a su mascota como perdida, debe incluir información adicional como: lugar donde se vio por última vez, detalles de su mascota, o si no configuró su número de teléfono, es recomendable proporcionar información de contacto.",
@@ -110,7 +111,8 @@
     "sizeArray2":"Pequeño", 
     "sizeArray3":"Mediano",
     "sizeArray4":"Grande",
-    "sizeArray5":"Gigante"
+    "sizeArray5":"Gigante",
+    "dataLostPet":"Su mascota ahora está marcada como perdida"
     
 
 
