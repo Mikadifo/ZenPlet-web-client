@@ -605,12 +605,7 @@ export class EditNewComponent implements OnInit {
       alert(this.noHavePetsAlert);
     } else if (isNaN(parseInt(this.petIdForVaccine))) {
       alert(this.selectedPetVaccineAlert);
-    } else if (
-      !this.nameEdit ||
-      !this.descriptionEdit ||
-      !this.petDateVaccine ||
-      !this.petNextVaccine
-    ) {
+    } else if (!this.nameEdit || !this.descriptionEdit) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'new') {
       let vaccine: Vaccine = {
