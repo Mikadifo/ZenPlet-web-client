@@ -432,7 +432,12 @@ export class EditNewComponent implements OnInit {
     size: string,
     birthdate: string
   ) {
-    if (this.imgURL === undefined || !this.nameEdit || !this.breedEdit) {
+    if (
+      this.imgURL === undefined ||
+      !this.nameEdit ||
+      !this.breedEdit ||
+      !this.petBirthdateEdit
+    ) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'edit') {
       this.currentPet.petName = name;
@@ -600,7 +605,12 @@ export class EditNewComponent implements OnInit {
       alert(this.noHavePetsAlert);
     } else if (isNaN(parseInt(this.petIdForVaccine))) {
       alert(this.selectedPetVaccineAlert);
-    } else if (!this.nameEdit || !this.descriptionEdit) {
+    } else if (
+      !this.nameEdit ||
+      !this.descriptionEdit ||
+      !this.petDateVaccine ||
+      !this.petNextVaccine
+    ) {
       alert(this.dataMissingAlert);
     } else if (this.mode === 'new') {
       let vaccine: Vaccine = {
